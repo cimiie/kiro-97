@@ -1,0 +1,8 @@
+.desktop {
+  width: 100vw;
+  height: 100vh;
+  background-color: #008080;
+  position: relative;
+  overflow: hidden;
+  font-family: 'MS Sans Serif', Tahoma, Arial, sans-serif;
+}

@@ -4,16 +4,15 @@ import Home from './page';
 
 describe('Home Page', () => {
   it('renders the desktop environment', () => {
-    render(<Home />);
-    const main = screen.getByRole('main');
-    expect(main).toBeInTheDocument();
-    expect(main).toHaveStyle({ backgroundColor: 'rgb(0, 128, 128)' });
+    const { container } = render(<Home />);
+    const desktop = container.querySelector('[class*="desktop"]');
+    expect(desktop).toBeInTheDocument();
   });
 
-  it('provides window manager context', () => {
-    // This test verifies the component renders without errors
-    // The WindowManagerProvider is properly set up
-    const { container } = render(<Home />);
-    expect(container.querySelector('main')).toBeInTheDocument();
+  it('renders desktop icons', () => {
+    render(<Home />);
+    expect(screen.getByText('My Computer')).toBeInTheDocument();
+    expect(screen.getByText('Recycle Bin')).toBeInTheDocument();
+    expect(screen.getByText('Internet Explorer')).toBeInTheDocument();
   });
 });
