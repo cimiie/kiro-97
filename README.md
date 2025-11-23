@@ -88,11 +88,46 @@ npm run start
     └── hooks/            # Agent hooks
 ```
 
+## MCP Server Configuration
+
+This project uses Model Context Protocol (MCP) servers to provide real-time documentation access during development and for the Clippy assistant.
+
+### Configured MCP Servers
+
+1. **Context7 MCP Server** - Next.js Documentation
+   - Package: `context7-mcp-server@latest`
+   - Provides: 1.5M tokens of Next.js documentation from nextjs.org/docs
+   - Usage: Development assistance, component guidance, API reference
+
+2. **AWS Documentation MCP Server** - AWS Service Documentation
+   - Package: `awslabs.aws-documentation-mcp-server@latest`
+   - Provides: AWS service documentation for Clippy assistant
+   - Usage: AWS Bedrock integration, Amplify deployment guidance
+
+### MCP Setup
+
+The MCP servers are configured in `.kiro/settings/mcp.json` and will automatically connect when you open the project in Kiro IDE.
+
+**Prerequisites**:
+- For Context7: Node.js and npx (included with Node.js)
+- For AWS Docs: Python and uvx (install via `pip install uv`)
+
+**Manual Reconnection**:
+If MCP servers don't connect automatically, you can reconnect them from the MCP Server view in Kiro IDE or use the command palette: `MCP: Reconnect Servers`
+
+### Using MCP in Development
+
+The MCP servers provide documentation context automatically through:
+- Agent hooks that fetch latest docs on session start
+- Real-time documentation queries during development
+- Context-aware code suggestions and assistance
+
 ## Development Workflow
 
 - Pre-commit hooks run ESLint and Vitest automatically
 - TypeScript strict mode enabled for type safety
 - All commits must pass linting and tests
+- MCP servers provide real-time Next.js and AWS documentation
 
 ## License
 

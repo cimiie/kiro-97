@@ -66,7 +66,9 @@ graph TB
 - **State Management**: React Context API + hooks
 - **Drag & Drop**: react-draggable or custom implementation
 - **AI Integration**: AWS Bedrock (Claude or similar)
-- **MCP Integration**: AWS Documentation MCP Server
+- **MCP Integration**: 
+  - Context7 MCP Server (`context7-mcp-server`) for Next.js documentation
+  - AWS Documentation MCP Server (`awslabs.aws-documentation-mcp-server`) for AWS docs
 - **Code Quality**: ESLint, Prettier, Husky for pre-commit hooks, commitlint for commit message validation
 - **Testing**: 
   - Vitest for unit tests with TypeScript support
@@ -551,18 +553,73 @@ frontend:
 - Server-side rendering (SSR) support via Amplify Hosting
 - Monitoring and logging through CloudWatch
 
+### MCP Server Configuration
+
+The project uses Model Context Protocol (MCP) servers to provide real-time documentation access during development and for the Clippy assistant.
+
+**MCP Configuration File**: `.kiro/settings/mcp.json`
+
+**Configured MCP Servers**:
+
+1. **Context7 MCP Server** (`context7-mcp-server`)
+   - **Purpose**: Provides Next.js documentation from nextjs.org/docs
+   - **Package**: `context7-mcp-server@latest` via npx
+   - **Documentation Coverage**: 1.5M tokens, 7.4K documents
+   - **Use Cases**: 
+     - Development assistance with Next.js 16 App Router
+     - Component implementation guidance
+     - Best practices and patterns
+     - API reference lookup
+
+2. **AWS Documentation MCP Server** (`awslabs.aws-documentation-mcp-server`)
+   - **Purpose**: Provides AWS service documentation for Clippy assistant
+   - **Package**: `awslabs.aws-documentation-mcp-server@latest` via uvx
+   - **Use Cases**:
+     - Clippy assistant responses about AWS services
+     - AWS Bedrock integration guidance
+     - AWS Amplify deployment documentation
+
+**Configuration Example**:
+```json
+{
+  "mcpServers": {
+    "context7": {
+      "command": "npx",
+      "args": ["-y", "context7-mcp-server@latest"],
+      "env": {},
+      "disabled": false,
+      "autoApprove": []
+    },
+    "aws-docs": {
+      "command": "uvx",
+      "args": ["awslabs.aws-documentation-mcp-server@latest"],
+      "env": {
+        "FASTMCP_LOG_LEVEL": "ERROR"
+      },
+      "disabled": false,
+      "autoApprove": []
+    }
+  }
+}
+```
+
+**MCP Server Management**:
+- Servers automatically reconnect on configuration changes
+- Manual reconnection available via MCP Server view in Kiro
+- Both servers run via package managers (npx/uvx) without installation
+
 ### Agent Hooks Configuration
 
 Agent hooks will be configured to automatically fetch the latest documentation before development interactions:
 
 **Hook 1: Session Start Documentation Fetch**
 - Trigger: When a new agent session is created (first message)
-- Action: Query AWS MCP and Next.js MCP servers for latest documentation
+- Action: Query Context7 MCP (Next.js) and AWS MCP servers for latest documentation
 - Purpose: Ensure agent has current AWS and Next.js information from the start
 
 **Hook 2: Pre-Message Documentation Update**
 - Trigger: When a message is sent to the agent
-- Action: Refresh AWS and Next.js documentation from MCP servers
+- Action: Refresh Next.js and AWS documentation from MCP servers
 - Purpose: Keep documentation context current throughout the session
 
 **Hook Configuration File**: `.kiro/hooks/fetch-docs.json`
@@ -573,13 +630,13 @@ Agent hooks will be configured to automatically fetch the latest documentation b
   "actions": [
     {
       "type": "message",
-      "content": "Fetch latest AWS documentation from MCP and Next.js best practices"
+      "content": "Fetch latest AWS documentation from MCP and Next.js best practices from Context7"
     }
   ]
 }
 ```
 
-These hooks ensure that during development, the agent always has access to the most current AWS service information and Next.js patterns, improving code quality and reducing outdated implementation approaches.
+These hooks ensure that during development, the agent always has access to the most current AWS service information and Next.js patterns from Context7, improving code quality and reducing outdated implementation approaches.
 
 
 ## Correctness Properties
