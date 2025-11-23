@@ -1,17 +1,96 @@
 'use client';
 
-import { WindowManagerProvider } from '@/contexts/WindowManagerContext';
+import { WindowManagerProvider, useWindowManager } from '@/contexts/WindowManagerContext';
 import DesktopEnvironment from '@/components/DesktopEnvironment';
 import DesktopIcons from '@/components/DesktopIcons';
 import WindowContainer from '@/components/WindowContainer';
+import Taskbar from '@/components/Taskbar';
+import { MenuItem } from '@/components/StartMenu';
 
-export default function Home() {
+function DesktopContent() {
+  const { windows, restoreWindow, focusWindow } = useWindowManager();
+
+  const handleWindowClick = (windowId: string) => {
+    const window = windows.find(w => w.id === windowId);
+    if (window?.isMinimized) {
+      restoreWindow(windowId);
+    } else {
+      focusWindow(windowId);
+    }
+  };
+
+  // Configure Start Menu items
+  const menuItems: MenuItem[] = [
+    {
+      id: 'programs',
+      label: 'Programs',
+      icon: '📁',
+      subItems: [
+        {
+          id: 'accessories',
+          label: 'Accessories',
+          icon: '📂',
+          subItems: [
+            {
+              id: 'notepad',
+              label: 'Notepad',
+              icon: '📝',
+              action: () => console.log('Launch Notepad')
+            }
+          ]
+        },
+        {
+          id: 'games',
+          label: 'Games',
+          icon: '🎮',
+          subItems: [
+            {
+              id: 'minesweeper',
+              label: 'Minesweeper',
+              icon: '💣',
+              action: () => console.log('Launch Minesweeper')
+            }
+          ]
+        }
+      ]
+    },
+    {
+      id: 'documents',
+      label: 'Documents',
+      icon: '📄'
+    },
+    {
+      id: 'settings',
+      label: 'Settings',
+      icon: '⚙️'
+    },
+    {
+      id: 'shutdown',
+      label: 'Shut Down...',
+      icon: '🔌',
+      action: () => console.log('Shutdown')
+    }
+  ];
+
   return (
-    <WindowManagerProvider>
+    <>
       <DesktopEnvironment>
         <DesktopIcons />
         <WindowContainer />
       </DesktopEnvironment>
+      <Taskbar 
+        windows={windows}
+        onWindowClick={handleWindowClick}
+        menuItems={menuItems}
+      />
+    </>
+  );
+}
+
+export default function Home() {
+  return (
+    <WindowManagerProvider>
+      <DesktopContent />
     </WindowManagerProvider>
   );
 }

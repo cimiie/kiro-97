@@ -1,0 +1,118 @@
+.taskbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 28px;
+  background: #C0C0C0;
+  border-top: 2px solid #FFFFFF;
+  display: flex;
+  align-items: center;
+  padding: 2px;
+  gap: 2px;
+  z-index: 9999;
+  font-family: 'MS Sans Serif', Tahoma, Arial, sans-serif;
+}
+
+.startButtonContainer {
+  position: relative;
+}
+
+.startButton {
+  height: 24px;
+  padding: 0 8px;
+  background: #C0C0C0;
+  border: 2px solid;
+  border-color: #FFFFFF #808080 #808080 #FFFFFF;
+  font-family: 'MS Sans Serif', Tahoma, Arial, sans-serif;
+  font-size: 11px;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  min-width: 54px;
+}
+
+.startButton:hover {
+  background: #DFDFDF;
+}
+
+.startButton:active,
+.startButtonPressed {
+  border-color: #808080 #FFFFFF #FFFFFF #808080;
+  padding-left: 9px;
+  padding-top: 1px;
+}
+
+.startIcon {
+  font-size: 16px;
+  line-height: 1;
+}
+
+.startText {
+  line-height: 1;
+}
+
+.windowButtons {
+  flex: 1;
+  display: flex;
+  gap: 2px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  align-items: center;
+  height: 100%;
+  padding: 0 2px;
+}
+
+.windowButtons::-webkit-scrollbar {
+  display: none;
+}
+
+.windowButton {
+  height: 22px;
+  min-width: 120px;
+  max-width: 160px;
+  padding: 0 8px;
+  background: #C0C0C0;
+  border: 2px solid;
+  border-color: #FFFFFF #808080 #808080 #FFFFFF;
+  font-family: 'MS Sans Serif', Tahoma, Arial, sans-serif;
+  font-size: 11px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.windowButton:hover {
+  background: #DFDFDF;
+}
+
+.windowButton:active {
+  border-color: #808080 #FFFFFF #FFFFFF #808080;
+  padding-left: 9px;
+  padding-top: 1px;
+}
+
+.windowButtonMinimized {
+  border-color: #808080 #FFFFFF #FFFFFF #808080;
+}
+
+.windowButtonText {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.systemTray {
+  height: 22px;
+  border: 1px solid;
+  border-color: #808080 #FFFFFF #FFFFFF #808080;
+  display: flex;
+  align-items: center;
+  padding: 0 4px;
+  background: #C0C0C0;
+}

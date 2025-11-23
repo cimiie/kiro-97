@@ -1,0 +1,80 @@
+.startMenu {
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  width: 200px;
+  background: #C0C0C0;
+  border: 2px solid;
+  border-color: #FFFFFF #808080 #808080 #FFFFFF;
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.5);
+  z-index: 10000;
+  font-family: 'MS Sans Serif', Tahoma, Arial, sans-serif;
+  font-size: 11px;
+}
+
+.menuHeader {
+  background: linear-gradient(to right, #000080, #1084D0);
+  color: #FFFFFF;
+  padding: 4px 8px;
+  font-weight: bold;
+  border-bottom: 2px solid #808080;
+}
+
+.menuHeaderText {
+  font-size: 14px;
+}
+
+.menuContent {
+  padding: 2px;
+}
+
+.menuItemContainer {
+  position: relative;
+}
+
+.menuItem {
+  display: flex;
+  align-items: center;
+  padding: 4px 8px;
+  cursor: pointer;
+  position: relative;
+  gap: 8px;
+}
+
+.menuItem:hover,
+.menuItemHovered {
+  background: #000080;
+  color: #FFFFFF;
+}
+
+.menuIcon {
+  width: 16px;
+  height: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.menuLabel {
+  flex: 1;
+}
+
+.menuArrow {
+  margin-left: auto;
+  font-size: 8px;
+}
+
+.subMenu {
+  position: absolute;
+  background: #C0C0C0;
+  border: 2px solid;
+  border-color: #FFFFFF #808080 #808080 #FFFFFF;
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.5);
+  min-width: 180px;
+  z-index: 10001;
+}
+
+.subMenu .menuContent {
+  padding: 2px;
+}
