@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, MouseEvent, ReactNode } from 'react';
+import { MouseEvent, ReactNode } from 'react';
 import styles from './DesktopEnvironment.module.css';
 
 interface DesktopEnvironmentProps {

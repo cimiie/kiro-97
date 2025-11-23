@@ -69,10 +69,6 @@ export default function DesktopIcons() {
     icon.action();
   };
 
-  const handleDesktopClick = () => {
-    setSelectedIconId(null);
-  };
-
   return (
     <>
       <div className={styles.iconGrid} onClick={(e) => e.stopPropagation()}>
