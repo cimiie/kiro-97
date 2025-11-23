@@ -54,8 +54,15 @@
     - **Property 36: Agent hooks provide documentation context**
     - **Validates: Requirements 15.4**
 
-- [ ] 4. Implement core window management system
-  - [ ] 4.1 Create Window component with drag and resize functionality
+- [x] 4. Implement core window management system
+
+
+
+
+
+  - [x] 4.1 Create Window component with drag and resize functionality
+
+
     - Build Window component with title bar, controls, and content area
     - Implement drag functionality using react-draggable or custom hooks
     - Implement resize functionality with edge/corner detection
@@ -67,7 +74,9 @@
   - [ ]* 4.3 Write property test for window resizing
     - **Property 2: Window resizing updates dimensions**
     - **Validates: Requirements 2.2**
-  - [ ] 4.4 Create WindowManager context and hooks
+  - [x] 4.4 Create WindowManager context and hooks
+
+
     - Implement WindowManager state management with Context API
     - Create useWindowManager hook for window operations
     - Implement window focus, minimize, close, and restore logic
@@ -83,13 +92,20 @@
     - **Property 5: All windows have required controls**
     - **Validates: Requirements 2.5**
 
-- [ ] 5. Build desktop environment and icon system
-  - [ ] 5.1 Create DesktopEnvironment component
+- [x] 5. Build desktop environment and icon system
+
+
+
+  - [x] 5.1 Create DesktopEnvironment component
+
+
     - Build main desktop container with Windows 95 background color
     - Implement desktop click handling for icon deselection
     - Set up layout structure for icons and windows
     - _Requirements: 1.1, 1.5_
-  - [ ] 5.2 Create DesktopIcon component
+  - [x] 5.2 Create DesktopIcon component
+
+
     - Build icon component with image, label, and selection state
     - Implement single-click selection and double-click launch
     - Apply Windows 95 icon styling
@@ -110,7 +126,9 @@
   - [ ]* 5.7 Write property test for icon rendering
     - **Property 27: Icons display image and label**
     - **Validates: Requirements 10.5**
-  - [ ] 5.8 Create default desktop icons (My Computer, Recycle Bin, Internet Explorer)
+  - [x] 5.8 Create default desktop icons (My Computer, Recycle Bin, Internet Explorer)
+
+
     - Add icon assets and configure default icon set
     - Wire up icon actions to launch corresponding applications
     - _Requirements: 1.5, 7.1_

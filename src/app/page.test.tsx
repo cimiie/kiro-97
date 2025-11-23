@@ -3,14 +3,16 @@ import { describe, it, expect } from 'vitest';
 import Home from './page';
 
 describe('Home Page', () => {
-  it('renders the main heading', () => {
-    render(<Home />);
-    const heading = screen.getByRole('heading', { level: 1 });
-    expect(heading).toHaveTextContent('Windows 95 Emulator');
+  it('renders the desktop environment', () => {
+    const { container } = render(<Home />);
+    const desktop = container.querySelector('[class*="desktop"]');
+    expect(desktop).toBeInTheDocument();
   });
 
-  it('displays coming soon message', () => {
+  it('renders desktop icons', () => {
     render(<Home />);
-    expect(screen.getByText('Coming soon...')).toBeInTheDocument();
+    expect(screen.getByText('My Computer')).toBeInTheDocument();
+    expect(screen.getByText('Recycle Bin')).toBeInTheDocument();
+    expect(screen.getByText('Internet Explorer')).toBeInTheDocument();
   });
 });
