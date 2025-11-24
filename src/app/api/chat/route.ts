@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getBedrockService } from '@/services/bedrock';
 import { getMCPService } from '@/services/mcp';
+import { getClippyConfig } from '@/config/clippy';
 
 interface ConversationMessage {
   role: 'user' | 'assistant' | 'system';
@@ -39,13 +40,9 @@ export async function POST(request: NextRequest) {
       contextArray.push(`Recent Conversation:\n${historyText}`);
     }
 
-    // Add system prompt for Clippy personality
-    const systemPrompt = `You are Clippy, the helpful and enthusiastic assistant from Windows 95. 
-You're knowledgeable, friendly, and love helping users with their questions. 
-When discussing applications or features, provide helpful, accurate information in a conversational tone.
-Keep responses concise but informative (2-3 paragraphs max unless asked for more detail).`;
-    
-    contextArray.unshift(systemPrompt);
+    // Add system prompt for Clippy personality from centralized config
+    const clippyConfig = getClippyConfig('default');
+    contextArray.unshift(clippyConfig.systemPrompt);
 
     // Query MCP for AWS documentation context if relevant
     const docResults = await mcpService.queryDocumentation(message);
@@ -54,14 +51,14 @@ Keep responses concise but informative (2-3 paragraphs max unless asked for more
       contextArray.push(...docContext);
     }
 
-    // Generate response using Bedrock
+    // Generate response using Bedrock with Clippy config
     const response = await bedrockService.generateResponse(
       enhancedPrompt,
       contextArray,
       {
-        maxTokens: maxTokens || 1000,
-        temperature: 0.7,
-        topP: 0.9,
+        maxTokens: maxTokens || clippyConfig.maxTokens,
+        temperature: clippyConfig.temperature,
+        topP: clippyConfig.topP,
       }
     );
 

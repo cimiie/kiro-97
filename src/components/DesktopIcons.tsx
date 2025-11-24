@@ -8,6 +8,7 @@ import MockBrowser from '@/apps/MockBrowser';
 import NotepadApp from '@/apps/NotepadApp';
 import DoomApp from '@/apps/DoomApp';
 import MyComputer from '@/apps/MyComputer';
+import Kiro from '@/apps/Kiro';
 import styles from './DesktopIcons.module.css';
 
 interface IconData {
@@ -87,6 +88,17 @@ export default function DesktopIcons() {
         openWindow(<DoomApp onClose={() => {}} />, 'DOOM', {
           width: 640,
           height: 480,
+        });
+      },
+    },
+    {
+      id: 'kiro',
+      label: 'Kiro',
+      iconImage: '💻',
+      action: () => {
+        openWindow(<Kiro />, 'Kiro', {
+          width: 900,
+          height: 600,
         });
       },
     },

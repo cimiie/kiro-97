@@ -41,6 +41,82 @@ npm run start            & REM Start production server
 - **pre-commit**: Runs ESLint and Vitest automatically
 - **commit-msg**: Enforces conventional commit format via commitlint
 
+## Clippy (AI Assistant) Architecture
+
+All AI assistant features use a centralized configuration system powered by AWS Bedrock.
+
+### Core Principles
+
+**⚠️ IMPORTANT: Always use Bedrock server-side via API routes**
+
+- **NEVER** call `getBedrockService()` directly from client components
+- **ALWAYS** create API routes in `src/app/api/` for Bedrock calls
+- Environment variables (AWS_BEARER_TOKEN_BEDROCK) are only available server-side
+- Bedrock SDK cannot run in the browser
+
+### Configuration
+
+- **Config Location**: `src/config/clippy.ts`
+- **Bedrock Service**: `src/services/bedrock.ts` (singleton pattern via `getBedrockService()`)
+- **Two Config Profiles**:
+  - `DEFAULT_CLIPPY_CONFIG`: For conversational assistance (floating Clippy)
+  - `CODE_CLIPPY_CONFIG`: For code assistance (Kiro editor)
+
+### Server-Side Usage Pattern (API Routes)
+
+```typescript
+// src/app/api/your-feature/route.ts
+import { NextRequest, NextResponse } from 'next/server';
+import { getBedrockService } from '@/services/bedrock';
+import { getClippyConfig } from '@/config/clippy';
+
+export async function POST(request: NextRequest) {
+  const { prompt, context } = await request.json();
+  
+  const bedrock = getBedrockService();
+  const config = getClippyConfig('code'); // or 'default'
+
+  const response = await bedrock.generateResponse(
+    prompt,
+    [config.systemPrompt, ...context],
+    {
+      maxTokens: config.maxTokens,
+      temperature: config.temperature,
+      topP: config.topP
+    }
+  );
+
+  return NextResponse.json({ content: response.content });
+}
+```
+
+### Client-Side Usage Pattern (React Components)
+
+```typescript
+// Client component calls API route
+const response = await fetch('/api/your-feature', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ prompt, context })
+});
+
+const data = await response.json();
+```
+
+### Current Implementations
+
+| Feature | API Route | Config | Client Component |
+|---------|-----------|--------|------------------|
+| Floating Clippy | `/api/chat` | `DEFAULT_CLIPPY_CONFIG` | `ClippyAssistant` |
+| Kiro Editor | `/api/code-assist` | `CODE_CLIPPY_CONFIG` | `Kiro` |
+
+### Adding New AI Features
+
+1. Create API route in `src/app/api/your-feature/route.ts`
+2. Use `getBedrockService()` and `getClippyConfig()` in the route
+3. Client component calls the API route via `fetch()`
+4. Never import Bedrock service in client components
+
 ## MCP Integration
 
 Two MCP servers provide documentation context:

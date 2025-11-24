@@ -9,6 +9,7 @@ import { MenuItem } from '@/components/StartMenu';
 import MinesweeperApp from '@/apps/MinesweeperApp';
 import MockBrowser from '@/apps/MockBrowser';
 import DoomApp from '@/apps/DoomApp';
+import Kiro from '@/apps/Kiro';
 import ClippyWithController from '@/components/ClippyWithController';
 import ErrorBoundary from '@/components/ErrorBoundary';
 
@@ -49,6 +50,12 @@ function DesktopContent() {
               action: () => console.log('Launch Notepad')
             }
           ]
+        },
+        {
+          id: 'kiro',
+          label: 'Kiro',
+          icon: '💻',
+          action: () => openWindow(<Kiro />, 'Kiro', { width: 900, height: 600 })
         },
         {
           id: 'games',
