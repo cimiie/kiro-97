@@ -6,6 +6,7 @@ import { useWindowManager } from '@/contexts/WindowManagerContext';
 import MinesweeperApp from '@/apps/MinesweeperApp';
 import MockBrowser from '@/apps/MockBrowser';
 import NotepadApp from '@/apps/NotepadApp';
+import DoomApp from '@/apps/DoomApp';
 import styles from './DesktopIcons.module.css';
 
 interface IconData {
@@ -70,6 +71,17 @@ export default function DesktopIcons() {
       iconImage: '💣',
       action: () => {
         openWindow(<MinesweeperApp />, 'Minesweeper');
+      },
+    },
+    {
+      id: 'doom',
+      label: 'DOOM',
+      iconImage: '👹',
+      action: () => {
+        openWindow(<DoomApp onClose={() => {}} />, 'DOOM', {
+          width: 640,
+          height: 480,
+        });
       },
     },
   ];

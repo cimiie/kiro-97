@@ -8,6 +8,7 @@ import Taskbar from '@/components/Taskbar';
 import { MenuItem } from '@/components/StartMenu';
 import MinesweeperApp from '@/apps/MinesweeperApp';
 import MockBrowser from '@/apps/MockBrowser';
+import DoomApp from '@/apps/DoomApp';
 import ClippyWithController from '@/components/ClippyWithController';
 import ErrorBoundary from '@/components/ErrorBoundary';
 
@@ -59,6 +60,12 @@ function DesktopContent() {
               label: 'Minesweeper',
               icon: '💣',
               action: () => openWindow(<MinesweeperApp />, 'Minesweeper')
+            },
+            {
+              id: 'doom',
+              label: 'DOOM',
+              icon: '👹',
+              action: () => openWindow(<DoomApp onClose={() => {}} />, 'DOOM', { width: 640, height: 480 })
             }
           ]
         }
