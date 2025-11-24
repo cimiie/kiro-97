@@ -1,10 +1,10 @@
 .container {
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  padding: 4px;
-  background-color: #c0c0c0;
-  font-family: 'MS Sans Serif', Tahoma, Arial, sans-serif;
+  gap: var(--win95-spacing-sm);
+  padding: var(--win95-spacing-sm);
+  background-color: var(--win95-gray);
+  font-family: var(--win95-font-family);
   user-select: none;
   width: fit-content;
 }
@@ -13,20 +13,20 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 4px;
-  background-color: #c0c0c0;
+  padding: var(--win95-spacing-sm);
+  background-color: var(--win95-gray);
   border: 3px solid;
-  border-color: #808080 #ffffff #ffffff #808080;
+  border-color: var(--win95-border-sunken);
 }
 
 .counter,
 .timer {
-  background-color: #000000;
+  background-color: var(--win95-black);
   color: #ff0000;
   font-family: 'Courier New', monospace;
   font-size: 24px;
   font-weight: bold;
-  padding: 4px 8px;
+  padding: var(--win95-spacing-sm) var(--win95-spacing-md);
   border: 2px inset;
   min-width: 60px;
   text-align: center;
@@ -36,9 +36,9 @@
   width: 40px;
   height: 40px;
   font-size: 24px;
-  background-color: #c0c0c0;
+  background-color: var(--win95-gray);
   border: 3px solid;
-  border-color: #ffffff #808080 #808080 #ffffff;
+  border-color: var(--win95-border-raised);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -47,16 +47,16 @@
 }
 
 .resetButton:active {
-  border-color: #808080 #ffffff #ffffff #808080;
+  border-color: var(--win95-border-sunken);
 }
 
 .grid {
   display: grid;
   gap: 0;
   border: 3px solid;
-  border-color: #808080 #ffffff #ffffff #808080;
+  border-color: var(--win95-border-sunken);
   padding: 3px;
-  background-color: #c0c0c0;
+  background-color: var(--win95-gray);
 }
 
 .cell {
@@ -70,22 +70,22 @@
   cursor: pointer;
   padding: 0;
   border: none;
-  background-color: #c0c0c0;
+  background-color: var(--win95-gray);
 }
 
 .cellUnrevealed {
   border: 2px solid;
-  border-color: #ffffff #808080 #808080 #ffffff;
+  border-color: var(--win95-border-raised);
 }
 
 .cellUnrevealed:active {
   border: 2px solid;
-  border-color: #808080 #ffffff #ffffff #808080;
+  border-color: var(--win95-border-sunken);
 }
 
 .cellRevealed {
-  border: 1px solid #808080;
-  background-color: #c0c0c0;
+  border: 1px solid var(--win95-dark-gray);
+  background-color: var(--win95-gray);
 }
 
 .cellMine {
@@ -128,8 +128,8 @@
   text-align: center;
   font-size: 18px;
   font-weight: bold;
-  padding: 8px;
-  background-color: #000080;
-  color: #ffffff;
-  border: 2px solid #ffffff;
+  padding: var(--win95-spacing-md);
+  background-color: var(--win95-title-bar-blue);
+  color: var(--win95-white);
+  border: var(--win95-border-width) solid var(--win95-white);
 }

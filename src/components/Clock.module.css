@@ -8,10 +8,10 @@
 .clock {
   background: none;
   border: none;
-  color: #000;
-  font-family: 'MS Sans Serif', Tahoma, Arial, sans-serif;
-  font-size: 11px;
-  padding: 2px 8px;
+  color: var(--win95-black);
+  font-family: var(--win95-font-family);
+  font-size: var(--win95-font-size-normal);
+  padding: var(--win95-spacing-xs) var(--win95-spacing-md);
   cursor: pointer;
   height: 100%;
   display: flex;
@@ -27,12 +27,12 @@
   bottom: 100%;
   right: 0;
   background: #FFFFCC;
-  border: 1px solid #000;
-  padding: 4px 8px;
-  font-family: 'MS Sans Serif', Tahoma, Arial, sans-serif;
-  font-size: 11px;
+  border: 1px solid var(--win95-black);
+  padding: var(--win95-spacing-sm) var(--win95-spacing-md);
+  font-family: var(--win95-font-family);
+  font-size: var(--win95-font-size-normal);
   white-space: nowrap;
-  margin-bottom: 4px;
-  box-shadow: 1px 1px 0 rgba(0, 0, 0, 0.5);
+  margin-bottom: var(--win95-spacing-sm);
+  box-shadow: var(--win95-shadow);
   z-index: 10000;
 }

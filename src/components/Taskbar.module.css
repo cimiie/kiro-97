@@ -3,15 +3,15 @@
   bottom: 0;
   left: 0;
   right: 0;
-  height: 28px;
-  background: #C0C0C0;
-  border-top: 2px solid #FFFFFF;
+  height: var(--win95-taskbar-height);
+  background: var(--win95-gray);
+  border-top: var(--win95-border-width) solid var(--win95-white);
   display: flex;
   align-items: center;
-  padding: 2px;
-  gap: 2px;
+  padding: var(--win95-spacing-xs);
+  gap: var(--win95-spacing-xs);
   z-index: 9999;
-  font-family: 'MS Sans Serif', Tahoma, Arial, sans-serif;
+  font-family: var(--win95-font-family);
 }
 
 .startButtonContainer {
@@ -19,29 +19,29 @@
 }
 
 .startButton {
-  height: 24px;
-  padding: 0 8px;
-  background: #C0C0C0;
-  border: 2px solid;
-  border-color: #FFFFFF #808080 #808080 #FFFFFF;
-  font-family: 'MS Sans Serif', Tahoma, Arial, sans-serif;
-  font-size: 11px;
+  height: var(--win95-button-height);
+  padding: 0 var(--win95-spacing-md);
+  background: var(--win95-gray);
+  border: var(--win95-border-width) solid;
+  border-color: var(--win95-border-raised);
+  font-family: var(--win95-font-family);
+  font-size: var(--win95-font-size-normal);
   font-weight: bold;
   cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: var(--win95-spacing-sm);
   min-width: 54px;
 }
 
 .startButton:hover {
-  background: #DFDFDF;
+  background: var(--win95-light-gray);
 }
 
 .startButton:active,
 .startButtonPressed {
-  border-color: #808080 #FFFFFF #FFFFFF #808080;
-  padding-left: 9px;
+  border-color: var(--win95-border-sunken);
+  padding-left: calc(var(--win95-spacing-md) + 1px);
   padding-top: 1px;
 }
 
@@ -73,12 +73,12 @@
   height: 22px;
   min-width: 120px;
   max-width: 160px;
-  padding: 0 8px;
-  background: #C0C0C0;
-  border: 2px solid;
-  border-color: #FFFFFF #808080 #808080 #FFFFFF;
-  font-family: 'MS Sans Serif', Tahoma, Arial, sans-serif;
-  font-size: 11px;
+  padding: 0 var(--win95-spacing-md);
+  background: var(--win95-gray);
+  border: var(--win95-border-width) solid;
+  border-color: var(--win95-border-raised);
+  font-family: var(--win95-font-family);
+  font-size: var(--win95-font-size-normal);
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -88,17 +88,17 @@
 }
 
 .windowButton:hover {
-  background: #DFDFDF;
+  background: var(--win95-light-gray);
 }
 
 .windowButton:active {
-  border-color: #808080 #FFFFFF #FFFFFF #808080;
-  padding-left: 9px;
+  border-color: var(--win95-border-sunken);
+  padding-left: calc(var(--win95-spacing-md) + 1px);
   padding-top: 1px;
 }
 
 .windowButtonMinimized {
-  border-color: #808080 #FFFFFF #FFFFFF #808080;
+  border-color: var(--win95-border-sunken);
 }
 
 .windowButtonText {
@@ -110,9 +110,9 @@
 .systemTray {
   height: 22px;
   border: 1px solid;
-  border-color: #808080 #FFFFFF #FFFFFF #808080;
+  border-color: var(--win95-border-sunken);
   display: flex;
   align-items: center;
-  padding: 0 4px;
-  background: #C0C0C0;
+  padding: 0 var(--win95-spacing-sm);
+  background: var(--win95-gray);
 }

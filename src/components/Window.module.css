@@ -2,10 +2,10 @@
   position: absolute;
   display: flex;
   flex-direction: column;
-  background-color: #c0c0c0;
-  border: 2px solid;
-  border-color: #ffffff #808080 #808080 #ffffff;
-  box-shadow: 1px 1px 0 #000000;
+  background-color: var(--win95-gray);
+  border: var(--win95-border-width) solid;
+  border-color: var(--win95-border-raised);
+  box-shadow: var(--win95-shadow);
   user-select: none;
 }
 
@@ -13,14 +13,18 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  background: linear-gradient(to right, #000080, #1084d0);
-  color: #ffffff;
-  padding: 2px 4px;
+  background: linear-gradient(
+    to right,
+    var(--win95-title-bar-blue),
+    var(--win95-title-bar-gradient-end)
+  );
+  color: var(--win95-white);
+  padding: var(--win95-spacing-xs) var(--win95-spacing-sm);
   cursor: move;
-  font-family: 'MS Sans Serif', Tahoma, Arial, sans-serif;
-  font-size: 11px;
+  font-family: var(--win95-font-family);
+  font-size: var(--win95-font-size-normal);
   font-weight: bold;
-  height: 18px;
+  height: var(--win95-title-bar-height);
 }
 
 .title {
@@ -39,23 +43,23 @@
 .closeButton {
   width: 16px;
   height: 14px;
-  background-color: #c0c0c0;
+  background-color: var(--win95-gray);
   border: 1px solid;
-  border-color: #ffffff #000000 #000000 #ffffff;
+  border-color: var(--win95-border-raised);
   cursor: pointer;
-  font-family: 'MS Sans Serif', Tahoma, Arial, sans-serif;
-  font-size: 10px;
+  font-family: var(--win95-font-family);
+  font-size: var(--win95-font-size-small);
   font-weight: bold;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 0;
-  color: #000000;
+  color: var(--win95-black);
 }
 
 .minimizeButton:active,
 .closeButton:active {
-  border-color: #000000 #ffffff #ffffff #000000;
+  border-color: var(--win95-border-sunken);
   padding-top: 1px;
   padding-left: 1px;
 }
@@ -63,10 +67,10 @@
 .content {
   flex: 1;
   overflow: auto;
-  background-color: #ffffff;
-  border: 2px solid;
-  border-color: #808080 #ffffff #ffffff #808080;
-  margin: 2px;
+  background-color: var(--win95-white);
+  border: var(--win95-border-width) solid;
+  border-color: var(--win95-border-sunken);
+  margin: var(--win95-spacing-xs);
 }
 
 /* Resize Handles */

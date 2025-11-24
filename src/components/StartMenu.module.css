@@ -3,21 +3,25 @@
   bottom: 100%;
   left: 0;
   width: 200px;
-  background: #C0C0C0;
-  border: 2px solid;
-  border-color: #FFFFFF #808080 #808080 #FFFFFF;
+  background: var(--win95-gray);
+  border: var(--win95-border-width) solid;
+  border-color: var(--win95-border-raised);
   box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.5);
   z-index: 10000;
-  font-family: 'MS Sans Serif', Tahoma, Arial, sans-serif;
-  font-size: 11px;
+  font-family: var(--win95-font-family);
+  font-size: var(--win95-font-size-normal);
 }
 
 .menuHeader {
-  background: linear-gradient(to right, #000080, #1084D0);
-  color: #FFFFFF;
-  padding: 4px 8px;
+  background: linear-gradient(
+    to right,
+    var(--win95-title-bar-blue),
+    var(--win95-title-bar-gradient-end)
+  );
+  color: var(--win95-white);
+  padding: var(--win95-spacing-sm) var(--win95-spacing-md);
   font-weight: bold;
-  border-bottom: 2px solid #808080;
+  border-bottom: var(--win95-border-width) solid var(--win95-dark-gray);
 }
 
 .menuHeaderText {
@@ -25,7 +29,7 @@
 }
 
 .menuContent {
-  padding: 2px;
+  padding: var(--win95-spacing-xs);
 }
 
 .menuItemContainer {
@@ -35,16 +39,16 @@
 .menuItem {
   display: flex;
   align-items: center;
-  padding: 4px 8px;
+  padding: var(--win95-spacing-sm) var(--win95-spacing-md);
   cursor: pointer;
   position: relative;
-  gap: 8px;
+  gap: var(--win95-spacing-md);
 }
 
 .menuItem:hover,
 .menuItemHovered {
-  background: #000080;
-  color: #FFFFFF;
+  background: var(--win95-selection-blue);
+  color: var(--win95-white);
 }
 
 .menuIcon {
@@ -67,14 +71,14 @@
 
 .subMenu {
   position: absolute;
-  background: #C0C0C0;
-  border: 2px solid;
-  border-color: #FFFFFF #808080 #808080 #FFFFFF;
+  background: var(--win95-gray);
+  border: var(--win95-border-width) solid;
+  border-color: var(--win95-border-raised);
   box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.5);
   min-width: 180px;
   z-index: 10001;
 }
 
 .subMenu .menuContent {
-  padding: 2px;
+  padding: var(--win95-spacing-xs);
 }
