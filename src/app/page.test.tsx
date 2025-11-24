@@ -1,18 +1,21 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { describe, it, expect } from 'vitest';
 import Home from './page';
 
 describe('Home Page', () => {
-  it('renders the desktop environment', () => {
-    const { container } = render(<Home />);
-    const desktop = container.querySelector('[class*="desktop"]');
-    expect(desktop).toBeInTheDocument();
+  it('renders the power button initially', () => {
+    render(<Home />);
+    expect(screen.getByText('Click to awaken the machine...')).toBeInTheDocument();
+    expect(screen.getByLabelText('Power On')).toBeInTheDocument();
   });
 
-  it('renders desktop icons', () => {
+  it('shows boot screen after clicking power button', () => {
     render(<Home />);
-    expect(screen.getByText('My Computer')).toBeInTheDocument();
-    expect(screen.getByText('Recycle Bin')).toBeInTheDocument();
-    expect(screen.getByText('Internet Explorer')).toBeInTheDocument();
+    
+    const powerButton = screen.getByLabelText('Power On');
+    fireEvent.click(powerButton);
+    
+    expect(screen.getByText('Windows 95')).toBeInTheDocument();
+    expect(screen.getByText(/Starting Windows/)).toBeInTheDocument();
   });
 });

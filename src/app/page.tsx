@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import { WindowManagerProvider, useWindowManager } from '@/contexts/WindowManagerContext';
 import DesktopEnvironment from '@/components/DesktopEnvironment';
@@ -10,6 +11,9 @@ import { MenuItem } from '@/components/StartMenu';
 import ClippyWithController from '@/components/ClippyWithController';
 import ErrorBoundary from '@/components/ErrorBoundary';
 import ClientOnly from '@/components/ClientOnly';
+import PowerButton from '@/components/PowerButton';
+import BootScreen from '@/components/BootScreen';
+import LoginScreen from '@/components/LoginScreen';
 
 // Dynamic imports to avoid SSR issues
 const MinesweeperApp = dynamic(() => import('@/apps/MinesweeperApp'), { ssr: false });
@@ -214,11 +218,20 @@ function DesktopContent() {
 }
 
 export default function Home() {
+  const [poweredOn, setPoweredOn] = useState(false);
+  const [bootComplete, setBootComplete] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(false);
+
   return (
     <ClientOnly>
-      <WindowManagerProvider>
-        <DesktopContent />
-      </WindowManagerProvider>
+      {!poweredOn && <PowerButton onPowerOn={() => setPoweredOn(true)} />}
+      {poweredOn && !bootComplete && <BootScreen onComplete={() => setBootComplete(true)} />}
+      {poweredOn && bootComplete && !loggedIn && <LoginScreen onLogin={() => setLoggedIn(true)} />}
+      {poweredOn && bootComplete && loggedIn && (
+        <WindowManagerProvider>
+          <DesktopContent />
+        </WindowManagerProvider>
+      )}
     </ClientOnly>
   );
 }
