@@ -1,9 +1,9 @@
 'use client';
 
 import { ReactNode, createContext, useContext } from 'react';
-import AppClippyHelper from './AppClippyHelper';
+import ClippyQuickMenu from './ClippyQuickMenu';
 
-interface AppWithClippyHelperProps {
+interface ClippyQuickMenuWrapperProps {
   children: ReactNode;
   appName: string;
   onRequestHelp: (appName: string) => void;
@@ -16,12 +16,12 @@ export function useClippyHelp() {
   return useContext(ClippyHelpContext);
 }
 
-export default function AppWithClippyHelper({
+export default function ClippyQuickMenuWrapper({
   children,
   appName,
   onRequestHelp,
   onShutdown,
-}: AppWithClippyHelperProps) {
+}: ClippyQuickMenuWrapperProps) {
   const handleHelp = () => {
     onRequestHelp(appName);
   };
@@ -30,7 +30,7 @@ export default function AppWithClippyHelper({
     <ClippyHelpContext.Provider value={onRequestHelp}>
       <div style={{ position: 'relative', width: '100%', height: '100%' }}>
         {children}
-        <AppClippyHelper appName={appName} onHelp={handleHelp} onShutdown={onShutdown} />
+        <ClippyQuickMenu appName={appName} onHelp={handleHelp} onShutdown={onShutdown} />
       </div>
     </ClippyHelpContext.Provider>
   );

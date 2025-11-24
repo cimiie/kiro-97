@@ -2,7 +2,7 @@
 
 ## Window Management
 
-Applications in this Windows 95 emulator are managed by a window manager system. Apps should NOT include their own window chrome (title bar, close button, etc.).
+Applications in this Windows 98 emulator are managed by a window manager system. Apps should NOT include their own window chrome (title bar, close button, etc.).
 
 ### App Component Pattern
 
@@ -139,7 +139,7 @@ return (
 }
 ```
 
-## Windows 95 Styling Standards
+## Windows 98 Styling Standards
 
 ### Colors
 
@@ -216,7 +216,7 @@ All apps should use CSS modules (`.module.css` files) for styling:
 - Bootstrap
 - Any other UI component libraries
 
-**Use native HTML elements styled with CSS modules** to maintain authentic Windows 95 look and feel.
+**Use native HTML elements styled with CSS modules** to maintain authentic Windows 98 look and feel.
 
 ## Reference Implementations
 

@@ -1,9 +1,9 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import styles from './AppClippyHelper.module.css';
+import styles from './ClippyQuickMenu.module.css';
 
-interface AppClippyHelperProps {
+interface ClippyQuickMenuProps {
   appName: string;
   onHelp: () => void;
   onShutdown: () => void;
@@ -18,7 +18,7 @@ const NO_RESPONSES = [
   "That's it! I'm shutting down this computer! 💥"
 ];
 
-export default function AppClippyHelper({ appName, onHelp, onShutdown }: AppClippyHelperProps) {
+export default function ClippyQuickMenu({ appName, onHelp, onShutdown }: ClippyQuickMenuProps) {
   const [isVisible, setIsVisible] = useState(false);
   const [isDismissed, setIsDismissed] = useState(false);
   const [noCount, setNoCount] = useState(0);
