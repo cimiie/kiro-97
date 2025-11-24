@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
+import ReactMarkdown from 'react-markdown';
 import styles from './ClippyAssistant.module.css';
 
 export interface ChatMessage {
@@ -160,7 +161,13 @@ export default function ClippyAssistant({
                     message.role === 'user' ? styles.userMessage : styles.assistantMessage
                   }`}
                 >
-                  <div className={styles.messageContent}>{message.content}</div>
+                  <div className={styles.messageContent}>
+                    {message.role === 'assistant' ? (
+                      <ReactMarkdown>{message.content}</ReactMarkdown>
+                    ) : (
+                      message.content
+                    )}
+                  </div>
                   <div className={styles.messageTime}>
                     {message.timestamp.toLocaleTimeString()}
                   </div>

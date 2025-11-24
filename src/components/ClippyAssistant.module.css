@@ -182,6 +182,77 @@
   white-space: pre-wrap;
 }
 
+/* Markdown styling */
+.messageContent ul,
+.messageContent ol {
+  margin: 8px 0;
+  padding-left: 20px;
+}
+
+.messageContent li {
+  margin: 4px 0;
+}
+
+.messageContent p {
+  margin: 4px 0;
+}
+
+.messageContent p:first-child {
+  margin-top: 0;
+}
+
+.messageContent p:last-child {
+  margin-bottom: 0;
+}
+
+.messageContent code {
+  background: rgba(0, 0, 0, 0.1);
+  padding: 2px 4px;
+  border-radius: 2px;
+  font-family: 'Courier New', monospace;
+  font-size: 10px;
+}
+
+.messageContent pre {
+  background: rgba(0, 0, 0, 0.1);
+  padding: 8px;
+  border-radius: 2px;
+  overflow-x: auto;
+  margin: 8px 0;
+}
+
+.messageContent pre code {
+  background: none;
+  padding: 0;
+}
+
+.messageContent strong {
+  font-weight: bold;
+}
+
+.messageContent em {
+  font-style: italic;
+}
+
+.messageContent h1,
+.messageContent h2,
+.messageContent h3 {
+  margin: 8px 0 4px 0;
+  font-weight: bold;
+}
+
+.messageContent h1 {
+  font-size: 14px;
+}
+
+.messageContent h2 {
+  font-size: 13px;
+}
+
+.messageContent h3 {
+  font-size: 12px;
+}
+
 .userMessage .messageContent {
   background: #000080;
   color: #ffffff;
