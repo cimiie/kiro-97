@@ -26,9 +26,15 @@ export default function ClippyAssistant({
   onContextChange,
 }: ClippyAssistantProps) {
   const [isChatOpen, setIsChatOpen] = useState(false);
-  const [position, setPosition] = useState<Position>({ 
-    x: window.innerWidth - 100, 
-    y: window.innerHeight - 120 
+  const [position, setPosition] = useState<Position>(() => {
+    // Only access window on client-side
+    if (typeof window !== 'undefined') {
+      return {
+        x: window.innerWidth - 100,
+        y: window.innerHeight - 120,
+      };
+    }
+    return { x: 0, y: 0 };
   });
   const [isDragging, setIsDragging] = useState(false);
   const [dragOffset, setDragOffset] = useState<Position>({ x: 0, y: 0 });
