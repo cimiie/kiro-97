@@ -14,8 +14,8 @@ interface BrowserState {
   isLoading: boolean;
 }
 
-// AWS-themed content pages
-const AWS_PAGES: Record<string, { title: string; content: React.ReactElement }> = {
+// AWS-themed content pages - function to generate content with click handlers
+const getAWSPages = (onNavigate: (url: string) => void): Record<string, { title: string; content: React.ReactElement }> => ({
   'aws://home': {
     title: 'AWS Home - Internet Explorer',
     content: (
@@ -26,11 +26,11 @@ const AWS_PAGES: Record<string, { title: string; content: React.ReactElement }> 
         <div className={styles.section}>
           <h2>Popular Services</h2>
           <ul>
-            <li><a href="aws://ec2">Amazon EC2 - Virtual Servers in the Cloud</a></li>
-            <li><a href="aws://s3">Amazon S3 - Scalable Storage in the Cloud</a></li>
-            <li><a href="aws://lambda">AWS Lambda - Run Code without Servers</a></li>
-            <li><a href="aws://bedrock">Amazon Bedrock - Build with Foundation Models</a></li>
-            <li><a href="aws://amplify">AWS Amplify - Build and Deploy Web Apps</a></li>
+            <li><a href="aws://ec2" onClick={(e) => { e.preventDefault(); onNavigate('aws://ec2'); }}>Amazon EC2 - Virtual Servers in the Cloud</a></li>
+            <li><a href="aws://s3" onClick={(e) => { e.preventDefault(); onNavigate('aws://s3'); }}>Amazon S3 - Scalable Storage in the Cloud</a></li>
+            <li><a href="aws://lambda" onClick={(e) => { e.preventDefault(); onNavigate('aws://lambda'); }}>AWS Lambda - Run Code without Servers</a></li>
+            <li><a href="aws://bedrock" onClick={(e) => { e.preventDefault(); onNavigate('aws://bedrock'); }}>Amazon Bedrock - Build with Foundation Models</a></li>
+            <li><a href="aws://amplify" onClick={(e) => { e.preventDefault(); onNavigate('aws://amplify'); }}>AWS Amplify - Build and Deploy Web Apps</a></li>
           </ul>
         </div>
 
@@ -74,7 +74,7 @@ const AWS_PAGES: Record<string, { title: string; content: React.ReactElement }> 
           <p>Choose from General Purpose, Compute Optimized, Memory Optimized, and more.</p>
         </div>
 
-        <p><a href="aws://home">← Back to AWS Home</a></p>
+        <p><a href="aws://home" onClick={(e) => { e.preventDefault(); onNavigate('aws://home'); }}>← Back to AWS Home</a></p>
       </div>
     ),
   },
@@ -109,7 +109,7 @@ const AWS_PAGES: Record<string, { title: string; content: React.ReactElement }> 
           <p>S3 Standard, S3 Intelligent-Tiering, S3 Glacier, and more.</p>
         </div>
 
-        <p><a href="aws://home">← Back to AWS Home</a></p>
+        <p><a href="aws://home" onClick={(e) => { e.preventDefault(); onNavigate('aws://home'); }}>← Back to AWS Home</a></p>
       </div>
     ),
   },
@@ -143,7 +143,7 @@ const AWS_PAGES: Record<string, { title: string; content: React.ReactElement }> 
           <p>Node.js, Python, Java, Go, Ruby, .NET Core, and custom runtimes.</p>
         </div>
 
-        <p><a href="aws://home">← Back to AWS Home</a></p>
+        <p><a href="aws://home" onClick={(e) => { e.preventDefault(); onNavigate('aws://home'); }}>← Back to AWS Home</a></p>
       </div>
     ),
   },
@@ -177,7 +177,7 @@ const AWS_PAGES: Record<string, { title: string; content: React.ReactElement }> 
           <p>Text generation, chatbots, search, summarization, image generation, and more.</p>
         </div>
 
-        <p><a href="aws://home">← Back to AWS Home</a></p>
+        <p><a href="aws://home" onClick={(e) => { e.preventDefault(); onNavigate('aws://home'); }}>← Back to AWS Home</a></p>
       </div>
     ),
   },
@@ -212,11 +212,11 @@ const AWS_PAGES: Record<string, { title: string; content: React.ReactElement }> 
           <p>React, Next.js, Vue, Angular, and more.</p>
         </div>
 
-        <p><a href="aws://home">← Back to AWS Home</a></p>
+        <p><a href="aws://home" onClick={(e) => { e.preventDefault(); onNavigate('aws://home'); }}>← Back to AWS Home</a></p>
       </div>
     ),
   },
-};
+});
 
 export default function MockBrowser({ initialUrl = 'aws://home' }: MockBrowserProps) {
   const [state, setState] = useState<BrowserState>({
@@ -288,15 +288,8 @@ export default function MockBrowser({ initialUrl = 'aws://home' }: MockBrowserPr
     }
   };
 
-  const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    const href = e.currentTarget.getAttribute('href');
-    if (href) {
-      navigate(href);
-    }
-  };
-
-  // Get current page content
+  // Get current page content with navigation handler
+  const AWS_PAGES = getAWSPages(navigate);
   const currentPage = AWS_PAGES[state.currentUrl] || {
     title: '404 Not Found - Internet Explorer',
     content: (
@@ -362,12 +355,7 @@ export default function MockBrowser({ initialUrl = 'aws://home' }: MockBrowserPr
       )}
 
       {/* Content Area */}
-      <div className={styles.content} onClick={(e) => {
-        const target = e.target as HTMLElement;
-        if (target.tagName === 'A') {
-          handleLinkClick(e as unknown as React.MouseEvent<HTMLAnchorElement>);
-        }
-      }}>
+      <div className={styles.content}>
         {currentPage.content}
       </div>
 
