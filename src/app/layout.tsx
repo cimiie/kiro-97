@@ -8,6 +8,8 @@ export const metadata: Metadata = {
   description: 'A nostalgic Windows 95 experience in your browser',
 };
 
+export const dynamicParams = true;
+
 export default function RootLayout({
   children,
 }: Readonly<{

@@ -1,0 +1,200 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #c0c0c0;
+  font-family: 'MS Sans Serif', Arial, sans-serif;
+}
+
+.menuBar {
+  display: flex;
+  background: #c0c0c0;
+  border-bottom: 1px solid #808080;
+  padding: 2px 0;
+  position: relative;
+  z-index: 100;
+}
+
+.menuItem {
+  position: relative;
+  display: inline-block;
+}
+
+.menuButton {
+  padding: 4px 8px;
+  background: transparent;
+  border: none;
+  font-family: 'MS Sans Serif', Arial, sans-serif;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.menuButton:hover {
+  background: #000080;
+  color: white;
+}
+
+.dropdown {
+  position: absolute;
+  top: calc(100% - 2px);
+  left: 0;
+  background: #c0c0c0;
+  border: 2px outset #ffffff;
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.4);
+  min-width: 200px;
+  z-index: 1000;
+}
+
+.dropdownItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 20px 4px 8px;
+  background: transparent;
+  border: none;
+  width: 100%;
+  text-align: left;
+  font-family: 'MS Sans Serif', Arial, sans-serif;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.dropdownItem:hover:not(:disabled) {
+  background: #000080;
+  color: white;
+}
+
+.dropdownItem:disabled {
+  color: #808080;
+  cursor: default;
+}
+
+.dropdownSeparator {
+  height: 1px;
+  background: #808080;
+  margin: 2px 0;
+}
+
+.content {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+}
+
+.treePane {
+  width: 40%;
+  background: white;
+  border: 2px inset #808080;
+  margin: 4px;
+  overflow-y: auto;
+  font-size: 11px;
+}
+
+.treeItem {
+  display: flex;
+  align-items: center;
+  padding: 2px 4px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.treeItem:hover {
+  background: #c0c0c0;
+}
+
+.treeItem.selected {
+  background: #000080;
+  color: white;
+}
+
+.treeExpander {
+  width: 12px;
+  font-size: 8px;
+  cursor: pointer;
+}
+
+.treeIcon {
+  margin-right: 4px;
+}
+
+.treeName {
+  flex: 1;
+}
+
+.detailPane {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  background: white;
+  border: 2px inset #808080;
+  margin: 4px 4px 4px 0;
+  overflow: hidden;
+}
+
+.detailHeader {
+  display: flex;
+  background: #c0c0c0;
+  border-bottom: 1px solid #808080;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.detailColumn {
+  flex: 1;
+  padding: 4px 8px;
+  border-right: 1px solid #808080;
+}
+
+.detailColumn:last-child {
+  border-right: none;
+}
+
+.detailContent {
+  flex: 1;
+  overflow-y: auto;
+  font-size: 11px;
+}
+
+.detailRow {
+  display: flex;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.detailRow:hover {
+  background: #c0c0c0;
+}
+
+.detailCell {
+  flex: 1;
+  padding: 4px 8px;
+  border-right: 1px solid #e0e0e0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.detailCell:last-child {
+  border-right: none;
+}
+
+.emptyMessage {
+  padding: 8px;
+  color: #808080;
+  font-size: 11px;
+  text-align: center;
+}
+
+.statusBar {
+  background: #c0c0c0;
+  border-top: 1px solid #ffffff;
+  padding: 2px 4px;
+  display: flex;
+  gap: 8px;
+  font-size: 11px;
+}
+
+.statusItem {
+  border: 1px inset #808080;
+  padding: 1px 4px;
+  flex: 1;
+}

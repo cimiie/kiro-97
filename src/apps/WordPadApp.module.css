@@ -1,0 +1,200 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #c0c0c0;
+  font-family: 'MS Sans Serif', Arial, sans-serif;
+}
+
+.menuBar {
+  display: flex;
+  background: #c0c0c0;
+  border-bottom: 1px solid #808080;
+  padding: 2px 0;
+  position: relative;
+  z-index: 100;
+}
+
+.menuItem {
+  position: relative;
+  display: inline-block;
+}
+
+.menuButton {
+  padding: 4px 8px;
+  background: transparent;
+  border: none;
+  font-family: 'MS Sans Serif', Arial, sans-serif;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.menuButton:hover {
+  background: #000080;
+  color: white;
+}
+
+.dropdown {
+  position: absolute;
+  top: calc(100% - 2px);
+  left: 0;
+  background: #c0c0c0;
+  border: 2px outset #ffffff;
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.4);
+  min-width: 150px;
+  z-index: 1000;
+}
+
+.dropdownItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 20px 4px 8px;
+  background: transparent;
+  border: none;
+  width: 100%;
+  text-align: left;
+  font-family: 'MS Sans Serif', Arial, sans-serif;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.dropdownItem:hover:not(:disabled) {
+  background: #000080;
+  color: white;
+}
+
+.dropdownSeparator {
+  height: 1px;
+  background: #808080;
+  margin: 2px 0;
+}
+
+.toolbar {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  background: #c0c0c0;
+  border-bottom: 1px solid #808080;
+  align-items: center;
+}
+
+.toolbarSelect {
+  padding: 2px 4px;
+  border: 2px inset #ffffff;
+  background: white;
+  font-family: 'MS Sans Serif', Arial, sans-serif;
+  font-size: 11px;
+}
+
+.toolbarButton {
+  padding: 4px 8px;
+  background: #c0c0c0;
+  border: 2px outset #ffffff;
+  font-family: 'MS Sans Serif', Arial, sans-serif;
+  font-size: 11px;
+  cursor: pointer;
+  min-width: 28px;
+}
+
+.toolbarButton:active,
+.toolbarButton.active {
+  border: 2px inset #ffffff;
+}
+
+.toolbarSeparator {
+  width: 1px;
+  height: 20px;
+  background: #808080;
+  margin: 0 4px;
+}
+
+.editor {
+  flex: 1;
+  background: white;
+  border: 2px inset #808080;
+  margin: 4px;
+  padding: 8px;
+  overflow: auto;
+  font-family: 'Times New Roman', serif;
+  font-size: 12pt;
+  outline: none;
+}
+
+.dialogOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+}
+
+.dialog {
+  background: #c0c0c0;
+  border: 2px outset #ffffff;
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.4);
+  min-width: 300px;
+}
+
+.dialogTitle {
+  background: #000080;
+  color: white;
+  padding: 4px 8px;
+  font-weight: bold;
+  font-size: 11px;
+}
+
+.dialogContent {
+  padding: 16px;
+}
+
+.dialogField {
+  margin-bottom: 12px;
+}
+
+.dialogField label {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 11px;
+}
+
+.dialogFolder {
+  padding: 4px 8px;
+  background: white;
+  border: 2px inset #808080;
+  font-size: 11px;
+}
+
+.dialogInput {
+  width: 100%;
+  padding: 4px;
+  border: 2px inset #808080;
+  font-family: 'MS Sans Serif', Arial, sans-serif;
+  font-size: 11px;
+}
+
+.dialogButtons {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  padding: 8px 16px 16px;
+}
+
+.dialogButton {
+  padding: 4px 16px;
+  border: 2px outset #ffffff;
+  background: #c0c0c0;
+  font-family: 'MS Sans Serif', Arial, sans-serif;
+  font-size: 11px;
+  cursor: pointer;
+  min-width: 75px;
+}
+
+.dialogButton:active {
+  border: 2px inset #ffffff;
+}

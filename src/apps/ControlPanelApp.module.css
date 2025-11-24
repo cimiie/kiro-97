@@ -1,0 +1,175 @@
+.container {
+  height: 100%;
+  background: #c0c0c0;
+  font-family: 'MS Sans Serif', Arial, sans-serif;
+  overflow: auto;
+}
+
+.iconGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap: 16px;
+  padding: 16px;
+}
+
+.iconButton {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: 8px;
+}
+
+.iconButton:hover {
+  background: rgba(0, 0, 128, 0.1);
+}
+
+.icon {
+  font-size: 32px;
+}
+
+.iconLabel {
+  font-size: 11px;
+  text-align: center;
+  word-wrap: break-word;
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.panelHeader {
+  background: #c0c0c0;
+  padding: 8px;
+  border-bottom: 1px solid #808080;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.panelHeader h2 {
+  font-size: 14px;
+  margin: 0;
+}
+
+.backButton {
+  padding: 4px 8px;
+  border: 2px outset #ffffff;
+  background: #c0c0c0;
+  font-family: 'MS Sans Serif', Arial, sans-serif;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.backButton:active {
+  border: 2px inset #ffffff;
+}
+
+.tabs {
+  display: flex;
+  background: #c0c0c0;
+  border-bottom: 1px solid #808080;
+}
+
+.tab {
+  padding: 6px 12px;
+  border: 2px outset #ffffff;
+  border-bottom: none;
+  background: #c0c0c0;
+  font-family: 'MS Sans Serif', Arial, sans-serif;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.panelContent {
+  flex: 1;
+  padding: 16px;
+  overflow: auto;
+}
+
+.field {
+  margin-bottom: 16px;
+}
+
+.field label {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 11px;
+}
+
+.select,
+.input {
+  width: 100%;
+  padding: 4px;
+  border: 2px inset #808080;
+  background: white;
+  font-family: 'MS Sans Serif', Arial, sans-serif;
+  font-size: 11px;
+}
+
+.selectList {
+  width: 100%;
+  padding: 4px;
+  border: 2px inset #808080;
+  background: white;
+  font-family: 'MS Sans Serif', Arial, sans-serif;
+  font-size: 11px;
+}
+
+.systemInfo {
+  font-size: 11px;
+}
+
+.systemInfo h3 {
+  font-size: 12px;
+  margin: 12px 0 8px 0;
+}
+
+.systemInfo p {
+  margin: 4px 0;
+}
+
+.dateTimeGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-width: 400px;
+}
+
+.programsList {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.programItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px;
+  background: white;
+  border: 2px inset #808080;
+}
+
+.programName {
+  font-size: 11px;
+}
+
+.button {
+  padding: 4px 16px;
+  border: 2px outset #ffffff;
+  background: #c0c0c0;
+  font-family: 'MS Sans Serif', Arial, sans-serif;
+  font-size: 11px;
+  cursor: pointer;
+  min-width: 75px;
+}
+
+.button:active {
+  border: 2px inset #ffffff;
+}

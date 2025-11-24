@@ -1,16 +1,20 @@
 'use client';
 
 import { useState } from 'react';
+import dynamic from 'next/dynamic';
 import DesktopIcon from './DesktopIcon';
 import { useWindowManager } from '@/contexts/WindowManagerContext';
-import MinesweeperApp from '@/apps/MinesweeperApp';
-import MockBrowser from '@/apps/MockBrowser';
-import NotepadApp from '@/apps/NotepadApp';
-import DoomApp from '@/apps/DoomApp';
-import MyComputer from '@/apps/MyComputer';
-import Kiro from '@/apps/Kiro';
-import Paint from '@/apps/Paint';
 import styles from './DesktopIcons.module.css';
+
+// Dynamic imports to avoid SSR issues
+const MinesweeperApp = dynamic(() => import('@/apps/MinesweeperApp'), { ssr: false });
+const MockBrowser = dynamic(() => import('@/apps/MockBrowser'), { ssr: false });
+const NotepadApp = dynamic(() => import('@/apps/NotepadApp'), { ssr: false });
+const DoomApp = dynamic(() => import('@/apps/DoomApp'), { ssr: false });
+const MyComputer = dynamic(() => import('@/apps/MyComputer'), { ssr: false });
+const Kiro = dynamic(() => import('@/apps/Kiro'), { ssr: false });
+const Paint = dynamic(() => import('@/apps/Paint'), { ssr: false });
+const CalculatorApp = dynamic(() => import('@/apps/CalculatorApp'), { ssr: false });
 
 interface IconData {
   id: string;
@@ -24,9 +28,26 @@ export default function DesktopIcons() {
   const { openWindow } = useWindowManager();
 
   const handleLaunchApp = (appId: string) => {
-    const icon = icons.find((i) => i.id === appId);
-    if (icon) {
-      icon.action();
+    // Handle apps that might be launched from My Computer
+    const appMap: Record<string, () => void> = {
+      'calculator': () => openWindow(<CalculatorApp />, 'Calculator'),
+      'paint': () => openWindow(<Paint />, 'Paint'),
+      'notepad': () => openWindow(<NotepadApp />, 'Notepad'),
+      'internet-explorer': () => openWindow(<MockBrowser />, 'Internet Explorer'),
+      'minesweeper': () => openWindow(<MinesweeperApp />, 'Minesweeper'),
+      'doom': () => openWindow(<DoomApp onClose={() => {}} />, 'DOOM'),
+      'kiro': () => openWindow(<Kiro />, 'Kiro'),
+    };
+    
+    const action = appMap[appId];
+    if (action) {
+      action();
+    } else {
+      // Fallback to icon action
+      const icon = icons.find((i) => i.id === appId);
+      if (icon) {
+        icon.action();
+      }
     }
   };
 
@@ -112,7 +133,7 @@ export default function DesktopIcons() {
       label: 'Paint',
       iconImage: '🎨',
       action: () => {
-        openWindow(<Paint onClose={() => {}} />, 'Paint');
+        openWindow(<Paint />, 'Paint');
       },
     },
   ];

@@ -1,11 +1,16 @@
 'use client';
 
 import { useState, useMemo } from 'react';
+import dynamic from 'next/dynamic';
 import { useFileSystem } from '@/contexts/FileSystemContext';
 import { useWindowManager } from '@/contexts/WindowManagerContext';
 import NotepadApp from './NotepadApp';
 import MockBrowser from './MockBrowser';
 import styles from './MyComputer.module.css';
+
+// Dynamic imports to avoid SSR issues
+const CommandPromptApp = dynamic(() => import('./CommandPromptApp'), { ssr: false });
+const RegistryEditorApp = dynamic(() => import('./RegistryEditorApp'), { ssr: false });
 
 interface FileSystemItem {
   name: string;
@@ -65,7 +70,19 @@ const getBaseFileSystem = (): FileSystemItem[] => [
         path: 'C:\\Windows',
         children: [
           { name: 'explorer.exe', type: 'file', icon: '💻', path: 'C:\\Windows\\explorer.exe' },
-          { name: 'system32', type: 'folder', icon: '📁', path: 'C:\\Windows\\system32' },
+          {
+            name: 'system32',
+            type: 'folder',
+            icon: '📁',
+            path: 'C:\\Windows\\system32',
+            children: [
+              { name: 'cmd.exe', type: 'file', icon: '⌨️', path: 'C:\\Windows\\system32\\cmd.exe' },
+              { name: 'regedit.exe', type: 'file', icon: '📋', path: 'C:\\Windows\\system32\\regedit.exe' },
+              { name: 'calc.exe', type: 'file', icon: '🔢', path: 'C:\\Windows\\system32\\calc.exe' },
+              { name: 'notepad.exe', type: 'file', icon: '📝', path: 'C:\\Windows\\system32\\notepad.exe' },
+              { name: 'mspaint.exe', type: 'file', icon: '🎨', path: 'C:\\Windows\\system32\\mspaint.exe' },
+            ],
+          },
         ],
       },
       {
@@ -180,12 +197,25 @@ export default function MyComputer({ onLaunchApp, initialPath = '' }: MyComputer
     } else if (item.type === 'file') {
       // Handle .exe files
       if (item.name.endsWith('.exe')) {
+        // Handle system executables directly
+        if (item.name === 'cmd.exe') {
+          openWindow(<CommandPromptApp />, 'MS-DOS Prompt');
+          return;
+        }
+        if (item.name === 'regedit.exe') {
+          openWindow(<RegistryEditorApp />, 'Registry Editor');
+          return;
+        }
+        
+        // Handle other apps via onLaunchApp
         if (onLaunchApp) {
           const appMap: Record<string, string> = {
             'iexplore.exe': 'internet-explorer',
             'notepad.exe': 'notepad',
             'minesweeper.exe': 'minesweeper',
             'doom.exe': 'doom',
+            'calc.exe': 'calculator',
+            'mspaint.exe': 'paint',
           };
           const appId = appMap[item.name];
           if (appId) {
