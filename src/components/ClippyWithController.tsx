@@ -5,6 +5,7 @@ import ClippyAssistant from './ClippyAssistant';
 import TokenController from './TokenController';
 import { useWindowManager } from '@/contexts/WindowManagerContext';
 import MinesweeperApp from '@/apps/MinesweeperApp';
+import NotepadApp from '@/apps/NotepadApp';
 
 export default function ClippyWithController() {
   const [maxResponseLength, setMaxResponseLength] = useState(1000);
@@ -31,6 +32,9 @@ export default function ClippyWithController() {
     switch (actionId) {
       case 'launch-minesweeper':
         openWindow(<MinesweeperApp />, 'Minesweeper');
+        break;
+      case 'launch-notepad':
+        openWindow(<NotepadApp />, 'Notepad');
         break;
       default:
         console.log('Unknown quick action:', actionId);

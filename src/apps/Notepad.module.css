@@ -1,0 +1,206 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #c0c0c0;
+  font-family: 'MS Sans Serif', Arial, sans-serif;
+  position: relative;
+  overflow: hidden;
+}
+
+.menuBar {
+  display: flex;
+  background: #c0c0c0;
+  border-bottom: 1px solid #808080;
+  padding: 2px 0;
+  position: relative;
+  z-index: 100;
+}
+
+.menuItem {
+  position: relative;
+  display: inline-block;
+}
+
+.menuButton {
+  padding: 4px 8px;
+  background: transparent;
+  border: none;
+  font-family: 'MS Sans Serif', Arial, sans-serif;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.menuButton:hover {
+  background: #000080;
+  color: white;
+}
+
+.menuButton:active {
+  background: #000080;
+  color: white;
+}
+
+.dropdown {
+  position: absolute;
+  top: calc(100% - 2px);
+  left: 0;
+  background: #c0c0c0;
+  border: 2px outset #ffffff;
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.4);
+  min-width: 150px;
+  z-index: 1000;
+  margin-top: 0;
+}
+
+.dropdownItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 4px 20px 4px 8px;
+  background: transparent;
+  border: none;
+  width: 100%;
+  text-align: left;
+  font-family: 'MS Sans Serif', Arial, sans-serif;
+  font-size: 11px;
+  cursor: pointer;
+}
+
+.dropdownItem:hover:not(:disabled) {
+  background: #000080;
+  color: white;
+}
+
+.dropdownItem:disabled {
+  color: #808080;
+  cursor: default;
+}
+
+.dropdownSeparator {
+  height: 1px;
+  background: #808080;
+  margin: 2px 0;
+}
+
+.shortcut {
+  margin-left: 20px;
+  font-size: 10px;
+  color: inherit;
+}
+
+.textArea {
+  flex: 1;
+  width: 100%;
+  padding: 4px;
+  border: 2px inset #ffffff;
+  background: white;
+  color: black;
+  font-family: 'Fixedsys', 'Courier New', monospace;
+  font-size: 12px;
+  resize: none;
+  outline: none;
+  overflow: auto;
+  white-space: pre;
+  position: relative;
+  z-index: 1;
+}
+
+.textArea:focus {
+  outline: none;
+}
+
+.statusBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2px 4px;
+  background: #c0c0c0;
+  border-top: 1px solid #ffffff;
+  font-size: 11px;
+  height: 20px;
+}
+
+.statusSection {
+  display: flex;
+  gap: 16px;
+}
+
+.statusItem {
+  padding: 0 8px;
+  border: 1px inset #808080;
+  background: #c0c0c0;
+  min-width: 80px;
+}
+
+.dialog {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #c0c0c0;
+  border: 2px outset #ffffff;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
+  padding: 8px;
+  min-width: 300px;
+  z-index: 2000;
+}
+
+.dialogTitle {
+  font-weight: bold;
+  margin-bottom: 12px;
+  font-size: 11px;
+}
+
+.dialogContent {
+  margin-bottom: 16px;
+}
+
+.dialogInput {
+  width: 100%;
+  padding: 2px 4px;
+  border: 2px inset #ffffff;
+  font-family: 'MS Sans Serif', Arial, sans-serif;
+  font-size: 11px;
+  margin-top: 8px;
+}
+
+.dialogButtons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.dialogButton {
+  padding: 4px 16px;
+  border: 2px outset #ffffff;
+  background: #c0c0c0;
+  font-family: 'MS Sans Serif', Arial, sans-serif;
+  font-size: 11px;
+  cursor: pointer;
+  min-width: 75px;
+}
+
+.dialogButton:active {
+  border: 2px inset #ffffff;
+}
+
+.dialogButton:focus {
+  outline: 1px dotted black;
+  outline-offset: -4px;
+}
+
+.aboutDialog {
+  text-align: center;
+}
+
+.aboutIcon {
+  font-size: 48px;
+  margin-bottom: 8px;
+}
+
+.aboutText {
+  font-size: 11px;
+  line-height: 1.4;
+  margin-bottom: 4px;
+}

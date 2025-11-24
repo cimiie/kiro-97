@@ -35,6 +35,23 @@ export function useClippyConversation({
         { id: 'how-to-play', label: 'How to Play', icon: '❓' },
         { id: 'minesweeper-tips', label: 'Strategy Tips', icon: '💡' },
       ],
+      'launch-notepad': [
+        { id: 'notepad-shortcuts', label: 'Keyboard Shortcuts', icon: '⌨️' },
+        { id: 'notepad-tips', label: 'Tips & Tricks', icon: '💡' },
+        { id: 'notepad-history', label: 'Notepad History', icon: '📚' },
+      ],
+      'notepad-shortcuts': [
+        { id: 'notepad-tips', label: 'Tips & Tricks', icon: '💡' },
+        { id: 'notepad-history', label: 'History', icon: '📚' },
+      ],
+      'notepad-tips': [
+        { id: 'notepad-shortcuts', label: 'Shortcuts', icon: '⌨️' },
+        { id: 'notepad-history', label: 'History', icon: '📚' },
+      ],
+      'notepad-history': [
+        { id: 'notepad-shortcuts', label: 'Shortcuts', icon: '⌨️' },
+        { id: 'notepad-tips', label: 'Tips & Tricks', icon: '💡' },
+      ],
     };
 
     return quickActionsMap[actionId] || [];
@@ -125,6 +142,22 @@ export function useClippyConversation({
           context: 'The user wants to know about the history of Minesweeper.',
           topic: 'minesweeper history origin windows 95 facts trivia',
         },
+        'launch-notepad': {
+          context: 'The user just opened Notepad, the classic Windows 95 text editor.',
+          topic: 'notepad text editor features shortcuts tips windows 95',
+        },
+        'notepad-shortcuts': {
+          context: 'The user wants to learn keyboard shortcuts for Notepad.',
+          topic: 'notepad keyboard shortcuts hotkeys commands quick access',
+        },
+        'notepad-tips': {
+          context: 'The user wants tips and tricks for using Notepad effectively.',
+          topic: 'notepad tips tricks productivity features hidden functions',
+        },
+        'notepad-history': {
+          context: 'The user wants to know about the history of Notepad.',
+          topic: 'notepad history origin windows evolution facts trivia',
+        },
       };
 
       const actionContext = contextMap[actionId];
@@ -198,6 +231,7 @@ export function useClippyConversation({
       timestamp: new Date(),
       quickActions: [
         { id: 'launch-minesweeper', label: 'Launch Minesweeper', icon: '💣' },
+        { id: 'launch-notepad', label: 'Launch Notepad', icon: '📝' },
       ],
     };
     setMessages([welcomeMessage]);

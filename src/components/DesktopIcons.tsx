@@ -5,6 +5,7 @@ import DesktopIcon from './DesktopIcon';
 import { useWindowManager } from '@/contexts/WindowManagerContext';
 import MinesweeperApp from '@/apps/MinesweeperApp';
 import MockBrowser from '@/apps/MockBrowser';
+import NotepadApp from '@/apps/NotepadApp';
 import styles from './DesktopIcons.module.css';
 
 interface IconData {
@@ -45,6 +46,14 @@ export default function DesktopIcons() {
           </div>,
           'Recycle Bin'
         );
+      },
+    },
+    {
+      id: 'notepad',
+      label: 'Notepad',
+      iconImage: '📝',
+      action: () => {
+        openWindow(<NotepadApp />, 'Notepad');
       },
     },
     {
