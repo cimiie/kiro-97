@@ -20,7 +20,7 @@ export function useClippyConversation({
     const quickActionsMap: Record<string, QuickAction[]> = {
       'play-doom': [
         { id: 'doom-controls', label: 'Game Controls', icon: '🎮' },
-        { id: 'doom-history', label: 'Doom History', icon: '📚' },
+        { id: 'doom-history', label: 'Gloom History', icon: '📚' },
         { id: 'doom-tips', label: 'Survival Tips', icon: '💡' },
       ],
       'doom-controls': [
@@ -72,7 +72,7 @@ export function useClippyConversation({
       'launch-notepad': [
         { id: 'notepad-shortcuts', label: 'Keyboard Shortcuts', icon: '⌨️' },
         { id: 'notepad-tips', label: 'Tips & Tricks', icon: '💡' },
-        { id: 'notepad-history', label: 'Notepad History', icon: '📚' },
+        { id: 'notepad-history', label: 'TextEdit History', icon: '📚' },
       ],
       'notepad-shortcuts': [
         { id: 'notepad-tips', label: 'Tips & Tricks', icon: '💡' },
@@ -161,63 +161,63 @@ export function useClippyConversation({
     try {
       const contextMap: Record<string, { context: string; topic: string }> = {
         'play-doom': {
-          context: 'The user just launched Doom, the legendary first-person shooter game from 1993.',
-          topic: 'doom game launched ready to play controls tips id software classic fps',
+          context: 'The user just launched Gloom, a classic first-person shooter game.',
+          topic: 'gloom game launched ready to play controls tips classic fps',
         },
         'doom-controls': {
-          context: 'The user wants to learn the controls for playing Doom.',
-          topic: 'doom game controls keyboard mouse movement shooting weapons',
+          context: 'The user wants to learn the controls for playing Gloom.',
+          topic: 'gloom game controls keyboard mouse movement shooting weapons',
         },
         'doom-history': {
-          context: 'The user wants to know about the history of Doom.',
-          topic: 'doom history 1993 id software john carmack john romero revolutionary fps',
+          context: 'The user wants to know about the history of Gloom.',
+          topic: 'gloom history classic fps game revolutionary shooter',
         },
         'doom-tips': {
-          context: 'The user wants survival tips for playing Doom.',
-          topic: 'doom gameplay tips strategy survival secrets tricks',
+          context: 'The user wants survival tips for playing Gloom.',
+          topic: 'gloom gameplay tips strategy survival secrets tricks',
         },
         'browse-internet': {
-          context: 'The user just opened Internet Explorer to browse the web.',
-          topic: 'internet explorer opened ready to browse web navigation features',
+          context: 'The user just opened Web Finder to browse the web.',
+          topic: 'web finder opened ready to browse web navigation features',
         },
         'internet-tips': {
-          context: 'The user wants tips for browsing with Internet Explorer.',
-          topic: 'internet explorer browsing tips navigation shortcuts favorites',
+          context: 'The user wants tips for browsing with Web Finder.',
+          topic: 'web finder browsing tips navigation shortcuts favorites',
         },
         'internet-history': {
-          context: 'The user wants to know about the history of Internet Explorer.',
-          topic: 'internet explorer history microsoft windows 95 web browser evolution',
+          context: 'The user wants to know about the history of Web Finder.',
+          topic: 'web finder history web browser evolution internet browsing',
         },
         'internet-features': {
-          context: 'The user wants to learn about Internet Explorer features.',
-          topic: 'internet explorer features favorites bookmarks navigation tools',
+          context: 'The user wants to learn about Web Finder features.',
+          topic: 'web finder features favorites bookmarks navigation tools',
         },
         'launch-minesweeper': {
-          context: 'The user just opened Minesweeper, a classic puzzle game from Windows 95.',
-          topic: 'minesweeper game rules strategy tips history',
+          context: 'The user just opened Bomb Sweeper, a classic puzzle game.',
+          topic: 'bomb sweeper game rules strategy tips history',
         },
         'how-to-play': {
-          context: 'The user wants to learn how to play Minesweeper.',
-          topic: 'minesweeper rules gameplay instructions beginner guide',
+          context: 'The user wants to learn how to play Bomb Sweeper.',
+          topic: 'bomb sweeper rules gameplay instructions beginner guide',
         },
         'minesweeper-tips': {
-          context: 'The user wants advanced tips for playing Minesweeper.',
-          topic: 'minesweeper strategy advanced techniques patterns',
+          context: 'The user wants advanced tips for playing Bomb Sweeper.',
+          topic: 'bomb sweeper strategy advanced techniques patterns',
         },
         'minesweeper-history': {
-          context: 'The user wants to know about the history of Minesweeper.',
-          topic: 'minesweeper history origin windows 95 facts trivia',
+          context: 'The user wants to know about the history of Bomb Sweeper.',
+          topic: 'bomb sweeper history origin classic puzzle game facts trivia',
         },
         'launch-notepad': {
-          context: 'The user just opened Notepad, the classic Windows 95 text editor.',
-          topic: 'notepad text editor features shortcuts tips windows 95',
+          context: 'The user just opened TextEdit, a simple text editor.',
+          topic: 'textedit text editor features shortcuts tips',
         },
         'notepad-shortcuts': {
-          context: 'The user wants to learn keyboard shortcuts for Notepad.',
-          topic: 'notepad keyboard shortcuts hotkeys commands quick access',
+          context: 'The user wants to learn keyboard shortcuts for TextEdit.',
+          topic: 'textedit keyboard shortcuts hotkeys commands quick access',
         },
         'notepad-tips': {
-          context: 'The user wants tips and tricks for using Notepad effectively.',
+          context: 'The user wants tips and tricks for using TextEdit effectively.',
           topic: 'notepad tips tricks productivity features hidden functions',
         },
         'notepad-history': {
