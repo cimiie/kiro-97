@@ -7,6 +7,7 @@ import WindowContainer from '@/components/WindowContainer';
 import Taskbar from '@/components/Taskbar';
 import { MenuItem } from '@/components/StartMenu';
 import MinesweeperApp from '@/apps/MinesweeperApp';
+import ClippyWithController from '@/components/ClippyWithController';
 
 function DesktopContent() {
   const { windows, restoreWindow, focusWindow, openWindow } = useWindowManager();
@@ -84,6 +85,7 @@ function DesktopContent() {
         onWindowClick={handleWindowClick}
         menuItems={menuItems}
       />
+      <ClippyWithController />
     </>
   );
 }

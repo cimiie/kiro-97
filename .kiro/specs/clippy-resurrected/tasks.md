@@ -237,14 +237,23 @@
     - Wire up to window system for launching
     - _Requirements: 4.1_
 
-- [ ] 9. Implement AWS Bedrock integration for Clippy
-  - [ ] 9.1 Create AWS Bedrock service module
+- [x] 9. Implement AWS Bedrock integration for Clippy
+
+
+
+
+
+  - [x] 9.1 Create AWS Bedrock service module
+
+
     - Set up AWS SDK for Bedrock
     - Implement generateResponse function with token limits
     - Add error handling for API failures and rate limiting
     - Configure model selection (Claude or similar)
     - _Requirements: 5.3, 5.4_
-  - [ ] 9.2 Create MCP service module for AWS documentation
+
+  - [x] 9.2 Create MCP service module for AWS documentation
+
     - Implement MCP client for AWS documentation queries
     - Create queryDocumentation and getServiceInfo functions
     - Add caching for documentation results
@@ -266,8 +275,14 @@
     - **Property 31: LLM prompts include MCP documentation**
     - **Validates: Requirements 14.5**
 
-- [ ] 10. Build Clippy assistant UI and token controller
-  - [ ] 10.1 Create ClippyAssistant component
+- [x] 10. Build Clippy assistant UI and token controller
+
+
+
+
+  - [x] 10.1 Create ClippyAssistant component
+
+
     - Build animated Clippy character with idle animations
     - Implement chat interface with message history
     - Add click handler to open/close chat
@@ -275,7 +290,9 @@
     - Integrate with Bedrock and MCP services
     - Show typing indicator during response generation
     - _Requirements: 5.1, 5.2, 5.3, 5.5_
-  - [ ] 10.2 Create TokenController component
+  - [x] 10.2 Create TokenController component
+
+
     - Build settings UI for token limits and response length
     - Display current usage statistics
     - Implement warning display at threshold
