@@ -1,0 +1,116 @@
+.container {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  z-index: 100;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+  pointer-events: none;
+}
+
+.container.visible {
+  opacity: 1;
+  transform: translateY(0);
+  pointer-events: auto;
+}
+
+.clippy {
+  font-size: 48px;
+  filter: drop-shadow(2px 2px 4px rgba(0, 0, 0, 0.3));
+  animation: bounce 2s ease-in-out infinite;
+}
+
+.clippy.angry {
+  animation: shake 0.5s ease-in-out infinite;
+  filter: drop-shadow(2px 2px 4px rgba(255, 0, 0, 0.5));
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes shake {
+  0%, 100% {
+    transform: rotate(-5deg);
+  }
+  50% {
+    transform: rotate(5deg);
+  }
+}
+
+.bubble {
+  background: #ffffcc;
+  border: 2px solid #000000;
+  padding: 8px 12px;
+  border-radius: 8px;
+  font-family: 'MS Sans Serif', Arial, sans-serif;
+  font-size: 11px;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+  position: relative;
+  min-width: 150px;
+}
+
+.bubble::after {
+  content: '';
+  position: absolute;
+  bottom: 12px;
+  left: -10px;
+  width: 0;
+  height: 0;
+  border-top: 8px solid transparent;
+  border-bottom: 8px solid transparent;
+  border-right: 10px solid #000000;
+}
+
+.bubble::before {
+  content: '';
+  position: absolute;
+  bottom: 12px;
+  left: -7px;
+  width: 0;
+  height: 0;
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+  border-right: 8px solid #ffffcc;
+  z-index: 1;
+}
+
+.message {
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #000000;
+}
+
+.buttons {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+.button {
+  padding: 2px 12px;
+  background: #c0c0c0;
+  border: 2px outset #ffffff;
+  font-family: 'MS Sans Serif', Arial, sans-serif;
+  font-size: 11px;
+  cursor: pointer;
+  min-width: 50px;
+}
+
+.button:hover {
+  background: #dfdfdf;
+}
+
+.button:active {
+  border: 2px inset #ffffff;
+  padding: 3px 11px 1px 13px;
+}

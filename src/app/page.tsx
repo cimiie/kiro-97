@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import { WindowManagerProvider, useWindowManager } from '@/contexts/WindowManagerContext';
+import { ClippyHelperProvider, useClippyHelper } from '@/contexts/ClippyHelperContext';
 import DesktopEnvironment from '@/components/DesktopEnvironment';
 import DesktopIcons from '@/components/DesktopIcons';
 import WindowContainer from '@/components/WindowContainer';
@@ -14,6 +15,8 @@ import ClientOnly from '@/components/ClientOnly';
 import PowerButton from '@/components/PowerButton';
 import BootScreen from '@/components/BootScreen';
 import LoginScreen from '@/components/LoginScreen';
+import ShutdownScreen from '@/components/ShutdownScreen';
+import { useState as useReactState } from 'react';
 
 // Dynamic imports to avoid SSR issues
 const MinesweeperApp = dynamic(() => import('@/apps/MinesweeperApp'), { ssr: false });
@@ -31,8 +34,9 @@ const SystemMonitorApp = dynamic(() => import('@/apps/SystemMonitorApp'), { ssr:
 const CommandPromptApp = dynamic(() => import('@/apps/CommandPromptApp'), { ssr: false });
 const ControlPanelApp = dynamic(() => import('@/apps/ControlPanelApp'), { ssr: false });
 
-function DesktopContent() {
+function DesktopContentInner() {
   const { windows, restoreWindow, focusWindow, openWindow } = useWindowManager();
+  const { wrapAppWithHelper } = useClippyHelper();
 
   const handleWindowClick = (windowId: string) => {
     const window = windows.find(w => w.id === windowId);
@@ -54,7 +58,7 @@ function DesktopContent() {
           id: 'internet-explorer',
           label: 'Internet Explorer',
           icon: '🌐',
-          action: () => openWindow(<MockBrowser />, 'Internet Explorer')
+          action: () => openWindow(wrapAppWithHelper(<MockBrowser />, 'Internet Explorer'), 'Internet Explorer')
         },
         {
           id: 'accessories',
@@ -71,7 +75,7 @@ function DesktopContent() {
               id: 'notepad',
               label: 'Notepad',
               icon: '📝',
-              action: () => openWindow(<NotepadApp />, 'Notepad')
+              action: () => openWindow(wrapAppWithHelper(<NotepadApp />, 'Notepad'), 'Notepad')
             },
             {
               id: 'paint',
@@ -139,13 +143,13 @@ function DesktopContent() {
               id: 'minesweeper',
               label: 'Minesweeper',
               icon: '💣',
-              action: () => openWindow(<MinesweeperApp />, 'Minesweeper')
+              action: () => openWindow(wrapAppWithHelper(<MinesweeperApp />, 'Minesweeper'), 'Minesweeper')
             },
             {
               id: 'doom',
               label: 'DOOM',
               icon: '👹',
-              action: () => openWindow(<DoomApp onClose={() => {}} />, 'DOOM')
+              action: () => openWindow(wrapAppWithHelper(<DoomApp onClose={() => {}} />, 'Doom'), 'DOOM')
             }
           ]
         }
@@ -210,10 +214,24 @@ function DesktopContent() {
           menuItems={menuItems}
         />
       </ErrorBoundary>
-      <ErrorBoundary>
-        <ClippyWithController />
-      </ErrorBoundary>
     </>
+  );
+}
+
+interface DesktopContentProps {
+  onShutdown: () => void;
+}
+
+function DesktopContent({ onShutdown }: DesktopContentProps) {
+  const [helpContext, setHelpContext] = useReactState<string | null>(null);
+
+  return (
+    <ClippyHelperProvider onHelpRequest={setHelpContext} onShutdown={onShutdown}>
+      <DesktopContentInner />
+      <ErrorBoundary>
+        <ClippyWithController helpContext={helpContext} onHelpContextHandled={() => setHelpContext(null)} />
+      </ErrorBoundary>
+    </ClippyHelperProvider>
   );
 }
 
@@ -221,17 +239,30 @@ export default function Home() {
   const [poweredOn, setPoweredOn] = useState(false);
   const [bootComplete, setBootComplete] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
+  const [isShuttingDown, setIsShuttingDown] = useState(false);
+
+  const handleShutdown = () => {
+    setIsShuttingDown(true);
+  };
+
+  const handleShutdownComplete = () => {
+    setPoweredOn(false);
+    setBootComplete(false);
+    setLoggedIn(false);
+    setIsShuttingDown(false);
+  };
 
   return (
     <ClientOnly>
       {!poweredOn && <PowerButton onPowerOn={() => setPoweredOn(true)} />}
       {poweredOn && !bootComplete && <BootScreen onComplete={() => setBootComplete(true)} />}
       {poweredOn && bootComplete && !loggedIn && <LoginScreen onLogin={() => setLoggedIn(true)} />}
-      {poweredOn && bootComplete && loggedIn && (
+      {poweredOn && bootComplete && loggedIn && !isShuttingDown && (
         <WindowManagerProvider>
-          <DesktopContent />
+          <DesktopContent onShutdown={handleShutdown} />
         </WindowManagerProvider>
       )}
+      {isShuttingDown && <ShutdownScreen onComplete={handleShutdownComplete} />}
     </ClientOnly>
   );
 }

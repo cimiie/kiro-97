@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, forwardRef, useImperativeHandle } from 'react';
 import { ClippyAnimation } from '@/types/clippy';
 import { useClippyConversation } from '@/hooks/useClippyConversation';
 import ClippyCharacter from './ClippyCharacter';
@@ -12,6 +12,12 @@ interface ClippyAssistantProps {
   onTokenUsage?: (tokens: number) => void;
   onQuickAction?: (actionId: string) => void;
   onContextChange?: (context: string) => void;
+  helpContext?: string | null;
+  onHelpContextHandled?: () => void;
+}
+
+export interface ClippyAssistantRef {
+  openChatWithContext: (context: string) => void;
 }
 
 interface Position {
@@ -19,19 +25,22 @@ interface Position {
   y: number;
 }
 
-export default function ClippyAssistant({
+const ClippyAssistant = forwardRef<ClippyAssistantRef, ClippyAssistantProps>(({
   maxResponseLength,
   onTokenUsage,
   onQuickAction,
   onContextChange,
-}: ClippyAssistantProps) {
+  helpContext,
+  onHelpContextHandled,
+}, ref) => {
   const [isChatOpen, setIsChatOpen] = useState(false);
+  const [showIntroText, setShowIntroText] = useState(true);
   const [position, setPosition] = useState<Position>(() => {
-    // Only access window on client-side
+    // Only access window on client-side - start in center
     if (typeof window !== 'undefined') {
       return {
-        x: window.innerWidth - 100,
-        y: window.innerHeight - 120,
+        x: (window.innerWidth - 80) / 2,
+        y: (window.innerHeight - 80) / 2,
       };
     }
     return { x: 0, y: 0 };
@@ -59,10 +68,56 @@ export default function ClippyAssistant({
     }
   }, [isChatOpen, messages.length, initializeWelcome]);
 
+  // Handle help context from apps
+  useEffect(() => {
+    if (!helpContext) return;
+
+    const helpActionMap: Record<string, string> = {
+      'Doom': 'play-doom',
+      'Internet Explorer': 'browse-internet',
+      'Minesweeper': 'launch-minesweeper',
+      'Notepad': 'launch-notepad',
+    };
+    const actionId = helpActionMap[helpContext];
+    
+    if (actionId) {
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setShowIntroText(false);
+      // eslint-disable-next-line react-hooks/set-state-in-effect
+      setIsChatOpen(true);
+      
+      // Generate response
+      generateContextualResponse(actionId);
+    }
+    
+    if (onHelpContextHandled) {
+      onHelpContextHandled();
+    }
+  }, [helpContext, generateContextualResponse, onHelpContextHandled]);
+
+  // Expose method to open chat with context
+  useImperativeHandle(ref, () => ({
+    openChatWithContext: (context: string) => {
+      setShowIntroText(false);
+      setIsChatOpen(true);
+      const helpActionMap: Record<string, string> = {
+        'Doom': 'play-doom',
+        'Internet Explorer': 'browse-internet',
+        'Minesweeper': 'launch-minesweeper',
+        'Notepad': 'launch-notepad',
+      };
+      const actionId = helpActionMap[context];
+      if (actionId) {
+        generateContextualResponse(actionId);
+      }
+    },
+  }));
+
   // Derive animation state from isTyping
   const animation: ClippyAnimation = isTyping ? 'thinking' : 'idle';
 
   const handleClippyClick = () => {
+    setShowIntroText(false);
     setIsChatOpen(!isChatOpen);
   };
 
@@ -78,6 +133,7 @@ export default function ClippyAssistant({
       return; // Don't drag if clicking on chat window
     }
     
+    setShowIntroText(false);
     setIsDragging(true);
     setHasMoved(false);
     setDragOffset({
@@ -185,6 +241,16 @@ export default function ClippyAssistant({
         onClick={handleClippyClickInternal}
       />
 
+      {showIntroText && (
+        <div className={styles.introText}>
+          <div className={styles.introTextBubble}>
+            Hi! I&apos;m Clippy! 📎
+            <br />
+            Click me to chat or drag me around!
+          </div>
+        </div>
+      )}
+
       {isChatOpen && (
         <ClippyChatWindow
           messages={messages}
@@ -197,4 +263,8 @@ export default function ClippyAssistant({
       )}
     </div>
   );
-}
+});
+
+ClippyAssistant.displayName = 'ClippyAssistant';
+
+export default ClippyAssistant;

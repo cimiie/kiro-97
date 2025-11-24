@@ -4,6 +4,7 @@ import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import DesktopIcon from './DesktopIcon';
 import { useWindowManager } from '@/contexts/WindowManagerContext';
+import { useClippyHelper } from '@/contexts/ClippyHelperContext';
 import styles from './DesktopIcons.module.css';
 
 // Dynamic imports to avoid SSR issues
@@ -26,16 +27,17 @@ interface IconData {
 export default function DesktopIcons() {
   const [selectedIconId, setSelectedIconId] = useState<string | null>(null);
   const { openWindow } = useWindowManager();
+  const { wrapAppWithHelper } = useClippyHelper();
 
   const handleLaunchApp = (appId: string) => {
     // Handle apps that might be launched from My Computer
     const appMap: Record<string, () => void> = {
       'calculator': () => openWindow(<CalculatorApp />, 'Calculator'),
       'paint': () => openWindow(<Paint />, 'Paint'),
-      'notepad': () => openWindow(<NotepadApp />, 'Notepad'),
-      'internet-explorer': () => openWindow(<MockBrowser />, 'Internet Explorer'),
-      'minesweeper': () => openWindow(<MinesweeperApp />, 'Minesweeper'),
-      'doom': () => openWindow(<DoomApp onClose={() => {}} />, 'DOOM'),
+      'notepad': () => openWindow(wrapAppWithHelper(<NotepadApp />, 'Notepad'), 'Notepad'),
+      'internet-explorer': () => openWindow(wrapAppWithHelper(<MockBrowser />, 'Internet Explorer'), 'Internet Explorer'),
+      'minesweeper': () => openWindow(wrapAppWithHelper(<MinesweeperApp />, 'Minesweeper'), 'Minesweeper'),
+      'doom': () => openWindow(wrapAppWithHelper(<DoomApp onClose={() => {}} />, 'Doom'), 'DOOM'),
       'kiro': () => openWindow(<Kiro />, 'Kiro'),
     };
     
@@ -93,7 +95,7 @@ export default function DesktopIcons() {
       label: 'Notepad',
       iconImage: '📝',
       action: () => {
-        openWindow(<NotepadApp />, 'Notepad');
+        openWindow(wrapAppWithHelper(<NotepadApp />, 'Notepad'), 'Notepad');
       },
     },
     {
@@ -101,7 +103,7 @@ export default function DesktopIcons() {
       label: 'Internet Explorer',
       iconImage: '🌐',
       action: () => {
-        openWindow(<MockBrowser />, 'Internet Explorer');
+        openWindow(wrapAppWithHelper(<MockBrowser />, 'Internet Explorer'), 'Internet Explorer');
       },
     },
     {
@@ -109,7 +111,7 @@ export default function DesktopIcons() {
       label: 'Minesweeper',
       iconImage: '💣',
       action: () => {
-        openWindow(<MinesweeperApp />, 'Minesweeper');
+        openWindow(wrapAppWithHelper(<MinesweeperApp />, 'Minesweeper'), 'Minesweeper');
       },
     },
     {
@@ -117,7 +119,7 @@ export default function DesktopIcons() {
       label: 'DOOM',
       iconImage: '👹',
       action: () => {
-        openWindow(<DoomApp onClose={() => {}} />, 'DOOM');
+        openWindow(wrapAppWithHelper(<DoomApp onClose={() => {}} />, 'Doom'), 'DOOM');
       },
     },
     {
