@@ -204,3 +204,34 @@
   line-height: 1.4;
   margin-bottom: 4px;
 }
+
+.dialogOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.dialogField {
+  margin-bottom: 12px;
+}
+
+.dialogField label {
+  display: block;
+  font-size: 11px;
+  margin-bottom: 4px;
+}
+
+.dialogFolder {
+  padding: 8px;
+  background: white;
+  border: 2px inset #c0c0c0;
+  font-size: 11px;
+  margin-bottom: 8px;
+}

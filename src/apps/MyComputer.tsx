@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
+import { useFileSystem } from '@/contexts/FileSystemContext';
 import styles from './MyComputer.module.css';
 
 interface FileSystemItem {
@@ -11,7 +12,7 @@ interface FileSystemItem {
   children?: FileSystemItem[];
 }
 
-const FILE_SYSTEM: FileSystemItem[] = [
+const getBaseFileSystem = (): FileSystemItem[] => [
   {
     name: 'C:',
     type: 'drive',
@@ -94,9 +95,32 @@ interface MyComputerProps {
 }
 
 export default function MyComputer({ onLaunchApp }: MyComputerProps) {
+  const { listFiles } = useFileSystem();
   const [currentPath, setCurrentPath] = useState<string>('');
   const [pathHistory, setPathHistory] = useState<string[]>(['']);
   const [historyIndex, setHistoryIndex] = useState(0);
+
+  // Build file system with virtual files
+  const FILE_SYSTEM = useMemo(() => {
+    const baseFS = getBaseFileSystem();
+    const virtualFiles = listFiles('C:\\My Documents');
+    
+    // Find My Documents folder and add virtual files
+    const cDrive = baseFS.find(item => item.name === 'C:');
+    if (cDrive?.children) {
+      const myDocs = cDrive.children.find(item => item.name === 'My Documents');
+      if (myDocs) {
+        myDocs.children = virtualFiles.map(vf => ({
+          name: vf.name,
+          type: 'file' as const,
+          icon: vf.icon,
+          path: vf.path
+        }));
+      }
+    }
+    
+    return baseFS;
+  }, [listFiles]);
 
   const getCurrentItems = (): FileSystemItem[] => {
     if (!currentPath) return FILE_SYSTEM;

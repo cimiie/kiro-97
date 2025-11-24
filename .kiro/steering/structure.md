@@ -5,11 +5,13 @@
 ```
 src/
 ├── app/              # Next.js App Router pages and layouts
-│   ├── layout.tsx    # Root layout
+│   ├── layout.tsx    # Root layout (includes FileSystemProvider)
 │   ├── page.tsx      # Home page
 │   └── globals.css   # Global styles
+├── apps/             # Windows 95 applications
 ├── components/       # React components
 ├── contexts/         # React context providers
+│   └── FileSystemContext.tsx  # Virtual file system (in-memory)
 ├── hooks/            # Custom React hooks
 ├── services/         # External service integrations (AWS, MCP)
 ├── types/            # TypeScript type definitions
@@ -38,6 +40,37 @@ Use `@/` for imports from `src/`:
 ```typescript
 import { Component } from '@/components/Component';
 ```
+
+## Virtual File System
+
+The app uses an in-memory virtual file system (`FileSystemContext`) for saving files:
+
+- **Location**: `src/contexts/FileSystemContext.tsx`
+- **Provider**: Wrapped in root layout (`src/app/layout.tsx`)
+- **Default Save Location**: `C:\My Documents`
+- **Persistence**: Memory only (files don't persist across page refreshes)
+
+### Usage in Apps
+
+```typescript
+import { useFileSystem } from '@/contexts/FileSystemContext';
+
+function MyApp() {
+  const { saveFile, listFiles, getFile, deleteFile } = useFileSystem();
+  
+  // Save to My Documents
+  saveFile('myfile.txt', 'content');
+  
+  // List files in My Documents
+  const files = listFiles('C:\\My Documents');
+}
+```
+
+### Apps Using Virtual File System
+
+- **Kiro IDE**: Save files with dialog showing My Documents
+- **Notepad**: Save text files to My Documents
+- **My Computer**: Browse and view saved files in My Documents folder
 
 ## Testing
 

@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef, useCallback, useEffect } from 'react';
+import { useFileSystem } from '@/contexts/FileSystemContext';
 import styles from './Notepad.module.css';
 
 export interface NotepadState {
@@ -15,9 +16,10 @@ interface NotepadAppProps {
   onStateChange?: (state: NotepadState) => void;
 }
 
-type DialogType = 'none' | 'about' | 'find' | 'goto' | 'font';
+type DialogType = 'none' | 'about' | 'find' | 'goto' | 'font' | 'save';
 
 export default function NotepadApp({ initialContent = '', onStateChange }: NotepadAppProps) {
+  const { saveFile } = useFileSystem();
   const [content, setContent] = useState(initialContent);
   const [filename, setFilename] = useState('Untitled');
   const [isModified, setIsModified] = useState(false);
@@ -27,6 +29,7 @@ export default function NotepadApp({ initialContent = '', onStateChange }: Notep
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const [dialog, setDialog] = useState<DialogType>('none');
   const [findText, setFindText] = useState('');
+  const [saveFilename, setSaveFilename] = useState('');
   
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -88,15 +91,21 @@ export default function NotepadApp({ initialContent = '', onStateChange }: Notep
   };
 
   const handleSave = () => {
-    const blob = new Blob([content], { type: 'text/plain' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = filename.endsWith('.txt') ? filename : `${filename}.txt`;
-    a.click();
-    URL.revokeObjectURL(url);
-    setIsModified(false);
+    setSaveFilename(filename.endsWith('.txt') ? filename : `${filename}.txt`);
+    setDialog('save');
     setActiveMenu(null);
+  };
+
+  const confirmSave = () => {
+    if (!saveFilename.trim()) return;
+    
+    // Save to virtual file system (My Documents)
+    saveFile(saveFilename, content);
+    
+    setFilename(saveFilename);
+    setIsModified(false);
+    setDialog('none');
+    setSaveFilename('');
   };
 
   const handleUndo = () => {
@@ -188,6 +197,7 @@ export default function NotepadApp({ initialContent = '', onStateChange }: Notep
   const closeDialog = () => {
     setDialog('none');
     setFindText('');
+    setSaveFilename('');
   };
 
   const toggleMenu = (menu: string) => {
@@ -357,6 +367,42 @@ export default function NotepadApp({ initialContent = '', onStateChange }: Notep
             <button className={styles.dialogButton} onClick={closeDialog}>
               Cancel
             </button>
+          </div>
+        </div>
+      )}
+
+      {dialog === 'save' && (
+        <div className={styles.dialogOverlay}>
+          <div className={styles.dialog}>
+            <div className={styles.dialogTitle}>Save As</div>
+            <div className={styles.dialogContent}>
+              <div className={styles.dialogField}>
+                <label>Save in:</label>
+                <div className={styles.dialogFolder}>📁 My Documents</div>
+              </div>
+              <div className={styles.dialogField}>
+                <label>File name:</label>
+                <input
+                  type="text"
+                  className={styles.dialogInput}
+                  value={saveFilename}
+                  onChange={(e) => setSaveFilename(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') confirmSave();
+                    if (e.key === 'Escape') closeDialog();
+                  }}
+                  autoFocus
+                />
+              </div>
+            </div>
+            <div className={styles.dialogButtons}>
+              <button className={styles.dialogButton} onClick={confirmSave}>
+                Save
+              </button>
+              <button className={styles.dialogButton} onClick={closeDialog}>
+                Cancel
+              </button>
+            </div>
           </div>
         </div>
       )}

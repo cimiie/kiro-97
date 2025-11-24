@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useRef, useCallback } from 'react';
+import { useFileSystem } from '@/contexts/FileSystemContext';
 import styles from './Kiro.module.css';
 
 interface FileTab {
@@ -17,6 +18,7 @@ interface AIMessage {
 }
 
 export default function Kiro() {
+  const { saveFile } = useFileSystem();
   const [files, setFiles] = useState<FileTab[]>([
     { id: '1', name: 'index.html', content: '', language: 'html', isModified: false }
   ]);
@@ -27,6 +29,8 @@ export default function Kiro() {
   const [aiInput, setAiInput] = useState('');
   const [isAIThinking, setIsAIThinking] = useState(false);
   const [cursorPosition, setCursorPosition] = useState({ line: 1, col: 1 });
+  const [showSaveDialog, setShowSaveDialog] = useState(false);
+  const [saveFilename, setSaveFilename] = useState('');
   
   const editorRef = useRef<HTMLTextAreaElement>(null);
   const aiInputRef = useRef<HTMLTextAreaElement>(null);
@@ -105,19 +109,29 @@ export default function Kiro() {
 
   const handleSaveFile = () => {
     if (!activeFile) return;
-    
-    const blob = new Blob([activeFile.content], { type: 'text/plain' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = activeFile.name;
-    a.click();
-    URL.revokeObjectURL(url);
-    
-    setFiles(files.map(f => 
-      f.id === activeFileId ? { ...f, isModified: false } : f
-    ));
+    setSaveFilename(activeFile.name);
+    setShowSaveDialog(true);
     setActiveMenu(null);
+  };
+
+  const confirmSave = () => {
+    if (!activeFile || !saveFilename.trim()) return;
+    
+    // Save to virtual file system (My Documents)
+    saveFile(saveFilename, activeFile.content);
+    
+    // Update file state
+    setFiles(files.map(f => 
+      f.id === activeFileId ? { ...f, name: saveFilename, isModified: false } : f
+    ));
+    
+    setShowSaveDialog(false);
+    setSaveFilename('');
+  };
+
+  const cancelSave = () => {
+    setShowSaveDialog(false);
+    setSaveFilename('');
   };
 
   const handleCloseFile = (fileId: string) => {
@@ -449,6 +463,42 @@ export default function Kiro() {
           </span>
         </div>
       </div>
+
+      {showSaveDialog && (
+        <div className={styles.dialogOverlay}>
+          <div className={styles.dialog}>
+            <div className={styles.dialogTitle}>Save As</div>
+            <div className={styles.dialogContent}>
+              <div className={styles.dialogField}>
+                <label>Save in:</label>
+                <div className={styles.dialogFolder}>📁 My Documents</div>
+              </div>
+              <div className={styles.dialogField}>
+                <label>File name:</label>
+                <input
+                  type="text"
+                  className={styles.dialogInput}
+                  value={saveFilename}
+                  onChange={(e) => setSaveFilename(e.target.value)}
+                  onKeyDown={(e) => {
+                    if (e.key === 'Enter') confirmSave();
+                    if (e.key === 'Escape') cancelSave();
+                  }}
+                  autoFocus
+                />
+              </div>
+            </div>
+            <div className={styles.dialogButtons}>
+              <button className={styles.dialogButton} onClick={confirmSave}>
+                Save
+              </button>
+              <button className={styles.dialogButton} onClick={cancelSave}>
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

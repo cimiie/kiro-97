@@ -340,3 +340,82 @@
   border: 1px inset #c0c0c0;
   background: white;
 }
+
+.dialogOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+}
+
+.dialog {
+  background: #c0c0c0;
+  border: 2px outset #c0c0c0;
+  box-shadow: 4px 4px 0 rgba(0, 0, 0, 0.5);
+  min-width: 400px;
+}
+
+.dialogTitle {
+  background: #000080;
+  color: white;
+  padding: 4px 8px;
+  font-size: 11px;
+  font-weight: bold;
+}
+
+.dialogContent {
+  padding: 16px;
+}
+
+.dialogField {
+  margin-bottom: 12px;
+}
+
+.dialogField label {
+  display: block;
+  font-size: 11px;
+  margin-bottom: 4px;
+}
+
+.dialogFolder {
+  padding: 8px;
+  background: white;
+  border: 2px inset #c0c0c0;
+  font-size: 11px;
+  margin-bottom: 8px;
+}
+
+.dialogInput {
+  width: 100%;
+  padding: 4px;
+  border: 2px inset #c0c0c0;
+  font-family: 'MS Sans Serif', Arial, sans-serif;
+  font-size: 11px;
+}
+
+.dialogButtons {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+  padding: 8px 16px 16px;
+}
+
+.dialogButton {
+  padding: 4px 16px;
+  background: #c0c0c0;
+  border: 2px outset #c0c0c0;
+  font-size: 11px;
+  cursor: pointer;
+  font-family: 'MS Sans Serif', Arial, sans-serif;
+  min-width: 75px;
+}
+
+.dialogButton:active {
+  border-style: inset;
+}
