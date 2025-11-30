@@ -3,6 +3,7 @@ import ErrorBoundary from '@/components/common/ErrorBoundary';
 import { FileSystemProvider } from '@/contexts/FileSystemContext';
 import { SystemSettingsProvider } from '@/contexts/SystemSettingsContext';
 import { InstalledAppsProvider } from '@/contexts/InstalledAppsContext';
+import { TokenProvider } from '@/contexts/TokenContext';
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -21,11 +22,13 @@ export default function RootLayout({
     <html lang="en">
       <body>
         <ErrorBoundary>
-          <SystemSettingsProvider>
-            <InstalledAppsProvider>
-              <FileSystemProvider>{children}</FileSystemProvider>
-            </InstalledAppsProvider>
-          </SystemSettingsProvider>
+          <TokenProvider>
+            <SystemSettingsProvider>
+              <InstalledAppsProvider>
+                <FileSystemProvider>{children}</FileSystemProvider>
+              </InstalledAppsProvider>
+            </SystemSettingsProvider>
+          </TokenProvider>
         </ErrorBoundary>
       </body>
     </html>

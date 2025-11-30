@@ -2,6 +2,7 @@
 
 import { useState, useRef, useCallback } from 'react';
 import { useFileSystem } from '@/contexts/FileSystemContext';
+import { useTokenContext } from '@/contexts/TokenContext';
 import ConfirmDialog from '@/components/common/ConfirmDialog';
 import styles from './KiroIDE.module.css';
 
@@ -20,6 +21,10 @@ interface AIMessage {
 
 export default function Kiro() {
   const { saveFile } = useFileSystem();
+
+  // Use global token context
+  const { handleTokenUsage } = useTokenContext();
+
   const [files, setFiles] = useState<FileTab[]>([
     { id: '1', name: 'index.html', content: '', language: 'html', isModified: false }
   ]);
@@ -208,6 +213,11 @@ export default function Kiro() {
       }
 
       const data = await response.json();
+      
+      // Track token usage
+      if (data.tokensUsed && handleTokenUsage) {
+        handleTokenUsage(data.tokensUsed);
+      }
       
       // Extract code blocks from response
       const codeBlockRegex = /```[\w]*\n([\s\S]*?)```/g;

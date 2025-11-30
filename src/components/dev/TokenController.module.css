@@ -5,6 +5,10 @@
   z-index: 10000;
 }
 
+.tokenControllerInline {
+  display: inline-block;
+}
+
 .display {
   display: flex;
   align-items: center;

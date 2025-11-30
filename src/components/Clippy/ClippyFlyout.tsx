@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { ChatMessage } from '@/types/clippy';
 import { useClippyConversation } from '@/hooks/useClippyConversation';
+import { useTokenContext } from '@/contexts/TokenContext';
 import ClippyCharacter from './ClippyCharacter';
 import styles from './ClippyFlyout.module.css';
 
@@ -16,6 +17,9 @@ export default function ClippyFlyout({ appName, onClose }: ClippyFlyoutProps) {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
+  // Use global token context
+  const { handleTokenUsage, tokensUsed } = useTokenContext();
+
   const {
     messages,
     setMessages,
@@ -24,6 +28,8 @@ export default function ClippyFlyout({ appName, onClose }: ClippyFlyoutProps) {
     generateContextualResponse,
   } = useClippyConversation({
     maxResponseLength: 500,
+    onTokenUsage: handleTokenUsage,
+    sessionTokensUsed: tokensUsed,
   });
 
   // Initialize with a simple welcome message
@@ -101,7 +107,11 @@ export default function ClippyFlyout({ appName, onClose }: ClippyFlyoutProps) {
     <div className={styles.flyout}>
       <div className={styles.header}>
         <div className={styles.headerContent}>
-          <ClippyCharacter animation={isTyping ? 'thinking' : 'idle'} isTyping={isTyping} />
+          <ClippyCharacter
+            animation={isTyping ? 'thinking' : 'idle'}
+            isTyping={isTyping}
+            onClick={() => {}}
+          />
           <span className={styles.title}>Clippy Help - {appName}</span>
         </div>
         <button className={styles.closeButton} onClick={onClose} title="Close">
