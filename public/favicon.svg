@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <g transform="translate(60, 60) rotate(45) translate(-40, -40)">
+    <!-- Top-left square -->
+    <rect x="0" y="0" width="40" height="40" fill="#FF6B35"/>
+    <!-- Top-right square -->
+    <rect x="40" y="0" width="40" height="40" fill="#F7931E"/>
+    <!-- Bottom-left square -->
+    <rect x="0" y="40" width="40" height="40" fill="#FDC830"/>
+    <!-- Bottom-right square -->
+    <rect x="40" y="40" width="40" height="40" fill="#00D9FF"/>
+  </g>
+</svg>
