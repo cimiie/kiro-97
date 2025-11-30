@@ -33,6 +33,7 @@ const DiskDefragmenterApp = dynamic(() => import('@/apps/DiskOptimizer/DiskOptim
 const SystemMonitorApp = dynamic(() => import('@/apps/TaskWatcher/TaskWatcher'), { ssr: false });
 const CommandPromptApp = dynamic(() => import('@/apps/CommandPrompt/CommandPrompt'), { ssr: false });
 const ControlPanelApp = dynamic(() => import('@/apps/ControlPanel/ControlPanel'), { ssr: false });
+const RegistryEditorApp = dynamic(() => import('@/apps/RegistryEditor/RegistryEditor'), { ssr: false });
 
 import { useInstalledApps } from '@/contexts/InstalledAppsContext';
 
@@ -162,6 +163,12 @@ function DesktopContentInner() {
                     }
                     openWindow(<SystemMonitorApp />, 'Task Watcher');
                   }
+                },
+                {
+                  id: 'registry-editor',
+                  label: 'Registry Editor',
+                  icon: '📋',
+                  action: () => openWindow(<RegistryEditorApp />, 'Registry Editor')
                 }
               ]
             }

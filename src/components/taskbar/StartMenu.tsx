@@ -20,8 +20,10 @@ interface StartMenuProps {
 
 export default function StartMenu({ isOpen, onClose, menuItems }: StartMenuProps) {
   const [openSubMenuPath, setOpenSubMenuPath] = useState<string[]>([]);
+  const [invertedMenus, setInvertedMenus] = useState<Set<string>>(new Set());
   const menuRef = useRef<HTMLDivElement>(null);
   const closeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const subMenuRefs = useRef<Map<string, HTMLDivElement>>(new Map());
 
   useEffect(() => {
     if (!isOpen) {
@@ -78,9 +80,33 @@ export default function StartMenu({ isOpen, onClose, menuItems }: StartMenuProps
     }, 200);
   };
 
+  const checkOverflow = (menuKey: string) => {
+    requestAnimationFrame(() => {
+      const subMenuElement = subMenuRefs.current.get(menuKey);
+      
+      if (subMenuElement) {
+        const rect = subMenuElement.getBoundingClientRect();
+        const viewportWidth = window.innerWidth;
+        
+        if (rect.right > viewportWidth - 10) {
+          setInvertedMenus(prev => new Set(prev).add(menuKey));
+        } else {
+          setInvertedMenus(prev => {
+            const newSet = new Set(prev);
+            newSet.delete(menuKey);
+            return newSet;
+          });
+        }
+      }
+    });
+  };
+
   const handleItemEnter = (itemId: string, parentPath: string[]) => {
     clearCloseTimeout();
     setOpenSubMenuPath([...parentPath, itemId]);
+    
+    const menuKey = [...parentPath, itemId].join('-');
+    checkOverflow(menuKey);
   };
 
   const isItemOpen = (itemId: string, parentPath: string[]): boolean => {
@@ -92,6 +118,8 @@ export default function StartMenu({ isOpen, onClose, menuItems }: StartMenuProps
   const renderMenuItem = (item: MenuItem, level: number = 0, parentPath: string[] = []): JSX.Element => {
     const hasSubItems = item.subItems && item.subItems.length > 0;
     const isOpen = isItemOpen(item.id, parentPath);
+    const menuKey = [...parentPath, item.id].join('-');
+    const isInverted = invertedMenus.has(menuKey);
 
     const itemClass = level === 0 ? styles.menuItem : styles.subMenuItem;
     const wrapperClass = level === 0 ? styles.menuItemWrapper : styles.subMenuItemWrapper;
@@ -124,12 +152,20 @@ export default function StartMenu({ isOpen, onClose, menuItems }: StartMenuProps
           )}
           <span className={styles.menuLabel}>{item.label}</span>
           {hasSubItems && (
-            <span className={styles.menuArrow}>▶</span>
+            <span className={styles.menuArrow}>{isInverted ? '◀' : '▶'}</span>
           )}
         </div>
         {hasSubItems && isOpen && (
           <div 
-            className={level === 0 ? styles.subMenu : styles.nestedSubMenu}
+            ref={(el) => {
+              if (el) {
+                subMenuRefs.current.set(menuKey, el);
+                checkOverflow(menuKey);
+              } else {
+                subMenuRefs.current.delete(menuKey);
+              }
+            }}
+            className={`${level === 0 ? styles.subMenu : styles.nestedSubMenu} ${isInverted ? styles.inverted : ''}`}
             onMouseEnter={clearCloseTimeout}
             onMouseLeave={scheduleClose}
           >
