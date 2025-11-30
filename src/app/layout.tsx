@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import ErrorBoundary from '@/components/ErrorBoundary';
+import ErrorBoundary from '@/components/common/ErrorBoundary';
 import { FileSystemProvider } from '@/contexts/FileSystemContext';
 import { SystemSettingsProvider } from '@/contexts/SystemSettingsContext';
 import { InstalledAppsProvider } from '@/contexts/InstalledAppsContext';

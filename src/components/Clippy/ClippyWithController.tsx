@@ -2,7 +2,7 @@
 
 import { useState, useCallback, useRef } from 'react';
 import ClippyAssistant from './ClippyAssistant';
-import TokenController from '../TokenController';
+import TokenController from '../dev/TokenController';
 import { useWindowManager } from '@/contexts/WindowManagerContext';
 import MinesweeperApp from '@/apps/BombSweeper/BombSweeper';
 import NotepadApp from '@/apps/WordWrite/WordWrite';
