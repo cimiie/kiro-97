@@ -1,12 +1,16 @@
 'use client';
 
 import { useState } from 'react';
+import { useSystemSettings, WallpaperOption, ColorDepth, Resolution, Theme } from '@/contexts/SystemSettingsContext';
 import styles from './ControlPanelApp.module.css';
 
 type PanelView = 'main' | 'display' | 'system' | 'sounds' | 'datetime' | 'programs';
+type DisplayTab = 'background' | 'appearance' | 'settings';
 
 export default function ControlPanelApp() {
   const [view, setView] = useState<PanelView>('main');
+  const [displayTab, setDisplayTab] = useState<DisplayTab>('background');
+  const { settings, updateWallpaper, updateColorDepth, updateResolution, updateTheme } = useSystemSettings();
 
   const renderMain = () => (
     <div className={styles.iconGrid}>
@@ -52,35 +56,126 @@ export default function ControlPanelApp() {
         <h2>Display Properties</h2>
       </div>
       <div className={styles.tabs}>
-        <button className={styles.tab}>Background</button>
-        <button className={styles.tab}>Screen Saver</button>
-        <button className={styles.tab}>Appearance</button>
-        <button className={styles.tab}>Settings</button>
+        <button 
+          className={`${styles.tab} ${displayTab === 'background' ? styles.activeTab : ''}`}
+          onClick={() => setDisplayTab('background')}
+        >
+          Background
+        </button>
+        <button 
+          className={`${styles.tab} ${displayTab === 'appearance' ? styles.activeTab : ''}`}
+          onClick={() => setDisplayTab('appearance')}
+        >
+          Appearance
+        </button>
+        <button 
+          className={`${styles.tab} ${displayTab === 'settings' ? styles.activeTab : ''}`}
+          onClick={() => setDisplayTab('settings')}
+        >
+          Settings
+        </button>
       </div>
       <div className={styles.panelContent}>
-        <div className={styles.field}>
-          <label>Wallpaper:</label>
-          <select className={styles.select}>
-            <option>(None)</option>
-            <option>Clouds</option>
-            <option>Setup</option>
-          </select>
-        </div>
-        <div className={styles.field}>
-          <label>Colors:</label>
-          <select className={styles.select}>
-            <option>256 Colors</option>
-            <option>High Color (16 bit)</option>
-            <option>True Color (24 bit)</option>
-          </select>
-        </div>
-        <div className={styles.field}>
-          <label>Resolution:</label>
-          <select className={styles.select}>
-            <option>640 x 480</option>
-            <option>800 x 600</option>
-            <option>1024 x 768</option>
-          </select>
+        {displayTab === 'background' && (
+          <>
+            <div className={styles.previewSection}>
+              <div className={styles.previewLabel}>Preview:</div>
+              <div className={styles.preview} data-wallpaper={settings.wallpaper}>
+                <div className={styles.previewWindow}>
+                  <div className={styles.previewTitleBar}></div>
+                  <div className={styles.previewContent}></div>
+                </div>
+              </div>
+            </div>
+            <div className={styles.field}>
+              <label>Wallpaper:</label>
+              <select 
+                className={styles.select}
+                value={settings.wallpaper}
+                onChange={(e) => updateWallpaper(e.target.value as WallpaperOption)}
+              >
+                <option value="none">(None)</option>
+                <option value="teal">Teal (Classic)</option>
+                <option value="clouds">Clouds</option>
+                <option value="kiro-logo">Kiro Logo</option>
+              </select>
+            </div>
+          </>
+        )}
+        {displayTab === 'appearance' && (
+          <>
+            <div className={styles.field}>
+              <label>Theme:</label>
+              <div className={styles.themeOptions}>
+                <label className={styles.themeOption}>
+                  <input
+                    type="radio"
+                    name="theme"
+                    value="retro"
+                    checked={settings.theme === 'retro'}
+                    onChange={(e) => updateTheme(e.target.value as Theme)}
+                  />
+                  <div className={styles.themeInfo}>
+                    <div className={styles.themeName}>Retro (Classic Windows 98)</div>
+                    <div className={styles.themeColors}>
+                      <div className={styles.colorSwatch} style={{ background: '#008080' }}></div>
+                      <div className={styles.colorSwatch} style={{ background: '#000080' }}></div>
+                      <div className={styles.colorSwatch} style={{ background: '#c0c0c0' }}></div>
+                    </div>
+                  </div>
+                </label>
+                <label className={styles.themeOption}>
+                  <input
+                    type="radio"
+                    name="theme"
+                    value="kiro"
+                    checked={settings.theme === 'kiro'}
+                    onChange={(e) => updateTheme(e.target.value as Theme)}
+                  />
+                  <div className={styles.themeInfo}>
+                    <div className={styles.themeName}>Kiro (Modern Vibrant)</div>
+                    <div className={styles.themeColors}>
+                      <div className={styles.colorSwatch} style={{ background: '#FF6B35' }}></div>
+                      <div className={styles.colorSwatch} style={{ background: '#F7931E' }}></div>
+                      <div className={styles.colorSwatch} style={{ background: '#FDC830' }}></div>
+                      <div className={styles.colorSwatch} style={{ background: '#00D9FF' }}></div>
+                    </div>
+                  </div>
+                </label>
+              </div>
+            </div>
+          </>
+        )}
+        {displayTab === 'settings' && (
+          <>
+            <div className={styles.field}>
+              <label>Colors:</label>
+              <select 
+                className={styles.select}
+                value={settings.colorDepth}
+                onChange={(e) => updateColorDepth(e.target.value as ColorDepth)}
+              >
+                <option value="16">16 Color</option>
+                <option value="256">256 Color</option>
+              </select>
+            </div>
+            <div className={styles.field}>
+              <label>Resolution:</label>
+              <select 
+                className={styles.select}
+                value={settings.resolution}
+                onChange={(e) => updateResolution(e.target.value as Resolution)}
+              >
+                <option value="800x600">800 x 600</option>
+                <option value="1024x768">1024 x 768</option>
+              </select>
+            </div>
+          </>
+        )}
+        <div className={styles.buttonRow}>
+          <button className={styles.button} onClick={() => setView('main')}>OK</button>
+          <button className={styles.button} onClick={() => setView('main')}>Cancel</button>
+          <button className={styles.button}>Apply</button>
         </div>
       </div>
     </div>

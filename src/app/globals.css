@@ -1,6 +1,6 @@
 /* Windows 95 Theme Configuration */
 :root {
-  /* Windows 95 Color Palette */
+  /* Windows 95 Color Palette - Retro Theme (Default) */
   --win95-gray: #c0c0c0;
   --win95-white: #ffffff;
   --win95-black: #000000;
@@ -36,6 +36,16 @@
   
   /* Shadows */
   --win95-shadow: 1px 1px 0 #000000;
+}
+
+/* Kiro Theme - Vibrant Modern Colors */
+[data-theme="kiro"] {
+  --win95-desktop-teal: #FF6B35;
+  --win95-title-bar-blue: #F7931E;
+  --win95-title-bar-gradient-end: #FDC830;
+  --win95-selection-blue: #00D9FF;
+  --win95-gray: #f0f0f0;
+  --win95-light-gray: #ffffff;
 }
 
 * {

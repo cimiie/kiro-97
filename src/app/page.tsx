@@ -166,10 +166,10 @@ function DesktopContentInner() {
       icon: '⚙️',
       subItems: [
         {
-          id: 'system-settings',
-          label: 'System Settings',
+          id: 'control-panel',
+          label: 'Control Panel',
           icon: '🎛️',
-          action: () => openWindow(<ControlPanelApp />, 'System Settings')
+          action: () => openWindow(<ControlPanelApp />, 'Control Panel')
         }
       ]
     },

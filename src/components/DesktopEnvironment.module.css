@@ -5,4 +5,84 @@
   position: relative;
   overflow: hidden;
   font-family: var(--win95-font-family);
+  transition: background 0.3s ease;
+}
+
+/* Wallpaper styles */
+:global([data-wallpaper="none"]) .desktop {
+  background: #000;
+}
+
+:global([data-wallpaper="teal"]) .desktop {
+  background: #008080;
+}
+
+:global([data-wallpaper="clouds"]) .desktop {
+  background: linear-gradient(to bottom, #87CEEB 0%, #E0F6FF 50%, #87CEEB 100%);
+  background-image: url('/clouds-wallpaper.svg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+:global([data-wallpaper="kiro-logo"]) .desktop {
+  background: linear-gradient(135deg, #FF6B35 0%, #F7931E 33%, #FDC830 66%, #00D9FF 100%);
+  background-image: url('/kiro-logo-wallpaper.svg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+/* Color depth effects - apply to entire body */
+:global(body[data-color-depth="16"]) {
+  /* Strong posterize effect to simulate 16 colors - reduces color gradations dramatically */
+  filter: 
+    contrast(1.8) 
+    saturate(0.4) 
+    brightness(0.85)
+    hue-rotate(5deg);
+}
+
+:global(body[data-color-depth="16"])::after {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  /* Dithering pattern to simulate color banding */
+  background: 
+    repeating-conic-gradient(
+      from 0deg,
+      rgba(0, 0, 0, 0.08) 0deg 90deg,
+      transparent 90deg 180deg
+    );
+  background-size: 2px 2px;
+  mix-blend-mode: overlay;
+  opacity: 0.6;
+}
+
+:global(body[data-color-depth="16"]) * {
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+}
+
+:global(body[data-color-depth="256"]) {
+  filter: none;
+}
+
+/* Resolution-based pixelation - apply to entire body */
+:global(body[data-resolution="800x600"]) {
+  filter: blur(0.4px) contrast(1.05);
+}
+
+:global(body[data-resolution="800x600"]) * {
+  image-rendering: -moz-crisp-edges;
+  image-rendering: pixelated;
+}
+
+:global(body[data-resolution="1024x768"]) {
+  filter: none;
 }
