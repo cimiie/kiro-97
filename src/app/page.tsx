@@ -37,7 +37,11 @@ const RegistryEditorApp = dynamic(() => import('@/apps/RegistryEditor/RegistryEd
 
 import { useInstalledApps } from '@/contexts/InstalledAppsContext';
 
-function DesktopContentInner() {
+interface DesktopContentInnerProps {
+  onShutdown: () => void;
+}
+
+function DesktopContentInner({ onShutdown }: DesktopContentInnerProps) {
   const { windows, restoreWindow, focusWindow, openWindow } = useWindowManager();
   const { wrapAppWithHelper } = useClippyHelper();
   const { isAppInstalled } = useInstalledApps();
@@ -265,7 +269,7 @@ function DesktopContentInner() {
       id: 'shutdown',
       label: 'Shut Down...',
       icon: '🔌',
-      action: () => console.log('Shutdown')
+      action: onShutdown
     }
   ];
 
@@ -297,7 +301,7 @@ function DesktopContent({ onShutdown }: DesktopContentProps) {
 
   return (
     <ClippyHelperProvider onHelpRequest={setHelpContext} onShutdown={onShutdown}>
-      <DesktopContentInner />
+      <DesktopContentInner onShutdown={onShutdown} />
       <ErrorBoundary>
         <ClippyWithController 
           helpContext={helpContext} 
@@ -330,7 +334,7 @@ export default function Home() {
     <ClientOnly>
       {!poweredOn && <PowerButton onPowerOn={() => setPoweredOn(true)} />}
       {poweredOn && !bootComplete && <BootScreen onComplete={() => setBootComplete(true)} />}
-      {poweredOn && bootComplete && !loggedIn && <LoginScreen onLogin={() => setLoggedIn(true)} />}
+      {poweredOn && bootComplete && !loggedIn && <LoginScreen onLogin={() => setLoggedIn(true)} onShutdown={handleShutdown} />}
       {poweredOn && bootComplete && loggedIn && !isShuttingDown && (
         <WindowManagerProvider>
           <DesktopContent onShutdown={handleShutdown} />

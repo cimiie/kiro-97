@@ -8,13 +8,16 @@ interface BootScreenProps {
 }
 
 export default function BootScreen({ onComplete }: BootScreenProps) {
-  const [dots, setDots] = useState('');
+  const [progress, setProgress] = useState(0);
 
   useEffect(() => {
-    // Animate loading dots
-    const dotInterval = setInterval(() => {
-      setDots(prev => prev.length >= 3 ? '' : prev + '.');
-    }, 500);
+    // Update progress bar every 50ms for smooth animation
+    const progressInterval = setInterval(() => {
+      setProgress(prev => {
+        if (prev >= 100) return 100;
+        return prev + 2; // 2% every 50ms = 100% in 2.5 seconds
+      });
+    }, 50);
 
     // Complete boot after 5 seconds
     const bootTimer = setTimeout(() => {
@@ -22,7 +25,7 @@ export default function BootScreen({ onComplete }: BootScreenProps) {
     }, 5000);
 
     return () => {
-      clearInterval(dotInterval);
+      clearInterval(progressInterval);
       clearTimeout(bootTimer);
     };
   }, [onComplete]);
@@ -39,8 +42,10 @@ export default function BootScreen({ onComplete }: BootScreenProps) {
           </div>
         </div>
         <div className={styles.title}>Kiro 97</div>
-        <div className={styles.loading}>
-          Starting Kiro{dots}
+        <div className={styles.progressContainer}>
+          <div className={styles.progressBar}>
+            <div className={styles.progressFill} style={{ width: `${progress}%` }}></div>
+          </div>
         </div>
       </div>
     </div>

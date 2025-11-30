@@ -16,13 +16,11 @@ export default function PowerButton({ onPowerOn }: PowerButtonProps) {
       >
         <div className={styles.powerIcon}>
           <div className={styles.powerSymbol}></div>
-          <div className={styles.scaryFace}></div>
-          <div className={styles.scaryMouth}></div>
         </div>
       </button>
 
       <div className={styles.instruction}>
-        Click to awaken the machine...
+        Press power button to start
       </div>
     </div>
   );

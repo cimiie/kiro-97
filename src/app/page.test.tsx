@@ -5,7 +5,7 @@ import Home from './page';
 describe('Home Page', () => {
   it('renders the power button initially', () => {
     render(<Home />);
-    expect(screen.getByText('Click to awaken the machine...')).toBeInTheDocument();
+    expect(screen.getByText('Press power button to start')).toBeInTheDocument();
     expect(screen.getByLabelText('Power On')).toBeInTheDocument();
   });
 
@@ -16,6 +16,7 @@ describe('Home Page', () => {
     fireEvent.click(powerButton);
     
     expect(screen.getByText('Kiro 97')).toBeInTheDocument();
-    expect(screen.getByText(/Starting Kiro/)).toBeInTheDocument();
+    // Check that we're no longer on the power screen
+    expect(screen.queryByText('Press power button to start')).not.toBeInTheDocument();
   });
 });

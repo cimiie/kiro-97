@@ -4,7 +4,7 @@
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: linear-gradient(135deg, #0a0a0a 0%, #1a0a1a 50%, #2a0a0a 100%);
+  background: #008080;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -14,83 +14,32 @@
   overflow: hidden;
 }
 
-.powerScreen::before {
-  content: '';
-  position: absolute;
-  width: 200%;
-  height: 200%;
-  background: 
-    radial-gradient(circle at 20% 30%, rgba(139, 0, 139, 0.1) 0%, transparent 50%),
-    radial-gradient(circle at 80% 70%, rgba(255, 69, 0, 0.1) 0%, transparent 50%);
-  animation: ghostlyMove 20s ease-in-out infinite;
-}
-
-@keyframes ghostlyMove {
-  0%, 100% {
-    transform: translate(0, 0);
-  }
-  50% {
-    transform: translate(-50px, -50px);
-  }
-}
-
 
 
 .powerButton {
-  width: 160px;
-  height: 160px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
-  background: linear-gradient(145deg, #1a0a0a, #0a0000);
-  border: 8px solid #2a0a0a;
-  box-shadow: 
-    0 8px 30px rgba(255, 69, 0, 0.4),
-    inset 0 2px 4px rgba(255, 100, 0, 0.2),
-    inset 0 -2px 4px rgba(0, 0, 0, 0.8);
+  background: #c0c0c0;
+  border: 2px outset #ffffff;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.4);
   cursor: pointer;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  transition: all 0.3s ease;
-  animation: spookyPulse 2s ease-in-out infinite;
+  transition: all 0.1s ease;
   position: relative;
 }
 
-@keyframes spookyPulse {
-  0%, 100% {
-    box-shadow: 
-      0 8px 30px rgba(255, 69, 0, 0.4),
-      inset 0 2px 4px rgba(255, 100, 0, 0.2),
-      inset 0 -2px 4px rgba(0, 0, 0, 0.8),
-      0 0 30px rgba(255, 69, 0, 0.3);
-  }
-  50% {
-    box-shadow: 
-      0 8px 30px rgba(255, 69, 0, 0.6),
-      inset 0 2px 4px rgba(255, 100, 0, 0.3),
-      inset 0 -2px 4px rgba(0, 0, 0, 0.8),
-      0 0 60px rgba(255, 69, 0, 0.6);
-  }
-}
-
 .powerButton:hover {
-  background: linear-gradient(145deg, #2a0a0a, #1a0000);
-  transform: scale(1.08) rotate(5deg);
-  box-shadow: 
-    0 12px 40px rgba(255, 69, 0, 0.7),
-    inset 0 2px 4px rgba(255, 100, 0, 0.4),
-    inset 0 -2px 4px rgba(0, 0, 0, 0.8),
-    0 0 80px rgba(255, 69, 0, 0.8);
+  background: #d0d0d0;
 }
 
 .powerButton:active {
-  transform: scale(0.95) rotate(-5deg);
-  background: linear-gradient(145deg, #0a0000, #000000);
-  box-shadow: 
-    0 4px 20px rgba(255, 0, 0, 0.9),
-    inset 0 4px 8px rgba(0, 0, 0, 0.9),
-    0 0 100px rgba(255, 0, 0, 1);
+  border: 2px inset #ffffff;
+  box-shadow: inset 2px 2px 4px rgba(0, 0, 0, 0.4);
 }
 
 .powerIcon {
@@ -106,203 +55,35 @@
   position: absolute;
   width: 100%;
   height: 100%;
-  transition: all 0.3s ease;
 }
 
-/* Power symbol line becomes nose */
 .powerSymbol::before {
   content: '';
   position: absolute;
   top: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 5px;
-  height: 32px;
-  background: #ff4500;
-  border-radius: 3px;
-  box-shadow: 0 0 15px rgba(255, 69, 0, 0.8);
-  transition: all 0.3s ease;
+  width: 4px;
+  height: 30px;
+  background: #008000;
+  border-radius: 2px;
 }
 
-/* Power symbol circle becomes head outline */
 .powerSymbol::after {
   content: '';
   position: absolute;
-  top: 16px;
+  top: 15px;
   left: 50%;
   transform: translateX(-50%);
-  width: 48px;
-  height: 48px;
-  border: 5px solid #ff4500;
+  width: 45px;
+  height: 45px;
+  border: 4px solid #008000;
   border-radius: 50%;
   border-top-color: transparent;
-  box-shadow: 0 0 15px rgba(255, 69, 0, 0.8);
-  transition: all 0.3s ease;
-}
-
-/* Eyes appear on hover */
-.scaryFace {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-/* Left eye */
-.scaryFace::before {
-  content: '';
-  position: absolute;
-  top: 28px;
-  left: 18px;
-  width: 6px;
-  height: 10px;
-  background: #ff6600;
-  border-radius: 50%;
-  box-shadow: 0 0 10px rgba(255, 102, 0, 1);
-}
-
-/* Right eye */
-.scaryFace::after {
-  content: '';
-  position: absolute;
-  top: 28px;
-  right: 18px;
-  width: 6px;
-  height: 10px;
-  background: #ff6600;
-  border-radius: 50%;
-  box-shadow: 0 0 10px rgba(255, 102, 0, 1);
-}
-
-/* Wide open mouth with teeth */
-.scaryMouth {
-  position: absolute;
-  bottom: 6px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 32px;
-  height: 20px;
-  background: #000000;
-  border: 3px solid #ff6600;
-  border-radius: 50%;
-  box-shadow: 
-    0 0 10px rgba(255, 102, 0, 1),
-    inset 0 0 5px rgba(255, 69, 0, 0.5);
-  opacity: 0;
-  transition: opacity 0.3s ease;
-}
-
-/* Top teeth */
-.scaryMouth::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 24px;
-  height: 6px;
-  background: 
-    linear-gradient(90deg, 
-      transparent 0%, transparent 8%,
-      #ff6600 8%, #ff6600 17%,
-      transparent 17%, transparent 25%,
-      #ff6600 25%, #ff6600 34%,
-      transparent 34%, transparent 42%,
-      #ff6600 42%, #ff6600 51%,
-      transparent 51%, transparent 59%,
-      #ff6600 59%, #ff6600 68%,
-      transparent 68%, transparent 76%,
-      #ff6600 76%, #ff6600 85%,
-      transparent 85%, transparent 100%
-    );
-  box-shadow: 0 0 5px rgba(255, 102, 0, 0.8);
-}
-
-/* Bottom teeth */
-.scaryMouth::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 24px;
-  height: 6px;
-  background: 
-    linear-gradient(90deg, 
-      transparent 0%, transparent 8%,
-      #ff6600 8%, #ff6600 17%,
-      transparent 17%, transparent 25%,
-      #ff6600 25%, #ff6600 34%,
-      transparent 34%, transparent 42%,
-      #ff6600 42%, #ff6600 51%,
-      transparent 51%, transparent 59%,
-      #ff6600 59%, #ff6600 68%,
-      transparent 68%, transparent 76%,
-      #ff6600 76%, #ff6600 85%,
-      transparent 85%, transparent 100%
-    );
-  box-shadow: 0 0 5px rgba(255, 102, 0, 0.8);
-}
-
-.powerButton:hover .powerSymbol::before {
-  height: 20px;
-  top: 22px;
-  width: 4px;
-}
-
-.powerButton:hover .powerSymbol::after {
-  border-color: #ff6600;
-  border-top-color: #ff6600;
-  box-shadow: 0 0 25px rgba(255, 102, 0, 1);
-}
-
-.powerButton:hover .scaryFace,
-.powerButton:hover .scaryMouth {
-  opacity: 1;
-}
-
-.powerButton:active .powerSymbol::before,
-.powerButton:active .powerSymbol::after {
-  background: #ff0000;
-  border-color: #ff0000;
-  box-shadow: 0 0 35px rgba(255, 0, 0, 1);
-}
-
-.powerLabel {
-  font-family: 'MS Sans Serif', Arial, sans-serif;
-  font-size: 12px;
-  font-weight: bold;
-  color: #ff4500;
-  letter-spacing: 3px;
-  text-shadow: 0 0 10px rgba(255, 69, 0, 0.8);
-  animation: flicker 0.3s ease-in-out infinite;
-}
-
-@keyframes flicker {
-  0%, 100% {
-    opacity: 1;
-  }
-  50% {
-    opacity: 0.7;
-  }
 }
 
 .instruction {
   font-family: 'MS Sans Serif', Arial, sans-serif;
-  font-size: 16px;
-  color: #ff8c00;
-  animation: spookyBlink 1.5s ease-in-out infinite;
-  text-shadow: 0 0 10px rgba(255, 140, 0, 0.5);
-}
-
-@keyframes spookyBlink {
-  0%, 100% {
-    opacity: 1;
-    color: #ff8c00;
-  }
-  50% {
-    opacity: 0.4;
-    color: #ff4500;
-  }
+  font-size: 14px;
+  color: #ffffff;
 }

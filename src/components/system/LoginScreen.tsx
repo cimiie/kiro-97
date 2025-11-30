@@ -5,16 +5,22 @@ import styles from './LoginScreen.module.css';
 
 interface LoginScreenProps {
   onLogin: () => void;
+  onShutdown?: () => void;
 }
 
-export default function LoginScreen({ onLogin }: LoginScreenProps) {
+export default function LoginScreen({ onLogin, onShutdown }: LoginScreenProps) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Accept any credentials for demo purposes
     onLogin();
+  };
+
+  const handleShutdown = () => {
+    if (onShutdown) {
+      onShutdown();
+    }
   };
 
   return (
@@ -66,20 +72,13 @@ export default function LoginScreen({ onLogin }: LoginScreenProps) {
 
           <div className={styles.buttons}>
             <button type="submit" className={styles.button}>
-              OK
+              Log In
             </button>
-            <button type="button" className={styles.button}>
-              Cancel
-            </button>
-            <button type="button" className={styles.button}>
-              Shut Down...
+            <button type="button" className={styles.button} onClick={handleShutdown}>
+              Shut Down
             </button>
           </div>
         </form>
-
-        <div className={styles.footer}>
-          Press Ctrl+Alt+Delete to log on
-        </div>
       </div>
     </div>
   );
