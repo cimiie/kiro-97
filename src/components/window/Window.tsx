@@ -174,34 +174,58 @@ export default function Window({
       <div
         className={`${styles.resizeHandle} ${styles.resizeN}`}
         onMouseDown={(e) => handleMouseDownResize(e, 'n')}
+        aria-label="Resize north"
+        role="button"
+        tabIndex={-1}
       />
       <div
         className={`${styles.resizeHandle} ${styles.resizeS}`}
         onMouseDown={(e) => handleMouseDownResize(e, 's')}
+        aria-label="Resize south"
+        role="button"
+        tabIndex={-1}
       />
       <div
         className={`${styles.resizeHandle} ${styles.resizeE}`}
         onMouseDown={(e) => handleMouseDownResize(e, 'e')}
+        aria-label="Resize east"
+        role="button"
+        tabIndex={-1}
       />
       <div
         className={`${styles.resizeHandle} ${styles.resizeW}`}
         onMouseDown={(e) => handleMouseDownResize(e, 'w')}
+        aria-label="Resize west"
+        role="button"
+        tabIndex={-1}
       />
       <div
         className={`${styles.resizeHandle} ${styles.resizeNE}`}
         onMouseDown={(e) => handleMouseDownResize(e, 'ne')}
+        aria-label="Resize northeast"
+        role="button"
+        tabIndex={-1}
       />
       <div
         className={`${styles.resizeHandle} ${styles.resizeNW}`}
         onMouseDown={(e) => handleMouseDownResize(e, 'nw')}
+        aria-label="Resize northwest"
+        role="button"
+        tabIndex={-1}
       />
       <div
         className={`${styles.resizeHandle} ${styles.resizeSE}`}
         onMouseDown={(e) => handleMouseDownResize(e, 'se')}
+        aria-label="Resize southeast"
+        role="button"
+        tabIndex={-1}
       />
       <div
         className={`${styles.resizeHandle} ${styles.resizeSW}`}
         onMouseDown={(e) => handleMouseDownResize(e, 'sw')}
+        aria-label="Resize southwest"
+        role="button"
+        tabIndex={-1}
       />
     </div>
   );

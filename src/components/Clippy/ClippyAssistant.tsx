@@ -88,13 +88,12 @@ const ClippyAssistant = forwardRef<ClippyAssistantRef, ClippyAssistantProps>(({
     const actionId = helpActionMap[helpContext];
     
     if (actionId) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setShowIntroText(false);
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      setIsChatOpen(true);
-      
-      // Generate response
-      generateContextualResponse(actionId);
+      // Use setTimeout to avoid synchronous state updates in effect
+      setTimeout(() => {
+        setShowIntroText(false);
+        setIsChatOpen(true);
+        generateContextualResponse(actionId);
+      }, 0);
     }
     
     if (onHelpContextHandled) {
@@ -265,6 +264,12 @@ const ClippyAssistant = forwardRef<ClippyAssistantRef, ClippyAssistantProps>(({
     return () => {
       document.removeEventListener('mousemove', handleMouseMove);
       document.removeEventListener('mouseup', handleMouseUp);
+      
+      // Cleanup: remove hover class from trash icon on unmount
+      const trashIcon = document.querySelector('[data-icon-id="trash"]');
+      if (trashIcon) {
+        trashIcon.classList.remove('clippy-hover');
+      }
     };
   }, [isDragging, dragOffset, onShutdown]);
 

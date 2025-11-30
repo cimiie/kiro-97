@@ -296,7 +296,7 @@ interface DesktopContentProps {
 }
 
 function DesktopContent({ onShutdown }: DesktopContentProps) {
-  const [helpContext, setHelpContext] = useReactState<string | null>(null);
+  const [helpContext, setHelpContext] = useState<string | null>(null);
 
   return (
     <ClippyHelperProvider onHelpRequest={setHelpContext} onShutdown={onShutdown}>

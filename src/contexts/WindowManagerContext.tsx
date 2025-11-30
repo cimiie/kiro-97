@@ -36,7 +36,7 @@ export function WindowManagerProvider({ children }: { children: ReactNode }) {
   const [nextZIndex, setNextZIndex] = useState(INITIAL_Z_INDEX);
 
   const openWindow = useCallback((component: ReactNode, title: string): string => {
-    const id = `window-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+    const id = `window-${Date.now()}-${Math.random().toString(36).substring(2, 11)}`;
     const newWindow: WindowInstance = {
       id,
       component,

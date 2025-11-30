@@ -2,6 +2,7 @@
 
 import { useState, useRef, useCallback } from 'react';
 import { useFileSystem } from '@/contexts/FileSystemContext';
+import ConfirmDialog from '@/components/common/ConfirmDialog';
 import styles from './KiroIDE.module.css';
 
 interface FileTab {
@@ -31,6 +32,8 @@ export default function Kiro() {
   const [cursorPosition, setCursorPosition] = useState({ line: 1, col: 1 });
   const [showSaveDialog, setShowSaveDialog] = useState(false);
   const [saveFilename, setSaveFilename] = useState('');
+  const [showCloseConfirm, setShowCloseConfirm] = useState(false);
+  const [fileToClose, setFileToClose] = useState<string | null>(null);
   
   const editorRef = useRef<HTMLTextAreaElement>(null);
   const aiInputRef = useRef<HTMLTextAreaElement>(null);
@@ -137,10 +140,15 @@ export default function Kiro() {
   const handleCloseFile = (fileId: string) => {
     const file = files.find(f => f.id === fileId);
     if (file?.isModified) {
-      const confirm = window.confirm(`Save changes to ${file.name}?`);
-      if (confirm) return;
+      setFileToClose(fileId);
+      setShowCloseConfirm(true);
+      return;
     }
     
+    closeFileConfirmed(fileId);
+  };
+
+  const closeFileConfirmed = (fileId: string) => {
     const newFiles = files.filter(f => f.id !== fileId);
     if (newFiles.length === 0) {
       handleNewFile();
@@ -151,6 +159,19 @@ export default function Kiro() {
     if (activeFileId === fileId) {
       setActiveFileId(newFiles[0].id);
     }
+  };
+
+  const handleConfirmClose = () => {
+    if (fileToClose) {
+      closeFileConfirmed(fileToClose);
+    }
+    setShowCloseConfirm(false);
+    setFileToClose(null);
+  };
+
+  const handleCancelClose = () => {
+    setShowCloseConfirm(false);
+    setFileToClose(null);
   };
 
   const toggleMenu = (menu: string) => {
@@ -292,20 +313,20 @@ export default function Kiro() {
           </button>
           {activeMenu === 'edit' && (
             <div className={styles.dropdown}>
-              <button className={styles.dropdownItem} onClick={() => document.execCommand('undo')}>
+              <button className={styles.dropdownItem} disabled>
                 Undo <span className={styles.shortcut}>Ctrl+Z</span>
               </button>
-              <button className={styles.dropdownItem} onClick={() => document.execCommand('redo')}>
+              <button className={styles.dropdownItem} disabled>
                 Redo <span className={styles.shortcut}>Ctrl+Y</span>
               </button>
               <div className={styles.dropdownSeparator} />
-              <button className={styles.dropdownItem} onClick={() => document.execCommand('cut')}>
+              <button className={styles.dropdownItem} disabled>
                 Cut <span className={styles.shortcut}>Ctrl+X</span>
               </button>
-              <button className={styles.dropdownItem} onClick={() => document.execCommand('copy')}>
+              <button className={styles.dropdownItem} disabled>
                 Copy <span className={styles.shortcut}>Ctrl+C</span>
               </button>
-              <button className={styles.dropdownItem} onClick={() => document.execCommand('paste')}>
+              <button className={styles.dropdownItem} disabled>
                 Paste <span className={styles.shortcut}>Ctrl+V</span>
               </button>
             </div>
@@ -498,6 +519,15 @@ export default function Kiro() {
             </div>
           </div>
         </div>
+      )}
+
+      {showCloseConfirm && fileToClose && (
+        <ConfirmDialog
+          title="Close File"
+          message={`Save changes to ${files.find(f => f.id === fileToClose)?.name}?`}
+          onConfirm={handleConfirmClose}
+          onCancel={handleCancelClose}
+        />
       )}
     </div>
   );
