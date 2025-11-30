@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getBedrockService } from '@/services/bedrock';
-import { getMCPService } from '@/services/mcp';
 import { getClippyConfig } from '@/config/clippy';
 
 interface ConversationMessage {
@@ -30,7 +29,6 @@ export async function POST(request: NextRequest) {
 
     // Initialize services
     const bedrockService = getBedrockService();
-    const mcpService = getMCPService();
 
     // Build enhanced prompt with conversation history and context
     const enhancedPrompt = message;
@@ -52,13 +50,6 @@ export async function POST(request: NextRequest) {
     // Add system prompt for Clippy personality from centralized config
     const clippyConfig = getClippyConfig('default');
     contextArray.unshift(clippyConfig.systemPrompt);
-
-    // Query MCP for AWS documentation context if relevant
-    const docResults = await mcpService.queryDocumentation(message);
-    if (docResults.length > 0) {
-      const docContext = docResults.map((doc) => `${doc.title}\n${doc.content}`);
-      contextArray.push(...docContext);
-    }
 
     // Generate response using Bedrock with Clippy config
     const response = await bedrockService.generateResponse(
