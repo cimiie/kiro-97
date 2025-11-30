@@ -8,10 +8,12 @@ import ClippyChatWindow from './ClippyChatWindow';
 import ConfirmDialog from '../common/ConfirmDialog';
 import styles from './ClippyAssistant.module.css';
 
+import { QuickActionId, APP_LAUNCH_ACTIONS, AppName } from '@/types/quickActions';
+
 interface ClippyAssistantProps {
   maxResponseLength: number;
   onTokenUsage?: (tokens: number) => void;
-  onQuickAction?: (actionId: string) => void;
+  onQuickAction?: (actionId: QuickActionId) => void;
   onContextChange?: (context: string) => void;
   helpContext?: string | null;
   onHelpContextHandled?: () => void;
@@ -79,13 +81,7 @@ const ClippyAssistant = forwardRef<ClippyAssistantRef, ClippyAssistantProps>(({
   useEffect(() => {
     if (!helpContext) return;
 
-    const helpActionMap: Record<string, string> = {
-      'Gloom': 'play-gloom',
-      'Web Finder': 'browse-web',
-      'Bomb Sweeper': 'launch-bombsweeper',
-      'WordWrite': 'launch-wordwrite',
-    };
-    const actionId = helpActionMap[helpContext];
+    const actionId = APP_LAUNCH_ACTIONS[helpContext as AppName];
     
     if (actionId) {
       // Use setTimeout to avoid synchronous state updates in effect
@@ -106,13 +102,7 @@ const ClippyAssistant = forwardRef<ClippyAssistantRef, ClippyAssistantProps>(({
     openChatWithContext: (context: string) => {
       setShowIntroText(false);
       setIsChatOpen(true);
-      const helpActionMap: Record<string, string> = {
-        'Gloom': 'play-gloom',
-        'Web Finder': 'browse-web',
-        'Bomb Sweeper': 'launch-bombsweeper',
-        'WordWrite': 'launch-wordwrite',
-      };
-      const actionId = helpActionMap[context];
+      const actionId = APP_LAUNCH_ACTIONS[context as AppName];
       if (actionId) {
         generateContextualResponse(actionId);
       }
@@ -127,7 +117,7 @@ const ClippyAssistant = forwardRef<ClippyAssistantRef, ClippyAssistantProps>(({
     setIsChatOpen(!isChatOpen);
   };
 
-  const handleQuickAction = async (actionId: string) => {
+  const handleQuickAction = async (actionId: QuickActionId) => {
     if (onQuickAction) {
       onQuickAction(actionId);
     }

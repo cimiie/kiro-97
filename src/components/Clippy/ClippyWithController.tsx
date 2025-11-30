@@ -9,6 +9,7 @@ import MinesweeperApp from '@/apps/BombSweeper/BombSweeper';
 import NotepadApp from '@/apps/WordWrite/WordWrite';
 import DoomApp from '@/apps/Gloom/Gloom';
 import MockBrowser from '@/apps/WebFinder/WebFinder';
+import { QuickActionId } from '@/types/quickActions';
 
 interface ClippyWithControllerProps {
   helpContext?: string | null;
@@ -33,22 +34,32 @@ export default function ClippyWithController({
 
 
 
-  const handleQuickAction = useCallback((actionId: string) => {
+  const handleQuickAction = useCallback((actionId: QuickActionId) => {
     switch (actionId) {
       case 'play-gloom':
+      case 'gloom-controls':
+      case 'gloom-history':
+      case 'gloom-tips':
         openWindow(<DoomApp onClose={() => {}} />, 'Gloom');
         break;
       case 'browse-web':
+      case 'web-tips':
+      case 'web-history':
+      case 'web-features':
         openWindow(<MockBrowser />, 'Web Finder');
         break;
       case 'launch-bombsweeper':
+      case 'how-to-play':
+      case 'bombsweeper-tips':
+      case 'bombsweeper-history':
         openWindow(<MinesweeperApp />, 'Bomb Sweeper');
         break;
       case 'launch-wordwrite':
+      case 'wordwrite-shortcuts':
+      case 'wordwrite-tips':
+      case 'wordwrite-history':
         openWindow(<NotepadApp />, 'WordWrite');
         break;
-      default:
-        console.log('Unknown quick action:', actionId);
     }
   }, [openWindow]);
 

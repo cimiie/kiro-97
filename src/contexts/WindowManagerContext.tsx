@@ -29,14 +29,33 @@ type WindowManagerContextType = WindowManagerState & WindowManagerActions;
 const WindowManagerContext = createContext<WindowManagerContextType | undefined>(undefined);
 
 const INITIAL_Z_INDEX = 1000;
+const MAX_Z_INDEX = 9999;
 
 export function WindowManagerProvider({ children }: { children: ReactNode }) {
   const [windows, setWindows] = useState<WindowInstance[]>([]);
   const [activeWindowId, setActiveWindowId] = useState<string | null>(null);
   const [nextZIndex, setNextZIndex] = useState(INITIAL_Z_INDEX);
 
+  // Normalize z-indices when approaching max to prevent overflow
+  const normalizeZIndices = useCallback(() => {
+    setWindows((prev) => {
+      const sorted = [...prev].sort((a, b) => a.zIndex - b.zIndex);
+      return sorted.map((window, index) => ({
+        ...window,
+        zIndex: INITIAL_Z_INDEX + index,
+      }));
+    });
+    setNextZIndex(INITIAL_Z_INDEX + windows.length);
+  }, [windows.length]);
+
   const openWindow = useCallback((component: ReactNode, title: string): string => {
     const id = `window-${Date.now()}-${Math.random().toString(36).substring(2, 11)}`;
+    
+    // Check if we need to normalize z-indices
+    if (nextZIndex >= MAX_Z_INDEX) {
+      normalizeZIndices();
+    }
+
     const newWindow: WindowInstance = {
       id,
       component,
@@ -50,7 +69,7 @@ export function WindowManagerProvider({ children }: { children: ReactNode }) {
     setNextZIndex((prev) => prev + 1);
 
     return id;
-  }, [nextZIndex]);
+  }, [nextZIndex, normalizeZIndices]);
 
   const closeWindow = useCallback((id: string) => {
     setWindows((prev) => prev.filter((w) => w.id !== id));
@@ -65,20 +84,30 @@ export function WindowManagerProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const restoreWindow = useCallback((id: string) => {
+    // Check if we need to normalize z-indices
+    if (nextZIndex >= MAX_Z_INDEX) {
+      normalizeZIndices();
+    }
+
     setWindows((prev) =>
       prev.map((w) => (w.id === id ? { ...w, isMinimized: false, zIndex: nextZIndex } : w))
     );
     setActiveWindowId(id);
     setNextZIndex((prev) => prev + 1);
-  }, [nextZIndex]);
+  }, [nextZIndex, normalizeZIndices]);
 
   const focusWindow = useCallback((id: string) => {
+    // Check if we need to normalize z-indices
+    if (nextZIndex >= MAX_Z_INDEX) {
+      normalizeZIndices();
+    }
+
     setWindows((prev) =>
       prev.map((w) => (w.id === id ? { ...w, zIndex: nextZIndex } : w))
     );
     setActiveWindowId(id);
     setNextZIndex((prev) => prev + 1);
-  }, [nextZIndex]);
+  }, [nextZIndex, normalizeZIndices]);
 
   const value: WindowManagerContextType = {
     windows,

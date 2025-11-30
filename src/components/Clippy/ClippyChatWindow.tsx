@@ -4,13 +4,14 @@ import { useState, useRef, useEffect } from 'react';
 import { ChatMessage } from '@/types/clippy';
 import ClippyMessage from './ClippyMessage';
 import styles from './ClippyAssistant.module.css';
+import { QuickActionId } from '@/types/quickActions';
 
 interface ClippyChatWindowProps {
   messages: ChatMessage[];
   isTyping: boolean;
   onClose: () => void;
   onSubmit: (message: string) => void;
-  onQuickAction: (actionId: string) => void;
+  onQuickAction: (actionId: QuickActionId) => void;
   position: { x: number; y: number };
 }
 

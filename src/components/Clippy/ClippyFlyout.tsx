@@ -6,6 +6,7 @@ import { useClippyConversation } from '@/hooks/useClippyConversation';
 import { useTokenContext } from '@/contexts/TokenContext';
 import ClippyCharacter from './ClippyCharacter';
 import styles from './ClippyFlyout.module.css';
+import { QuickActionId } from '@/types/quickActions';
 
 interface ClippyFlyoutProps {
   appName: string;
@@ -36,7 +37,7 @@ export default function ClippyFlyout({ appName, onClose }: ClippyFlyoutProps) {
   useEffect(() => {
     if (messages.length > 0) return; // Only initialize once
 
-    const welcomeMessages: Record<string, { content: string; actions: Array<{ id: string; label: string; icon: string }> }> = {
+    const welcomeMessages: Record<string, { content: string; actions: Array<{ id: QuickActionId; label: string; icon: string }> }> = {
       'Gloom': {
         content: "Welcome to Gloom! This is a classic first-person shooter where you battle demons and monsters. Ready to play?",
         actions: [
@@ -99,7 +100,7 @@ export default function ClippyFlyout({ appName, onClose }: ClippyFlyoutProps) {
     inputRef.current?.focus();
   };
 
-  const handleQuickAction = async (actionId: string) => {
+  const handleQuickAction = async (actionId: QuickActionId) => {
     await generateContextualResponse(actionId);
   };
 

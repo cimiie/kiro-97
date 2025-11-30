@@ -6,6 +6,7 @@
  */
 
 import { QuickAction } from '@/types/clippy';
+import { QuickActionId } from '@/types/quickActions';
 
 export interface ActionContext {
   context: string;
@@ -15,7 +16,7 @@ export interface ActionContext {
 /**
  * Map of action IDs to their context and topic information
  */
-export const ACTION_CONTEXT_MAP: Record<string, ActionContext> = {
+export const ACTION_CONTEXT_MAP: Record<QuickActionId, ActionContext> = {
   'play-gloom': {
     context: 'The user just launched Gloom, a classic first-person shooter game.',
     topic: 'gloom game launched ready to play controls tips classic fps',
@@ -85,87 +86,20 @@ export const ACTION_CONTEXT_MAP: Record<string, ActionContext> = {
 /**
  * Map of action IDs to their available quick actions
  */
-export const QUICK_ACTIONS_MAP: Record<string, QuickAction[]> = {
-  'play-doom': [
-    { id: 'doom-controls', label: 'Game Controls', icon: '🎮' },
-    { id: 'doom-history', label: 'Gloom History', icon: '📚' },
-    { id: 'doom-tips', label: 'Survival Tips', icon: '💡' },
-  ],
-  'doom-controls': [
-    { id: 'doom-tips', label: 'Survival Tips', icon: '💡' },
-    { id: 'doom-history', label: 'History', icon: '📚' },
-  ],
-  'doom-history': [
-    { id: 'doom-controls', label: 'Controls', icon: '🎮' },
-    { id: 'doom-tips', label: 'Tips', icon: '💡' },
-  ],
-  'doom-tips': [
-    { id: 'doom-controls', label: 'Controls', icon: '🎮' },
-    { id: 'doom-history', label: 'History', icon: '📚' },
-  ],
-  'browse-internet': [
-    { id: 'internet-tips', label: 'Browsing Tips', icon: '💡' },
-    { id: 'internet-history', label: 'IE History', icon: '📚' },
-    { id: 'internet-features', label: 'Cool Features', icon: '✨' },
-  ],
-  'internet-tips': [
-    { id: 'internet-features', label: 'Features', icon: '✨' },
-    { id: 'internet-history', label: 'History', icon: '📚' },
-  ],
-  'internet-history': [
-    { id: 'internet-tips', label: 'Tips', icon: '💡' },
-    { id: 'internet-features', label: 'Features', icon: '✨' },
-  ],
-  'internet-features': [
-    { id: 'internet-tips', label: 'Tips', icon: '💡' },
-    { id: 'internet-history', label: 'History', icon: '📚' },
-  ],
-  'launch-minesweeper': [
-    { id: 'how-to-play', label: 'How to Play', icon: '❓' },
-    { id: 'minesweeper-tips', label: 'Strategy Tips', icon: '💡' },
-    { id: 'minesweeper-history', label: 'Cool Facts', icon: '📚' },
-  ],
-  'how-to-play': [
-    { id: 'minesweeper-tips', label: 'Advanced Tips', icon: '💡' },
-    { id: 'minesweeper-history', label: 'History', icon: '📚' },
-  ],
-  'minesweeper-tips': [
-    { id: 'how-to-play', label: 'Basic Rules', icon: '❓' },
-    { id: 'minesweeper-history', label: 'Cool Facts', icon: '📚' },
-  ],
-  'minesweeper-history': [
-    { id: 'how-to-play', label: 'How to Play', icon: '❓' },
-    { id: 'minesweeper-tips', label: 'Strategy Tips', icon: '💡' },
-  ],
-  'launch-notepad': [
-    { id: 'notepad-shortcuts', label: 'Keyboard Shortcuts', icon: '⌨️' },
-    { id: 'notepad-tips', label: 'Tips & Tricks', icon: '💡' },
-    { id: 'notepad-history', label: 'TextEdit History', icon: '📚' },
-  ],
-  'notepad-shortcuts': [
-    { id: 'notepad-tips', label: 'Tips & Tricks', icon: '💡' },
-    { id: 'notepad-history', label: 'History', icon: '📚' },
-  ],
-  'notepad-tips': [
-    { id: 'notepad-shortcuts', label: 'Shortcuts', icon: '⌨️' },
-    { id: 'notepad-history', label: 'History', icon: '📚' },
-  ],
-  'notepad-history': [
-    { id: 'notepad-shortcuts', label: 'Shortcuts', icon: '⌨️' },
-    { id: 'notepad-tips', label: 'Tips & Tricks', icon: '💡' },
-  ],
+export const QUICK_ACTIONS_MAP: Partial<Record<QuickActionId, QuickAction[]>> = {
+
 };
 
 /**
  * Get quick actions for a given action ID
  */
-export function getQuickActionsForContext(actionId: string): QuickAction[] {
+export function getQuickActionsForContext(actionId: QuickActionId): QuickAction[] {
   return QUICK_ACTIONS_MAP[actionId] || [];
 }
 
 /**
  * Get context information for a given action ID
  */
-export function getActionContext(actionId: string): ActionContext | undefined {
+export function getActionContext(actionId: QuickActionId): ActionContext | undefined {
   return ACTION_CONTEXT_MAP[actionId];
 }

@@ -1,6 +1,7 @@
 import { useState, useCallback } from 'react';
 import { ChatMessage } from '@/types/clippy';
 import { getQuickActionsForContext, getActionContext } from '@/config/clippyActions';
+import { QuickActionId } from '@/types/quickActions';
 
 interface UseClippyConversationProps {
   maxResponseLength: number;
@@ -84,7 +85,7 @@ export function useClippyConversation({
     }
   }, [currentContext, messages, maxResponseLength, onTokenUsage, sessionTokensUsed]);
 
-  const generateContextualResponse = useCallback(async (actionId: string) => {
+  const generateContextualResponse = useCallback(async (actionId: QuickActionId) => {
     setIsTyping(true);
 
     try {

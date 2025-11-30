@@ -1,5 +1,7 @@
+import { QuickActionId } from './quickActions';
+
 export interface QuickAction {
-  id: string;
+  id: QuickActionId;
   label: string;
   icon: string;
 }

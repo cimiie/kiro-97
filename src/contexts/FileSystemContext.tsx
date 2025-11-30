@@ -24,12 +24,30 @@ const FileSystemContext = createContext<FileSystemContextType | undefined>(undef
 export function FileSystemProvider({ children }: { children: ReactNode }) {
   const [files, setFiles] = useState<VirtualFile[]>([]);
 
+  const getFileIcon = (filename: string): string => {
+    const ext = filename.toLowerCase().split('.').pop() || '';
+    
+    // Only support file types actually used by apps:
+    // - WordWrite: .txt files
+    // - Kiro IDE: .js, .ts, .jsx, .tsx, .html, .css, .json
+    // - Draw: .png images
+    const iconMap: Record<string, string> = {
+      'txt': '📝',      // WordWrite
+      'html': '🌐',     // Kiro IDE
+      'js': '📜',       // Kiro IDE
+      'ts': '📜',       // Kiro IDE
+      'jsx': '📜',      // Kiro IDE
+      'tsx': '📜',      // Kiro IDE
+      'css': '🎨',      // Kiro IDE
+      'json': '📋',     // Kiro IDE
+      'png': '🖼️',      // Draw app
+    };
+    return iconMap[ext] || '📄';
+  };
+
   const saveFile = (filename: string, content: string, folder: string = 'C:\\My Documents') => {
     const path = `${folder}\\${filename}`;
-    const icon = filename.endsWith('.txt') ? '📝' : 
-                 filename.endsWith('.html') ? '🌐' :
-                 filename.endsWith('.js') || filename.endsWith('.ts') ? '📜' :
-                 filename.endsWith('.css') ? '🎨' : '📄';
+    const icon = getFileIcon(filename);
 
     setFiles(prev => {
       const existing = prev.findIndex(f => f.path === path);

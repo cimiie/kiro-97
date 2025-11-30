@@ -4,9 +4,11 @@ import ReactMarkdown from 'react-markdown';
 import { ChatMessage } from '@/types/clippy';
 import styles from './ClippyAssistant.module.css';
 
+import { QuickActionId } from '@/types/quickActions';
+
 interface ClippyMessageProps {
   message: ChatMessage;
-  onQuickAction: (actionId: string) => void;
+  onQuickAction: (actionId: QuickActionId) => void;
 }
 
 export default function ClippyMessage({
