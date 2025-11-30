@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styles from './LoginScreen.module.css';
 
 interface LoginScreenProps {
@@ -12,10 +12,43 @@ export default function LoginScreen({ onLogin, onShutdown }: LoginScreenProps) {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    onLogin();
-  };
+  useEffect(() => {
+    const targetUsername = 'kiro';
+    const targetPassword = '••••••••'; // 8 characters
+    let usernameIndex = 0;
+    let passwordIndex = 0;
+
+    // Type username first
+    const usernameInterval = setInterval(() => {
+      if (usernameIndex < targetUsername.length) {
+        setUsername(targetUsername.slice(0, usernameIndex + 1));
+        usernameIndex++;
+      } else {
+        clearInterval(usernameInterval);
+        
+        // Start typing password after username is complete
+        setTimeout(() => {
+          const passwordInterval = setInterval(() => {
+            if (passwordIndex < targetPassword.length) {
+              setPassword(targetPassword.slice(0, passwordIndex + 1));
+              passwordIndex++;
+            } else {
+              clearInterval(passwordInterval);
+              
+              // Auto-login after password is complete
+              setTimeout(() => {
+                onLogin();
+              }, 500);
+            }
+          }, 100);
+        }, 300);
+      }
+    }, 150);
+
+    return () => {
+      clearInterval(usernameInterval);
+    };
+  }, [onLogin]);
 
   const handleShutdown = () => {
     if (onShutdown) {
@@ -42,7 +75,7 @@ export default function LoginScreen({ onLogin, onShutdown }: LoginScreenProps) {
           </div>
         </div>
 
-        <form onSubmit={handleSubmit} className={styles.form}>
+        <div className={styles.form}>
           <div className={styles.instruction}>
             Type a user name and password to log on to Kiro.
           </div>
@@ -53,9 +86,8 @@ export default function LoginScreen({ onLogin, onShutdown }: LoginScreenProps) {
               id="username"
               type="text"
               value={username}
-              onChange={(e) => setUsername(e.target.value)}
               className={styles.input}
-              autoFocus
+              readOnly
             />
           </div>
 
@@ -65,20 +97,20 @@ export default function LoginScreen({ onLogin, onShutdown }: LoginScreenProps) {
               id="password"
               type="password"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
               className={styles.input}
+              readOnly
             />
           </div>
 
           <div className={styles.buttons}>
-            <button type="submit" className={styles.button}>
+            <button type="button" className={styles.button}>
               Log In
             </button>
             <button type="button" className={styles.button} onClick={handleShutdown}>
               Shut Down
             </button>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   );
