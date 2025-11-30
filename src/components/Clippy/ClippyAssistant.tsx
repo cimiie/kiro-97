@@ -16,6 +16,7 @@ interface ClippyAssistantProps {
   helpContext?: string | null;
   onHelpContextHandled?: () => void;
   onShutdown?: () => void;
+  sessionTokensUsed?: number;
 }
 
 export interface ClippyAssistantRef {
@@ -35,6 +36,7 @@ const ClippyAssistant = forwardRef<ClippyAssistantRef, ClippyAssistantProps>(({
   helpContext,
   onHelpContextHandled,
   onShutdown,
+  sessionTokensUsed = 0,
 }, ref) => {
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [showIntroText, setShowIntroText] = useState(true);
@@ -64,6 +66,7 @@ const ClippyAssistant = forwardRef<ClippyAssistantRef, ClippyAssistantProps>(({
     maxResponseLength,
     onTokenUsage,
     onContextChange,
+    sessionTokensUsed,
   });
 
   useEffect(() => {

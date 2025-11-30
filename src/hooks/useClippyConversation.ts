@@ -5,12 +5,14 @@ interface UseClippyConversationProps {
   maxResponseLength: number;
   onTokenUsage?: (tokens: number) => void;
   onContextChange?: (context: string) => void;
+  sessionTokensUsed?: number;
 }
 
 export function useClippyConversation({
   maxResponseLength,
   onTokenUsage,
   onContextChange,
+  sessionTokensUsed = 0,
 }: UseClippyConversationProps) {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [currentContext, setCurrentContext] = useState<string>('');
@@ -116,6 +118,7 @@ export function useClippyConversation({
             content: m.content,
           })),
           maxTokens: maxResponseLength,
+          sessionTokensUsed,
         }),
       });
 

@@ -10,12 +10,21 @@ interface ConversationMessage {
 
 export async function POST(request: NextRequest) {
   try {
-    const { message, maxTokens, context, conversationHistory } = await request.json();
+    const { message, maxTokens, context, conversationHistory, sessionTokensUsed } = await request.json();
 
     if (!message || typeof message !== 'string') {
       return NextResponse.json(
         { error: 'Message is required' },
         { status: 400 }
+      );
+    }
+
+    // Check session token limit (10k tokens per session)
+    const SESSION_LIMIT = 10000;
+    if (sessionTokensUsed && sessionTokensUsed >= SESSION_LIMIT) {
+      return NextResponse.json(
+        { error: 'Session token limit reached. Please refresh the page to start a new session.' },
+        { status: 429 }
       );
     }
 

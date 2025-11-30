@@ -16,7 +16,6 @@ import PowerButton from '@/components/system/PowerButton';
 import BootScreen from '@/components/system/BootScreen';
 import LoginScreen from '@/components/system/LoginScreen';
 import ShutdownScreen from '@/components/system/ShutdownScreen';
-import { useState as useReactState } from 'react';
 
 // Dynamic imports to avoid SSR issues
 const MinesweeperApp = dynamic(() => import('@/apps/BombSweeper/BombSweeper'), { ssr: false });

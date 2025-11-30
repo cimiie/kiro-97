@@ -1,256 +1,38 @@
 .tokenController {
   position: fixed;
-  bottom: 40px;
-  left: 20px;
+  top: 8px;
+  right: 8px;
   z-index: 10000;
 }
 
-.toggleButton {
+.display {
   display: flex;
   align-items: center;
   gap: 6px;
-  padding: 6px 12px;
+  padding: 4px 10px;
   background: #c0c0c0;
   border: 2px solid;
   border-color: #ffffff #808080 #808080 #ffffff;
   font-family: 'MS Sans Serif', Tahoma, Arial, sans-serif;
   font-size: 11px;
-  cursor: pointer;
   box-shadow: 1px 1px 0 #000000;
 }
 
-.toggleButton:hover {
-  background: #dfdfdf;
-}
-
-.toggleButton:active {
-  border-color: #808080 #ffffff #ffffff #808080;
-  padding-top: 7px;
-  padding-left: 13px;
-}
-
-.toggleButton.warning {
+.display.warning {
   background: #ffff00;
 }
 
-.toggleButton.exceeded {
+.display.exceeded {
   background: #ff0000;
   color: #ffffff;
 }
 
-.tokenIcon {
-  font-size: 14px;
-}
-
-.tokenText {
-  font-weight: bold;
+.label {
+  font-weight: normal;
   white-space: nowrap;
 }
 
-/* Settings Panel */
-.settingsPanel {
-  position: absolute;
-  bottom: 40px;
-  left: 0;
-  width: 320px;
-  background: #c0c0c0;
-  border: 2px solid;
-  border-color: #ffffff #808080 #808080 #ffffff;
-  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-  font-family: 'MS Sans Serif', Tahoma, Arial, sans-serif;
-}
-
-.titleBar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: linear-gradient(to right, #000080, #1084d0);
-  color: #ffffff;
-  padding: 2px 4px;
-  font-size: 11px;
+.value {
   font-weight: bold;
-  height: 18px;
-}
-
-.title {
-  flex: 1;
-}
-
-.closeButton {
-  width: 16px;
-  height: 14px;
-  background-color: #c0c0c0;
-  border: 1px solid;
-  border-color: #ffffff #000000 #000000 #ffffff;
-  cursor: pointer;
-  font-size: 10px;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0;
-  color: #000000;
-}
-
-.closeButton:active {
-  border-color: #000000 #ffffff #ffffff #000000;
-  padding-top: 1px;
-  padding-left: 1px;
-}
-
-.content {
-  padding: 8px;
-  max-height: 400px;
-  overflow-y: auto;
-}
-
-.content::-webkit-scrollbar {
-  width: 16px;
-}
-
-.content::-webkit-scrollbar-track {
-  background: #c0c0c0;
-  border: 1px solid #808080;
-}
-
-.content::-webkit-scrollbar-thumb {
-  background: #c0c0c0;
-  border: 2px solid;
-  border-color: #ffffff #808080 #808080 #ffffff;
-}
-
-/* Sections */
-.section {
-  margin-bottom: 12px;
-  padding: 8px;
-  background: #ffffff;
-  border: 2px solid;
-  border-color: #808080 #ffffff #ffffff #808080;
-}
-
-.sectionTitle {
-  font-size: 11px;
-  font-weight: bold;
-  margin-bottom: 8px;
-  color: #000080;
-}
-
-/* Statistics */
-.statRow {
-  display: flex;
-  justify-content: space-between;
-  font-size: 11px;
-  margin-bottom: 4px;
-}
-
-.statLabel {
-  color: #000000;
-}
-
-.statValue {
-  font-weight: bold;
-  color: #000080;
-}
-
-/* Progress Bar */
-.progressBarContainer {
-  width: 100%;
-  height: 16px;
-  background: #ffffff;
-  border: 2px solid;
-  border-color: #808080 #ffffff #ffffff #808080;
-  margin: 8px 0;
-  position: relative;
-}
-
-.progressBar {
-  height: 100%;
-  background: #000080;
-  transition: width 0.3s ease, background-color 0.3s ease;
-}
-
-.progressBar.warning {
-  background: #ffff00;
-}
-
-.progressBar.exceeded {
-  background: #ff0000;
-}
-
-/* Alerts */
-.alert,
-.warning {
-  font-size: 10px;
-  padding: 4px;
-  margin-top: 8px;
-  border: 1px solid;
-}
-
-.alert {
-  background: #ff0000;
-  color: #ffffff;
-  border-color: #800000;
-}
-
-.warning {
-  background: #ffff00;
-  color: #000000;
-  border-color: #808000;
-}
-
-/* Reset Button */
-.resetButton {
-  width: 100%;
-  margin-top: 8px;
-  padding: 4px 8px;
-  background: #c0c0c0;
-  border: 2px solid;
-  border-color: #ffffff #808080 #808080 #ffffff;
-  font-family: 'MS Sans Serif', Tahoma, Arial, sans-serif;
-  font-size: 11px;
-  cursor: pointer;
-}
-
-.resetButton:hover {
-  background: #dfdfdf;
-}
-
-.resetButton:active {
-  border-color: #808080 #ffffff #ffffff #808080;
-  padding-top: 5px;
-  padding-left: 9px;
-}
-
-/* Input Groups */
-.inputGroup {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 4px;
-}
-
-.input {
-  flex: 1;
-  padding: 4px;
-  border: 2px solid;
-  border-color: #808080 #ffffff #ffffff #808080;
-  font-family: 'MS Sans Serif', Tahoma, Arial, sans-serif;
-  font-size: 11px;
-  background: #ffffff;
-}
-
-.input:focus {
-  outline: none;
-}
-
-.inputLabel {
-  font-size: 11px;
-  color: #000000;
-}
-
-.hint {
-  font-size: 9px;
-  color: #808080;
-  font-style: italic;
-  margin-top: 4px;
+  white-space: nowrap;
 }
