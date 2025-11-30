@@ -2,7 +2,7 @@
 
 import React, { useRef, useState, useEffect } from 'react';
 import { useFileSystem } from '@/contexts/FileSystemContext';
-import styles from './Paint.module.css';
+import styles from './Draw.module.css';
 
 type Tool = 'pencil' | 'eraser' | 'fill' | 'line' | 'rectangle' | 'circle' | 'select' | 'spray' | 'eyedropper' | 'magnifier' | 'curve' | 'polygon' | 'roundrect';
 

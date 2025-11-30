@@ -1,7 +1,7 @@
 'use client';
 
 import { createContext, useContext, ReactNode, useCallback, ReactElement } from 'react';
-import ClippyQuickMenuWrapper from '@/components/ClippyQuickMenuWrapper';
+import ClippyQuickMenuWrapper from '@/components/Clippy/ClippyQuickMenuWrapper';
 
 interface ClippyHelperContextType {
   wrapAppWithHelper: (app: ReactElement, appName: string) => ReactElement;

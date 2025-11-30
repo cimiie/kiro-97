@@ -9,7 +9,7 @@ import DesktopIcons from '@/components/DesktopIcons';
 import WindowContainer from '@/components/WindowContainer';
 import Taskbar from '@/components/Taskbar';
 import { MenuItem } from '@/components/StartMenu';
-import ClippyWithController from '@/components/ClippyWithController';
+import ClippyWithController from '@/components/Clippy/ClippyWithController';
 import ErrorBoundary from '@/components/ErrorBoundary';
 import ClientOnly from '@/components/ClientOnly';
 import PowerButton from '@/components/PowerButton';
@@ -19,20 +19,20 @@ import ShutdownScreen from '@/components/ShutdownScreen';
 import { useState as useReactState } from 'react';
 
 // Dynamic imports to avoid SSR issues
-const MinesweeperApp = dynamic(() => import('@/apps/MinesweeperApp'), { ssr: false });
-const MockBrowser = dynamic(() => import('@/apps/MockBrowser'), { ssr: false });
-const DoomApp = dynamic(() => import('@/apps/DoomApp'), { ssr: false });
-const Kiro = dynamic(() => import('@/apps/Kiro'), { ssr: false });
-const Paint = dynamic(() => import('@/apps/Paint'), { ssr: false });
-const NotepadApp = dynamic(() => import('@/apps/NotepadApp'), { ssr: false });
-const CalculatorApp = dynamic(() => import('@/apps/CalculatorApp'), { ssr: false });
+const MinesweeperApp = dynamic(() => import('@/apps/BombSweeper/BombSweeper'), { ssr: false });
+const MockBrowser = dynamic(() => import('@/apps/WebFinder/WebFinder'), { ssr: false });
+const DoomApp = dynamic(() => import('@/apps/Gloom/Gloom'), { ssr: false });
+const Kiro = dynamic(() => import('@/apps/KiroIDE/KiroIDE'), { ssr: false });
+const Paint = dynamic(() => import('@/apps/Draw/Draw'), { ssr: false });
+const NotepadApp = dynamic(() => import('@/apps/WordWrite/WordWrite'), { ssr: false });
+const CalculatorApp = dynamic(() => import('@/apps/Calc/Calc'), { ssr: false });
 
-const CharacterMapApp = dynamic(() => import('@/apps/CharacterMapApp'), { ssr: false });
-const SoundRecorderApp = dynamic(() => import('@/apps/SoundRecorderApp'), { ssr: false });
-const DiskDefragmenterApp = dynamic(() => import('@/apps/DiskDefragmenterApp'), { ssr: false });
-const SystemMonitorApp = dynamic(() => import('@/apps/SystemMonitorApp'), { ssr: false });
-const CommandPromptApp = dynamic(() => import('@/apps/CommandPromptApp'), { ssr: false });
-const ControlPanelApp = dynamic(() => import('@/apps/ControlPanelApp'), { ssr: false });
+const CharacterMapApp = dynamic(() => import('@/apps/SymbolViewer/SymbolViewer'), { ssr: false });
+const SoundRecorderApp = dynamic(() => import('@/apps/AudioCapture/AudioCapture'), { ssr: false });
+const DiskDefragmenterApp = dynamic(() => import('@/apps/DiskOptimizer/DiskOptimizer'), { ssr: false });
+const SystemMonitorApp = dynamic(() => import('@/apps/TaskWatcher/TaskWatcher'), { ssr: false });
+const CommandPromptApp = dynamic(() => import('@/apps/CommandPrompt/CommandPrompt'), { ssr: false });
+const ControlPanelApp = dynamic(() => import('@/apps/ControlPanel/ControlPanel'), { ssr: false });
 
 import { useInstalledApps } from '@/contexts/InstalledAppsContext';
 

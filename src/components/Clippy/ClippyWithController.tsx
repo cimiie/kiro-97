@@ -2,12 +2,12 @@
 
 import { useState, useCallback, useRef } from 'react';
 import ClippyAssistant from './ClippyAssistant';
-import TokenController from './TokenController';
+import TokenController from '../TokenController';
 import { useWindowManager } from '@/contexts/WindowManagerContext';
-import MinesweeperApp from '@/apps/MinesweeperApp';
-import NotepadApp from '@/apps/NotepadApp';
-import DoomApp from '@/apps/DoomApp';
-import MockBrowser from '@/apps/MockBrowser';
+import MinesweeperApp from '@/apps/BombSweeper/BombSweeper';
+import NotepadApp from '@/apps/WordWrite/WordWrite';
+import DoomApp from '@/apps/Gloom/Gloom';
+import MockBrowser from '@/apps/WebFinder/WebFinder';
 
 interface ClippyWithControllerProps {
   helpContext?: string | null;
@@ -42,17 +42,17 @@ export default function ClippyWithController({ helpContext, onHelpContextHandled
 
   const handleQuickAction = useCallback((actionId: string) => {
     switch (actionId) {
-      case 'play-doom':
-        openWindow(<DoomApp onClose={() => {}} />, 'Doom');
+      case 'play-gloom':
+        openWindow(<DoomApp onClose={() => {}} />, 'Gloom');
         break;
-      case 'browse-internet':
-        openWindow(<MockBrowser />, 'Internet Explorer');
+      case 'browse-web':
+        openWindow(<MockBrowser />, 'Web Finder');
         break;
-      case 'launch-minesweeper':
-        openWindow(<MinesweeperApp />, 'Minesweeper');
+      case 'launch-bombsweeper':
+        openWindow(<MinesweeperApp />, 'Bomb Sweeper');
         break;
-      case 'launch-notepad':
-        openWindow(<NotepadApp />, 'Notepad');
+      case 'launch-wordwrite':
+        openWindow(<NotepadApp />, 'WordWrite');
         break;
       default:
         console.log('Unknown quick action:', actionId);

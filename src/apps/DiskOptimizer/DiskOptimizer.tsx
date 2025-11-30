@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import styles from './DiskDefragmenterApp.module.css';
+import styles from './DiskOptimizer.module.css';
 
 type BlockType = 0 | 1 | 2 | 3 | 4 | 5; // 0=free(black), 1=contiguous-blue, 2=fragmented(red), 3=contiguous-green, 4=system(cyan), 5=reading/writing(yellow)
 

@@ -2,7 +2,7 @@
 
 import { useState, useRef } from 'react';
 import { useFileSystem } from '@/contexts/FileSystemContext';
-import styles from './WordPadApp.module.css';
+import styles from './WordPad.module.css';
 
 export default function WordPadApp() {
   const { saveFile } = useFileSystem();

@@ -4,13 +4,13 @@ import { useState, useMemo } from 'react';
 import dynamic from 'next/dynamic';
 import { useFileSystem } from '@/contexts/FileSystemContext';
 import { useWindowManager } from '@/contexts/WindowManagerContext';
-import NotepadApp from './NotepadApp';
-import MockBrowser from './MockBrowser';
+import NotepadApp from '@/apps/WordWrite/WordWrite';
+import MockBrowser from '@/apps/WebFinder/WebFinder';
 import styles from './MyComputer.module.css';
 
 // Dynamic imports to avoid SSR issues
-const CommandPromptApp = dynamic(() => import('./CommandPromptApp'), { ssr: false });
-const RegistryEditorApp = dynamic(() => import('./RegistryEditorApp'), { ssr: false });
+const CommandPromptApp = dynamic(() => import('@/apps/CommandPrompt/CommandPrompt'), { ssr: false });
+const RegistryEditorApp = dynamic(() => import('@/apps/RegistryEditor/RegistryEditor'), { ssr: false });
 
 interface FileSystemItem {
   name: string;

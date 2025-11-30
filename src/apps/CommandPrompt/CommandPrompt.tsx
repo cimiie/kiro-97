@@ -2,7 +2,7 @@
 
 import { useState, useRef, useEffect, KeyboardEvent } from 'react';
 import { useFileSystem } from '@/contexts/FileSystemContext';
-import styles from './CommandPromptApp.module.css';
+import styles from './CommandPrompt.module.css';
 
 interface CommandHistory {
   command: string;

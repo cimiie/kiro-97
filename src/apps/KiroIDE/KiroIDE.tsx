@@ -2,7 +2,7 @@
 
 import { useState, useRef, useCallback } from 'react';
 import { useFileSystem } from '@/contexts/FileSystemContext';
-import styles from './Kiro.module.css';
+import styles from './KiroIDE.module.css';
 
 interface FileTab {
   id: string;

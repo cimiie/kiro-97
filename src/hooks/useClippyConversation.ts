@@ -160,39 +160,39 @@ export function useClippyConversation({
 
     try {
       const contextMap: Record<string, { context: string; topic: string }> = {
-        'play-doom': {
+        'play-gloom': {
           context: 'The user just launched Gloom, a classic first-person shooter game.',
           topic: 'gloom game launched ready to play controls tips classic fps',
         },
-        'doom-controls': {
+        'gloom-controls': {
           context: 'The user wants to learn the controls for playing Gloom.',
           topic: 'gloom game controls keyboard mouse movement shooting weapons',
         },
-        'doom-history': {
+        'gloom-history': {
           context: 'The user wants to know about the history of Gloom.',
           topic: 'gloom history classic fps game revolutionary shooter',
         },
-        'doom-tips': {
+        'gloom-tips': {
           context: 'The user wants survival tips for playing Gloom.',
           topic: 'gloom gameplay tips strategy survival secrets tricks',
         },
-        'browse-internet': {
+        'browse-web': {
           context: 'The user just opened Web Finder to browse the web.',
           topic: 'web finder opened ready to browse web navigation features',
         },
-        'internet-tips': {
+        'web-tips': {
           context: 'The user wants tips for browsing with Web Finder.',
           topic: 'web finder browsing tips navigation shortcuts favorites',
         },
-        'internet-history': {
+        'web-history': {
           context: 'The user wants to know about the history of Web Finder.',
           topic: 'web finder history web browser evolution internet browsing',
         },
-        'internet-features': {
+        'web-features': {
           context: 'The user wants to learn about Web Finder features.',
           topic: 'web finder features favorites bookmarks navigation tools',
         },
-        'launch-minesweeper': {
+        'launch-bombsweeper': {
           context: 'The user just opened Bomb Sweeper, a classic puzzle game.',
           topic: 'bomb sweeper game rules strategy tips history',
         },
@@ -200,29 +200,29 @@ export function useClippyConversation({
           context: 'The user wants to learn how to play Bomb Sweeper.',
           topic: 'bomb sweeper rules gameplay instructions beginner guide',
         },
-        'minesweeper-tips': {
+        'bombsweeper-tips': {
           context: 'The user wants advanced tips for playing Bomb Sweeper.',
           topic: 'bomb sweeper strategy advanced techniques patterns',
         },
-        'minesweeper-history': {
+        'bombsweeper-history': {
           context: 'The user wants to know about the history of Bomb Sweeper.',
           topic: 'bomb sweeper history origin classic puzzle game facts trivia',
         },
-        'launch-notepad': {
-          context: 'The user just opened TextEdit, a simple text editor.',
-          topic: 'textedit text editor features shortcuts tips',
+        'launch-wordwrite': {
+          context: 'The user just opened WordWrite, a simple text editor.',
+          topic: 'wordwrite text editor features shortcuts tips',
         },
-        'notepad-shortcuts': {
-          context: 'The user wants to learn keyboard shortcuts for TextEdit.',
-          topic: 'textedit keyboard shortcuts hotkeys commands quick access',
+        'wordwrite-shortcuts': {
+          context: 'The user wants to learn keyboard shortcuts for WordWrite.',
+          topic: 'wordwrite keyboard shortcuts hotkeys commands quick access',
         },
-        'notepad-tips': {
-          context: 'The user wants tips and tricks for using TextEdit effectively.',
-          topic: 'notepad tips tricks productivity features hidden functions',
+        'wordwrite-tips': {
+          context: 'The user wants tips and tricks for using WordWrite effectively.',
+          topic: 'wordwrite tips tricks productivity features hidden functions',
         },
-        'notepad-history': {
-          context: 'The user wants to know about the history of Notepad.',
-          topic: 'notepad history origin windows evolution facts trivia',
+        'wordwrite-history': {
+          context: 'The user wants to know about the history of WordWrite.',
+          topic: 'wordwrite history origin windows evolution facts trivia',
         },
       };
 
@@ -296,10 +296,10 @@ export function useClippyConversation({
       content: "Hi! I'm Clippy, your intelligent assistant! What would you like to do?",
       timestamp: new Date(),
       quickActions: [
-        { id: 'play-doom', label: 'Play Doom', icon: '🎮' },
-        { id: 'browse-internet', label: 'Browse Internet', icon: '🌐' },
-        { id: 'launch-minesweeper', label: 'Launch Minesweeper', icon: '💣' },
-        { id: 'launch-notepad', label: 'Launch Notepad', icon: '📝' },
+        { id: 'play-gloom', label: 'Play Gloom', icon: '👹' },
+        { id: 'browse-web', label: 'Browse Web', icon: '🌐' },
+        { id: 'launch-bombsweeper', label: 'Launch Bomb Sweeper', icon: '💣' },
+        { id: 'launch-wordwrite', label: 'Launch WordWrite', icon: '📝' },
       ],
     };
     setMessages([welcomeMessage]);

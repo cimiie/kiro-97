@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import styles from './CharacterMapApp.module.css';
+import styles from './SymbolViewer.module.css';
 
 export default function CharacterMapApp() {
   const [selectedChar, setSelectedChar] = useState<string>('');

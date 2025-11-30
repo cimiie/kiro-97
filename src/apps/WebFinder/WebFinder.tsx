@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import styles from './MockBrowser.module.css';
+import styles from './WebFinder.module.css';
 
 interface MockBrowserProps {
   initialUrl?: string;

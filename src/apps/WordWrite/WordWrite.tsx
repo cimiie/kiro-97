@@ -2,7 +2,7 @@
 
 import { useState, useRef, useCallback, useEffect } from 'react';
 import { useFileSystem } from '@/contexts/FileSystemContext';
-import styles from './Notepad.module.css';
+import styles from './WordWrite.module.css';
 
 export interface NotepadState {
   content: string;

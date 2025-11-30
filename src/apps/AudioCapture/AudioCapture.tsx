@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import styles from './SoundRecorderApp.module.css';
+import styles from './AudioCapture.module.css';
 
 export default function SoundRecorderApp() {
   const [isRecording, setIsRecording] = useState(false);

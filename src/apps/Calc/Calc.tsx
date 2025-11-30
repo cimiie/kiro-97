@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import styles from './CalculatorApp.module.css';
+import styles from './Calc.module.css';
 
 export default function CalculatorApp() {
   const [display, setDisplay] = useState('0');

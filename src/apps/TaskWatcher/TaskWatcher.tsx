@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import styles from './SystemMonitorApp.module.css';
+import styles from './TaskWatcher.module.css';
 
 export default function SystemMonitorApp() {
   const [cpuHistory, setCpuHistory] = useState<number[]>(Array(50).fill(0));

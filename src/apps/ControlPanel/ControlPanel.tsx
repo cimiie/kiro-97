@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { useSystemSettings, WallpaperOption, ColorDepth, Resolution, Theme } from '@/contexts/SystemSettingsContext';
 import { useInstalledApps, AppId } from '@/contexts/InstalledAppsContext';
 import ConfirmDialog from '@/components/ConfirmDialog';
-import styles from './ControlPanelApp.module.css';
+import styles from './ControlPanel.module.css';
 
 type PanelView = 'main' | 'display' | 'system' | 'sounds' | 'datetime' | 'programs' | 'mouse';
 type DisplayTab = 'background' | 'appearance' | 'settings';

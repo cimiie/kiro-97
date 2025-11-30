@@ -73,10 +73,10 @@ const ClippyAssistant = forwardRef<ClippyAssistantRef, ClippyAssistantProps>(({
     if (!helpContext) return;
 
     const helpActionMap: Record<string, string> = {
-      'Doom': 'play-doom',
-      'Internet Explorer': 'browse-internet',
-      'Minesweeper': 'launch-minesweeper',
-      'Notepad': 'launch-notepad',
+      'Gloom': 'play-gloom',
+      'Web Finder': 'browse-web',
+      'Bomb Sweeper': 'launch-bombsweeper',
+      'WordWrite': 'launch-wordwrite',
     };
     const actionId = helpActionMap[helpContext];
     
@@ -101,10 +101,10 @@ const ClippyAssistant = forwardRef<ClippyAssistantRef, ClippyAssistantProps>(({
       setShowIntroText(false);
       setIsChatOpen(true);
       const helpActionMap: Record<string, string> = {
-        'Doom': 'play-doom',
-        'Internet Explorer': 'browse-internet',
-        'Minesweeper': 'launch-minesweeper',
-        'Notepad': 'launch-notepad',
+        'Gloom': 'play-gloom',
+        'Web Finder': 'browse-web',
+        'Bomb Sweeper': 'launch-bombsweeper',
+        'WordWrite': 'launch-wordwrite',
       };
       const actionId = helpActionMap[context];
       if (actionId) {

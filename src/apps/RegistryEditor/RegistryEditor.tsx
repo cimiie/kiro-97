@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import styles from './RegistryEditorApp.module.css';
+import styles from './RegistryEditor.module.css';
 
 interface RegistryKey {
   name: string;
