@@ -4,13 +4,22 @@ import { useState } from 'react';
 import { useSystemSettings, WallpaperOption, ColorDepth, Resolution, Theme } from '@/contexts/SystemSettingsContext';
 import styles from './ControlPanelApp.module.css';
 
-type PanelView = 'main' | 'display' | 'system' | 'sounds' | 'datetime' | 'programs';
+type PanelView = 'main' | 'display' | 'system' | 'sounds' | 'datetime' | 'programs' | 'mouse';
 type DisplayTab = 'background' | 'appearance' | 'settings';
 
 export default function ControlPanelApp() {
   const [view, setView] = useState<PanelView>('main');
   const [displayTab, setDisplayTab] = useState<DisplayTab>('background');
-  const { settings, updateWallpaper, updateColorDepth, updateResolution, updateTheme } = useSystemSettings();
+  const { 
+    settings, 
+    updateWallpaper, 
+    updateColorDepth, 
+    updateResolution, 
+    updateTheme,
+    updateMouseTrail,
+    updateMouseTrailLength,
+    updateCursorSize
+  } = useSystemSettings();
 
   const renderMain = () => (
     <div className={styles.iconGrid}>
@@ -34,7 +43,7 @@ export default function ControlPanelApp() {
         <div className={styles.icon}>📦</div>
         <div className={styles.iconLabel}>Add/Remove Programs</div>
       </button>
-      <button className={styles.iconButton}>
+      <button className={styles.iconButton} onClick={() => setView('mouse')}>
         <div className={styles.icon}>🖱️</div>
         <div className={styles.iconLabel}>Mouse</div>
       </button>
@@ -285,6 +294,71 @@ export default function ControlPanelApp() {
     </div>
   );
 
+  const renderMouse = () => (
+    <div className={styles.panel}>
+      <div className={styles.panelHeader}>
+        <button className={styles.backButton} onClick={() => setView('main')}>← Back</button>
+        <h2>Mouse Properties</h2>
+      </div>
+      <div className={styles.panelContent}>
+        <div className={styles.mouseSection}>
+          <h3>Pointer Options</h3>
+          <div className={styles.field}>
+            <label className={styles.checkboxLabel}>
+              <input
+                type="checkbox"
+                checked={settings.mouseTrail}
+                onChange={(e) => updateMouseTrail(e.target.checked)}
+              />
+              Display pointer trails
+            </label>
+          </div>
+          {settings.mouseTrail && (
+            <div className={styles.field}>
+              <label>Trail length:</label>
+              <div className={styles.sliderContainer}>
+                <span>Short</span>
+                <input
+                  type="range"
+                  min="3"
+                  max="12"
+                  value={settings.mouseTrailLength}
+                  onChange={(e) => updateMouseTrailLength(Number(e.target.value))}
+                  className={styles.slider}
+                />
+                <span>Long</span>
+              </div>
+            </div>
+          )}
+        </div>
+        <div className={styles.mouseSection}>
+          <h3>Cursor Size</h3>
+          <div className={styles.field}>
+            <label>Size: {settings.cursorSize}%</label>
+            <div className={styles.sliderContainer}>
+              <span>50%</span>
+              <input
+                type="range"
+                min="50"
+                max="400"
+                step="10"
+                value={settings.cursorSize}
+                onChange={(e) => updateCursorSize(Number(e.target.value))}
+                className={styles.slider}
+              />
+              <span>400%</span>
+            </div>
+          </div>
+        </div>
+        <div className={styles.buttonRow}>
+          <button className={styles.button} onClick={() => setView('main')}>OK</button>
+          <button className={styles.button} onClick={() => setView('main')}>Cancel</button>
+          <button className={styles.button}>Apply</button>
+        </div>
+      </div>
+    </div>
+  );
+
   return (
     <div className={styles.container}>
       {view === 'main' && renderMain()}
@@ -293,6 +367,7 @@ export default function ControlPanelApp() {
       {view === 'sounds' && renderSounds()}
       {view === 'datetime' && renderDateTime()}
       {view === 'programs' && renderPrograms()}
+      {view === 'mouse' && renderMouse()}
     </div>
   );
 }

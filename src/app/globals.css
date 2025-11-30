@@ -181,3 +181,5 @@ body {
 .win95-text-large {
   font-size: var(--win95-font-size-large);
 }
+
+/* Cursor size is dynamically applied via JavaScript in SystemSettingsContext */
