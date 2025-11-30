@@ -28,6 +28,7 @@ describe('BedrockService', () => {
     const context = ['AWS is a cloud platform', 'It offers many services'];
     
     // Access private method through type assertion for testing
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const buildPrompt = (service as any).buildPrompt.bind(service);
     const result = buildPrompt(prompt, context);
     
@@ -40,6 +41,7 @@ describe('BedrockService', () => {
     const prompt = 'What is AWS?';
     const context: string[] = [];
     
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const buildPrompt = (service as any).buildPrompt.bind(service);
     const result = buildPrompt(prompt, context);
     
@@ -69,6 +71,7 @@ describe('BedrockService', () => {
     service.setInferenceProfile(profileArn);
     
     // Verify the profile was set by checking the private property
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     expect((service as any).inferenceProfileArn).toBe(profileArn);
   });
 
@@ -78,6 +81,7 @@ describe('BedrockService', () => {
     
     const newService = new BedrockService('us-east-1', 'test-model');
     
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     expect((newService as any).inferenceProfileArn).toBe(profileArn);
   });
 });
