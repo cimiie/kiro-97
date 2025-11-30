@@ -1,3 +1,7 @@
+---
+inclusion: always
+---
+
 # Product Overview
 
 A nostalgic browser-based retro OS emulator branded as **Kiro 97** that recreates the classic Windows 98 desktop experience with modern web technologies.

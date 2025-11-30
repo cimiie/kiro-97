@@ -1,3 +1,7 @@
+---
+inclusion: always
+---
+
 # UI Patterns & Styling Guidelines
 
 ## Window Management

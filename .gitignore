@@ -35,3 +35,7 @@ next-env.d.ts
 
 # vitest
 .vitest
+
+# backup files
+*.backup
+*.bak
