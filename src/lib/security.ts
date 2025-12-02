@@ -148,9 +148,9 @@ export function validateChatRequest(payload: {
     }
   }
 
-  // Check context array
-  if (payload.context !== undefined && !Array.isArray(payload.context)) {
-    return { valid: false, error: 'context must be an array' };
+  // Check context (should be a string)
+  if (payload.context !== undefined && typeof payload.context !== 'string') {
+    return { valid: false, error: 'context must be a string' };
   }
 
   // Check conversation history
