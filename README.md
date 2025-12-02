@@ -101,6 +101,14 @@ All AI features use server-side API routes - never call Bedrock from client comp
 | Floating Clippy | `/api/chat` | Conversational help |
 | Kiro IDE | `/api/code-assist` | Code assistance |
 
+## Known Limitations
+
+- **In-memory file system**: Files saved in My Documents don't persist across page refreshes
+- **Rate limiting**: API rate limits reset on server restart (development mode)
+- **Single-user**: No authentication or multi-user support
+- **Browser compatibility**: Best experienced in modern browsers (Chrome, Firefox, Edge)
+- **Mobile**: Optimized for desktop; mobile experience is limited
+
 ## Deployment
 
 Configured for AWS Amplify with automatic CI/CD. Push to main branch triggers:
